@@ -1,1 +1,1 @@
-# UJEventManager
+# UJShop
