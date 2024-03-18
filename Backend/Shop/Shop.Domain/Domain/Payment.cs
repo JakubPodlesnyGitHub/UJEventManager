@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop.Domain.Domain
+﻿namespace Shop.Domain.Domain
 {
-    internal class Payment
+    public class Payment
     {
         public Guid Id { get; set; }
-        public string CardNumber { get; set; }
-        public int ExpMonth { get; set; }
-        public int ExpYear { get; set; }
-        public int CVV { get; set; }
+        public string PaymentMethod { get; set; }
+        public string Data { get; set; }
+        public double Amount { get; set; }
+        public Guid IdUser { get; set; }
+
+        public virtual User UserNavigation { get; set; }
     }
 }

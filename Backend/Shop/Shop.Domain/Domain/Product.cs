@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop.Domain.Domain
+﻿namespace Shop.Domain.Domain
 {
-    internal class Product
+    public class Product
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -18,5 +12,8 @@ namespace Shop.Domain.Domain
         public double? Rate { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime CreationDate { get; set; }
+
+        public virtual ICollection<ProductCategory> ProductsCategories { get; set; }
+        public virtual ICollection<ProductAvailability> ProductAvailabilities { get; set; }
     }
 }
