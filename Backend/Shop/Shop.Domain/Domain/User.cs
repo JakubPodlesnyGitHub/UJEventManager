@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Shop.Domain.Domain
 {
@@ -13,9 +13,9 @@ namespace Shop.Domain.Domain
         public DateTime CreationDate { get; set; }
         public Guid IdRole { get; set; }
 
-        public virtual ICollection<UserAddress> UserAddresses { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<UserAddress> UserAddressesNavigation { get; set; }
+        public virtual ICollection<Payment> PaymentsNavigation { get; set; }
+        public virtual ICollection<OrderItem> OrderItemsNavigation { get; set; }
         public virtual UserRole RoleNavigation { get; set; }
     }
 }
