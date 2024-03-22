@@ -16,5 +16,6 @@
         public virtual Payment PaymentNavigation { get; set; }
         public virtual User UserNavigation { get; set; }
         public virtual ICollection<OrderItem> OrderItemsNavigation { get; set; }
+        public virtual ICollection<OrderAddress> OrderAddressesNavigation { get; set; }
     }
 }
