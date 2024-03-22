@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.Enums
 {
-    public class OrderSatatus
+    public enum OrderSatatus
     {
+        Pending,
+        Processing,
+        Cancelled,
+        Paid,
+        Delivered,
+        On_Hold
     }
 }
