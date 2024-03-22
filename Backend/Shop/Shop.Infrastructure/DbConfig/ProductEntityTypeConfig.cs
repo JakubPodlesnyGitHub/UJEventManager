@@ -10,7 +10,7 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(Product));
             builder.HasKey(p => p.Id);
-            builder.Property(p => p).UseIdentityColumn().ValueGeneratedOnAdd();
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property(p => p.Name).IsRequired();
             builder.Property(p => p.Category).IsRequired();

@@ -10,17 +10,13 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(UserAddress));
             builder.HasKey(u => u.Id);
-            builder.Property(u => u).UseIdentityColumn().ValueGeneratedOnAdd();
+            builder.Property(u => u.Id).ValueGeneratedOnAdd();
 
             builder.Property(u => u.StreetName).IsRequired();
             builder.Property(u => u.BuildingNumber).IsRequired();
             builder.Property(u => u.ZipCode).IsRequired();
             builder.Property(u => u.City).IsRequired();
 
-            builder.HasOne(a => a.UserNavigation)
-                .WithMany(u => u.UserAddressesNavigation)
-                .HasForeignKey(u => u.IdUser)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

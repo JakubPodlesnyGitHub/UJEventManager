@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop.Domain.Domain;
 
 namespace Shop.Infrastructure.DbContexts
 {
-    public class DbContext : IdentityDbContext
+    public class ShopDbContext : IdentityDbContext<User, UserRole, Guid>
     {
-        public DbContext(DbContextOptions options) : base(options)
+        public ShopDbContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -23,7 +24,7 @@ namespace Shop.Infrastructure.DbContexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyConfigurationsFromAssembly(typeof(DbContext).Assembly);
+            builder.ApplyConfigurationsFromAssembly(typeof(ShopDbContext).Assembly);
         }
     }
 }

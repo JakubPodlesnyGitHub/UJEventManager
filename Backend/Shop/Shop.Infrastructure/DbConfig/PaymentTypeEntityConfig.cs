@@ -15,17 +15,12 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(Payment));
             builder.HasKey(s => s.Id);
-            builder.Property(s => s.Id).UseIdentityColumn().ValueGeneratedOnAdd();
+            builder.Property(s => s.Id).ValueGeneratedOnAdd();
 
             builder.Property(s => s.PaymentMethod).IsRequired();
             builder.Property(s => s.Data).IsRequired();
             builder.Property(s => s.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
             builder.Property(s => s.Amount).IsRequired().HasColumnType("decimal");
-
-            builder.HasOne(s => s.UserNavigation)
-               .WithMany(p => p.PaymentsNavigation)
-               .HasForeignKey(p => p.IdUser)
-               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

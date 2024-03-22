@@ -15,21 +15,21 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(OrderItem));
             builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).UseIdentityColumn().ValueGeneratedOnAdd();
+            builder.Property(o => o.Id).ValueGeneratedOnAdd();
 
             builder.Property(o => o.Quantity).IsRequired();
-            builder.Property(o => o.Price).IsRequired().HasDefaultValue("decimal");
+            builder.Property(o => o.Price).IsRequired().HasColumnType("decimal");
             builder.Property(o => o.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
 
             builder.HasOne(o => o.ProductNavigation)
                 .WithMany(o => o.OrderItemsNavigation)
                 .HasForeignKey(o => o.IdProduct)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.HasOne(o => o.ShopOrderNavigation)
                 .WithMany(o => o.OrderItemsNavigation)
                 .HasForeignKey(o => o.IdOrder)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

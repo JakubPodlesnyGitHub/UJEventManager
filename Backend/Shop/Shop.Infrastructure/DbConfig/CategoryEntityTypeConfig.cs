@@ -10,14 +10,9 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(Category));
             builder.HasKey(p => p.Id);
-            builder.Property(p => p).UseIdentityColumn().ValueGeneratedOnAdd();
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property(p => p.Name).IsRequired();
-
-            builder.HasMany(c => c.ProductCategoriesNavigation)
-                .WithOne(pc => pc.CategoryNavigation)
-                .HasForeignKey(pc => pc.IdCategory)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
