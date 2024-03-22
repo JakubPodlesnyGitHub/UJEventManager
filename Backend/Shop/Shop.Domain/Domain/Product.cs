@@ -15,5 +15,6 @@
 
         public virtual ICollection<ProductCategory> ProductCategoriesNavigation { get; set; }
         public virtual ICollection<ProductAvailability> ProductAvailabilitiesNavigation { get; set; }
+        public virtual ICollection<OrderItem> OrderItemsNavigation { get; set; }
     }
 }

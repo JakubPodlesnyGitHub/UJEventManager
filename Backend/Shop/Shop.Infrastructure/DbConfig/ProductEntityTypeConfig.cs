@@ -24,6 +24,11 @@ namespace Shop.Infrastructure.DbConfig
                 .WithOne(pc => pc.ProductNavigation)
                 .HasForeignKey(pc => pc.IdProduct)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(c => c.ProductAvailabilitiesNavigation)
+                .WithOne(pc => pc.ProductNavigation)
+                .HasForeignKey(pc => pc.IdProduct)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

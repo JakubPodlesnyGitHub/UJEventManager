@@ -15,7 +15,7 @@ namespace Shop.Domain.Domain
 
         public virtual ICollection<UserAddress> UserAddressesNavigation { get; set; }
         public virtual ICollection<Payment> PaymentsNavigation { get; set; }
-        public virtual ICollection<OrderItem> OrderItemsNavigation { get; set; }
+        public virtual ICollection<ShopOrder> ShopOrdersNavigation { get; set; }
         public virtual UserRole RoleNavigation { get; set; }
     }
 }
