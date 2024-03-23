@@ -17,11 +17,6 @@ namespace Shop.Infrastructure.DbConfig
             builder.Property(s => s.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
             builder.Property(s => s.ExpectedLeadTime).IsRequired().HasColumnType("date");
             builder.Property(s => s.Total).IsRequired().HasColumnType("decimal");
-
-            builder.HasMany(o => o.OrderAddressesNavigation)
-                .WithOne(o => o.ShopOrderNavigation)
-                .HasForeignKey(o => o.IdShopOrder)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

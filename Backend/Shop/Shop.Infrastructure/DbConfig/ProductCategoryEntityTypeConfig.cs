@@ -10,6 +10,8 @@ namespace Shop.Infrastructure.DbConfig
         {
             builder.ToTable(nameof(ProductCategory));
             builder.HasKey(pc => new { pc.IdProduct, pc.IdCategory });
+
+            builder.Property(pc => pc.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

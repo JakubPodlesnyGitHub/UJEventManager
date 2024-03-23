@@ -160,9 +160,6 @@ namespace Shop.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("IdShopOrder")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("StreetName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -172,8 +169,6 @@ namespace Shop.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdShopOrder");
 
                     b.ToTable("OrderAddress", (string)null);
                 });
@@ -187,7 +182,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 54, DateTimeKind.Utc).AddTicks(4286));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 815, DateTimeKind.Utc).AddTicks(6770));
 
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uniqueidentifier");
@@ -222,7 +217,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 59, DateTimeKind.Utc).AddTicks(3392));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 817, DateTimeKind.Utc).AddTicks(1053));
 
                     b.Property<string>("Data")
                         .IsRequired()
@@ -263,7 +258,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 65, DateTimeKind.Utc).AddTicks(4239));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 818, DateTimeKind.Utc).AddTicks(5752));
 
                     b.Property<string>("Description")
                         .HasMaxLength(5000)
@@ -307,7 +302,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("SnapshotStatusTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 62, DateTimeKind.Utc).AddTicks(3525));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 817, DateTimeKind.Utc).AddTicks(5005));
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -331,6 +326,11 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<Guid>("CategoryNavigationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("date")
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 818, DateTimeKind.Utc).AddTicks(1575));
+
                     b.HasKey("IdProduct", "IdCategory");
 
                     b.HasIndex("CategoryNavigationId");
@@ -347,10 +347,13 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 67, DateTimeKind.Utc).AddTicks(1899));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 820, DateTimeKind.Utc).AddTicks(210));
 
                     b.Property<DateTime>("ExpectedLeadTime")
                         .HasColumnType("date");
+
+                    b.Property<Guid>("IdOrderAddress")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IdPayment")
                         .HasColumnType("uniqueidentifier");
@@ -361,9 +364,6 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("OrderAddressId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("OrderCode")
                         .IsRequired()
@@ -382,9 +382,9 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUser");
+                    b.HasIndex("IdOrderAddress");
 
-                    b.HasIndex("OrderAddressId");
+                    b.HasIndex("IdUser");
 
                     b.HasIndex("PaymentNavigationId");
 
@@ -410,7 +410,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 3, 22, 17, 31, 6, 74, DateTimeKind.Utc).AddTicks(8265));
+                        .HasDefaultValue(new DateTime(2024, 3, 23, 10, 41, 3, 820, DateTimeKind.Utc).AddTicks(9629));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -604,17 +604,6 @@ namespace Shop.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shop.Domain.Domain.OrderAddress", b =>
-                {
-                    b.HasOne("Shop.Domain.Domain.ShopOrder", "ShopOrderNavigation")
-                        .WithMany("OrderAddressesNavigation")
-                        .HasForeignKey("IdShopOrder")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("ShopOrderNavigation");
-                });
-
             modelBuilder.Entity("Shop.Domain.Domain.OrderItem", b =>
                 {
                     b.HasOne("Shop.Domain.Domain.ShopOrder", "ShopOrderNavigation")
@@ -675,16 +664,16 @@ namespace Shop.Infrastructure.Migrations
 
             modelBuilder.Entity("Shop.Domain.Domain.ShopOrder", b =>
                 {
+                    b.HasOne("Shop.Domain.Domain.OrderAddress", "OrderAddressNavigation")
+                        .WithMany("ShopOrdersNavigation")
+                        .HasForeignKey("IdOrderAddress")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Shop.Domain.Domain.User", "UserNavigation")
                         .WithMany("ShopOrdersNavigation")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Shop.Domain.Domain.OrderAddress", "OrderAddress")
-                        .WithMany()
-                        .HasForeignKey("OrderAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shop.Domain.Domain.Payment", "PaymentNavigation")
@@ -693,7 +682,7 @@ namespace Shop.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderAddress");
+                    b.Navigation("OrderAddressNavigation");
 
                     b.Navigation("PaymentNavigation");
 
@@ -716,6 +705,11 @@ namespace Shop.Infrastructure.Migrations
                     b.Navigation("ProductCategoriesNavigation");
                 });
 
+            modelBuilder.Entity("Shop.Domain.Domain.OrderAddress", b =>
+                {
+                    b.Navigation("ShopOrdersNavigation");
+                });
+
             modelBuilder.Entity("Shop.Domain.Domain.Payment", b =>
                 {
                     b.Navigation("ShopOrdersNavigation");
@@ -732,8 +726,6 @@ namespace Shop.Infrastructure.Migrations
 
             modelBuilder.Entity("Shop.Domain.Domain.ShopOrder", b =>
                 {
-                    b.Navigation("OrderAddressesNavigation");
-
                     b.Navigation("OrderItemsNavigation");
                 });
 

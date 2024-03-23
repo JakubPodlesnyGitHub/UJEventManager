@@ -9,8 +9,7 @@
         public string ZipCode { get; set; }
         public string District { get; set; }
         public string City { get; set; }
-        public Guid IdShopOrder { get; set; }
 
-        public virtual ShopOrder ShopOrderNavigation { get; set; }
+        public virtual ICollection<ShopOrder> ShopOrdersNavigation { get; set; }
     }
 }

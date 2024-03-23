@@ -10,6 +10,7 @@ namespace Shop.Domain.Domain
     {
         public Guid IdProduct { get; set; }
         public Guid IdCategory { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public virtual Product ProductNavigation { get; set; }
         public virtual Category CategoryNavigation { get; set; }

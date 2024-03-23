@@ -24,6 +24,23 @@ namespace Shop.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderAddress",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuildingNumber = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNumber = table.Column<int>(type: "int", nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    District = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderAddress", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -36,7 +53,7 @@ namespace Shop.Infrastructure.Migrations
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rate = table.Column<double>(type: "float", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 65, DateTimeKind.Utc).AddTicks(4239))
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 818, DateTimeKind.Utc).AddTicks(5752))
                 },
                 constraints: table =>
                 {
@@ -54,7 +71,7 @@ namespace Shop.Infrastructure.Migrations
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 74, DateTimeKind.Utc).AddTicks(8265)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 820, DateTimeKind.Utc).AddTicks(9629)),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -96,7 +113,7 @@ namespace Shop.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Availability = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SnapshotStatusTime = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 62, DateTimeKind.Utc).AddTicks(3525)),
+                    SnapshotStatusTime = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 817, DateTimeKind.Utc).AddTicks(5005)),
                     IdProduct = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -116,6 +133,7 @@ namespace Shop.Infrastructure.Migrations
                 {
                     IdProduct = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdCategory = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 818, DateTimeKind.Utc).AddTicks(1575)),
                     CategoryNavigationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -204,7 +222,7 @@ namespace Shop.Infrastructure.Migrations
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(38,17)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 59, DateTimeKind.Utc).AddTicks(3392)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 817, DateTimeKind.Utc).AddTicks(1053)),
                     IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdShopOrder = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -288,48 +306,29 @@ namespace Shop.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderAddress",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BuildingNumber = table.Column<int>(type: "int", nullable: false),
-                    ApartmentNumber = table.Column<int>(type: "int", nullable: true),
-                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    District = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdShopOrder = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderAddress", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShopOrder",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderCode = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 67, DateTimeKind.Utc).AddTicks(1899)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 820, DateTimeKind.Utc).AddTicks(210)),
                     ExpectedLeadTime = table.Column<DateTime>(type: "date", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(38,17)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderAddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdPayment = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdOrderAddress = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentNavigationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShopOrder", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShopOrder_OrderAddress_OrderAddressId",
-                        column: x => x.OrderAddressId,
+                        name: "FK_ShopOrder_OrderAddress_IdOrderAddress",
+                        column: x => x.IdOrderAddress,
                         principalTable: "OrderAddress",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ShopOrder_Payment_PaymentNavigationId",
                         column: x => x.PaymentNavigationId,
@@ -350,7 +349,7 @@ namespace Shop.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(38,17)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 22, 17, 31, 6, 54, DateTimeKind.Utc).AddTicks(4286)),
+                    CreationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2024, 3, 23, 10, 41, 3, 815, DateTimeKind.Utc).AddTicks(6770)),
                     IdProduct = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdOrder = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -390,11 +389,6 @@ namespace Shop.Infrastructure.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderAddress_IdShopOrder",
-                table: "OrderAddress",
-                column: "IdShopOrder");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_IdOrder",
                 table: "OrderItem",
                 column: "IdOrder");
@@ -420,14 +414,14 @@ namespace Shop.Infrastructure.Migrations
                 column: "CategoryNavigationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShopOrder_IdOrderAddress",
+                table: "ShopOrder",
+                column: "IdOrderAddress");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShopOrder_IdUser",
                 table: "ShopOrder",
                 column: "IdUser");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShopOrder_OrderAddressId",
-                table: "ShopOrder",
-                column: "OrderAddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShopOrder_PaymentNavigationId",
@@ -463,30 +457,11 @@ namespace Shop.Infrastructure.Migrations
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_OrderAddress_ShopOrder_IdShopOrder",
-                table: "OrderAddress",
-                column: "IdShopOrder",
-                principalTable: "ShopOrder",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payment_User_IdUser",
-                table: "Payment");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ShopOrder_User_IdUser",
-                table: "ShopOrder");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_OrderAddress_ShopOrder_IdShopOrder",
-                table: "OrderAddress");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -518,22 +493,22 @@ namespace Shop.Infrastructure.Migrations
                 name: "UserRole");
 
             migrationBuilder.DropTable(
+                name: "ShopOrder");
+
+            migrationBuilder.DropTable(
                 name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
-                name: "ShopOrder");
-
-            migrationBuilder.DropTable(
                 name: "OrderAddress");
 
             migrationBuilder.DropTable(
                 name: "Payment");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

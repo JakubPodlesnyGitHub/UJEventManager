@@ -23,6 +23,11 @@ namespace Shop.Infrastructure.DbConfig
             builder.Property(o => o.ZipCode).IsRequired();
             builder.Property(o => o.City).IsRequired();
             builder.Property(o => o.District).IsRequired();
+
+            builder.HasMany(o => o.ShopOrdersNavigation)
+                .WithOne(o => o.OrderAddressNavigation)
+                .HasForeignKey(o => o.IdOrderAddress)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
