@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj" />
     <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
+    <ProjectReference Include="..\Shop.Shared\Shop.Shared.csproj" />
   </ItemGroup>
 
 </Project>
