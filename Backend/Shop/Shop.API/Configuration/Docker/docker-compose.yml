@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  sql-server-db:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: mssql-container 
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=To_jest_silne_haslo_MSSQLSERVER
+    ports:
+      - "1433:1433"
+    # Volume to persist SQL Server data
+    volumes:
+      - mssql-container-data:/var/opt/mssql
+volumes:
+  mssql-container-data:

@@ -13,7 +13,8 @@
         public DateTime ReleaseDate { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public virtual ICollection<ProductCategory> ProductsCategories { get; set; }
-        public virtual ICollection<ProductAvailability> ProductAvailabilities { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategoriesNavigation { get; set; }
+        public virtual ICollection<ProductAvailability> ProductAvailabilitiesNavigation { get; set; }
+        public virtual ICollection<OrderItem> OrderItemsNavigation { get; set; }
     }
 }
