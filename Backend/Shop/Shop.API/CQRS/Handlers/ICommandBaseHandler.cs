@@ -2,8 +2,8 @@
 
 namespace Shop.API.CQRS.Handlers
 {
-    public interface ICommandBaseHandler<in TCommand> where TCommand: ICommandBase
+    public interface ICommandBaseHandler<in TCommand, TResponse> where TCommand : ICommandBase
     {
-        Task HandleAsync(TCommand command);
+        Task<TResponse> HandleAsync(TCommand command);
     }
 }

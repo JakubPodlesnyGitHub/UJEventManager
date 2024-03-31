@@ -1,10 +1,9 @@
-﻿using Shop.API.CQRS.Commands;
-using Shop.API.CQRS.Queries;
+﻿using Shop.API.CQRS.Queries;
 
 namespace Shop.API.CQRS.Handlers
 {
-    public interface IQueryBaseHandler<in TQuery> where TQuery : IQueryBase
+    public interface IQueryBaseHandler<in TQuery, TResponse> where TQuery : IQueryBase
     {
-        Task HandleAsync(TQuery command);
+        Task<TResponse> HandleAsync(TQuery command);
     }
 }
