@@ -8,9 +8,8 @@ namespace Shop.API.Mappings
     {
         public ProducatCategoryProfile()
         {
-            CreateMap<ProductCategory, ProductCategoryDTO>();
-                .
             CreateMap<ProductCategoryDTO, ProductCategory>();
+            CreateMap<ProductCategory, ProductCategoryDTO>();
         }
     }
 }
