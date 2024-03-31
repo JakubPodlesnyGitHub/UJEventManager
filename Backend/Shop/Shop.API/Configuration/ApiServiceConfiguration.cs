@@ -11,6 +11,8 @@ namespace Shop.API.Configuration
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddDbConfiguration(configuration);
+            services.AddCommandHandlers(typeof(Program));
+            services.AddQueryHandlers(typeof(Program));
             return services;
         }
     }
