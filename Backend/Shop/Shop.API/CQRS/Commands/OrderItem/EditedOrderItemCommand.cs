@@ -8,7 +8,7 @@
         public Guid IdProduct { get; set; }
         public Guid IdOrder { get; set; }
 
-        public EditedOrderItemCommand(int id,int quantity, double price, Guid idProduct, Guid idOrder)
+        public EditedOrderItemCommand(Guid id,int quantity, double price, Guid idProduct, Guid idOrder)
         {
             Id = id;
             Quantity = quantity;
