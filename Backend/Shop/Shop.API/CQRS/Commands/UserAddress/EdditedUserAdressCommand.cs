@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string StreetName { get; set; }
         public int BuildingNumber { get; set; }
-        public int? ApartmnetNumber { get; set; }
+        public int? ApartmentNumber { get; set; }
         public string ZipCode { get; set; }
         public string District { get; set; }
         public string City { get; set; }
@@ -16,7 +16,7 @@
             Id = id;
             StreetName = streetName;
             BuildingNumber = buildingNumber;
-            ApartmnetNumber = apartmnetNumber;
+            ApartmentNumber = apartmnetNumber;
             ZipCode = zipCode;
             District = district;
             City = city;

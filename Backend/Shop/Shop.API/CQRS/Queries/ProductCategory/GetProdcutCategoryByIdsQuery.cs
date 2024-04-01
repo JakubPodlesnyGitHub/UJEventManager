@@ -2,11 +2,13 @@
 {
     public class GetProdcutCategoryByIdsQuery : IQueryBase
     {
-        public Guid Id { get; set; }
+        public Guid IdCategory { get; set; }
+        public Guid IdProduct { get; set; }
 
-        public GetProdcutCategoryByIdsQuery(Guid id)
+        public GetProdcutCategoryByIdsQuery(Guid idCategory, Guid idProduct)
         {
-            Id = id;
+            IdCategory = idCategory;
+            IdProduct = idProduct;
         }
     }
 }

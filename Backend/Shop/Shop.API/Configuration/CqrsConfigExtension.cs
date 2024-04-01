@@ -1,4 +1,4 @@
-﻿using Shop.API.CQRS.Handlers;
+﻿using Shop.API.CQRS.Handlers.Interfaces;
 using System.Reflection;
 
 namespace Shop.API.Configuration

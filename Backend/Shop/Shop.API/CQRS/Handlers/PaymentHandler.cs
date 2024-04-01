@@ -1,5 +1,9 @@
-﻿using Shop.API.CQRS.Commands.Payment;
+﻿using AutoMapper;
+using Shop.API.CQRS.Commands.Payment;
+using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Payment;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Handlers
@@ -11,29 +15,61 @@ namespace Shop.API.CQRS.Handlers
         ICommandBaseHandler<EditedPaymentCommand, PaymentDTO>,
         ICommandBaseHandler<DeletedPaymentCommand, PaymentDTO>
     {
-        public Task<IList<PaymentDTO>> HandleAsync(GetPaymentsQuery command)
+        private readonly IMapper _mapper;
+        private readonly IPaymentRepository _paymentRepository;
+
+        public async Task<IList<PaymentDTO>> HandleAsync(GetPaymentsQuery command)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IList<PaymentDTO>>(await _paymentRepository.GetAll());
         }
 
-        public Task<PaymentDTO> HandleAsync(GetPaymentByIdQuery command)
+        public async Task<PaymentDTO> HandleAsync(GetPaymentByIdQuery command)
         {
-            throw new NotImplementedException();
+            var searchPayment = await _paymentRepository.GetById(command.Id);
+            if (searchPayment is null)
+            {
+                throw new NotImplementedException();
+            }
+            return _mapper.Map<PaymentDTO>(searchPayment);
         }
 
-        public Task<PaymentDTO> HandleAsync(AddedPaymentCommand command)
+        public async Task<PaymentDTO> HandleAsync(AddedPaymentCommand command)
         {
-            throw new NotImplementedException();
+            var payment = _paymentRepository.Insert(_mapper.Map<Payment>(command));
+            await _paymentRepository.Commit();
+            return _mapper.Map<PaymentDTO>(payment);
         }
 
-        public Task<PaymentDTO> HandleAsync(EditedPaymentCommand command)
+        public async Task<PaymentDTO> HandleAsync(EditedPaymentCommand command)
         {
-            throw new NotImplementedException();
+            var payment = await _paymentRepository.GetById(command.Id);
+            if (payment is null)
+            {
+                throw new NotImplementedException();
+            }
+
+            payment.PaymentMethod = command.PaymentMethod;
+            payment.Amount = command.Amount;
+            payment.Data = command.Data;
+            payment.IdShopOrder = command.IdShopOrder;
+            payment.IdUser = command.IdUser;
+
+            _paymentRepository.Update(payment);
+            await _paymentRepository.Commit();
+            return _mapper.Map<PaymentDTO>(payment);
         }
 
-        public Task<PaymentDTO> HandleAsync(DeletedPaymentCommand command)
+        public async Task<PaymentDTO> HandleAsync(DeletedPaymentCommand command)
         {
-            throw new NotImplementedException();
+            var payment = await _paymentRepository.GetById(command.Id);
+            if (payment is null)
+            {
+                throw new NotImplementedException();
+            }
+            await _paymentRepository.Delete(payment);
+            await _paymentRepository.Commit();
+
+            return _mapper.Map<PaymentDTO>(payment);
         }
     }
 }

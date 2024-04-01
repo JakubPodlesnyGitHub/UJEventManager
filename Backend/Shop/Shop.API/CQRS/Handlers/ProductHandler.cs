@@ -1,39 +1,94 @@
-﻿using Shop.API.CQRS.Commands.Product;
+﻿using AutoMapper;
+using Shop.API.CQRS.Commands.Product;
+using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Product;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Handlers
 {
     public class ProductHandler :
-        IQueryBaseHandler<GetProducts, IList<ProductDTO>>,
+        IQueryBaseHandler<GetProductsQuery, IList<ProductDTO>>,
         IQueryBaseHandler<GetProductByIdQuery, ProductDTO>,
         ICommandBaseHandler<AddedProductCommand, ProductDTO>,
         ICommandBaseHandler<EditedProductCommand, ProductDTO>,
         ICommandBaseHandler<DeletedProductCommand, ProductDTO>
     {
-        public Task<IList<ProductDTO>> HandleAsync(GetProducts command)
+        private readonly IMapper _mapper;
+        private readonly IProductRepository _productRepository;
+
+        public ProductHandler(IMapper mapper, IProductRepository productRepository)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _productRepository = productRepository;
         }
 
-        public Task<ProductDTO> HandleAsync(GetProductByIdQuery command)
+        public async Task<IList<ProductDTO>> HandleAsync(GetProductsQuery command)
         {
-            throw new NotImplementedException();
+            var products = await _productRepository.GetAll();
+            return _mapper.Map<IList<ProductDTO>>(products);
         }
 
-        public Task<ProductDTO> HandleAsync(AddedProductCommand command)
+        public async Task<ProductDTO> HandleAsync(GetProductByIdQuery command)
         {
-            throw new NotImplementedException();
+            var product = await _productRepository.GetById(command.Id);
+            if (product is null)
+            {
+                throw new NotImplementedException();
+            }
+            return _mapper.Map<ProductDTO>(product);
         }
 
-        public Task<ProductDTO> HandleAsync(EditedProductCommand command)
+        public async Task<ProductDTO> HandleAsync(AddedProductCommand command)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.Insert(_mapper.Map<Product>(command));
+            await _productRepository.Commit();
+            return _mapper.Map<ProductDTO>(product);
         }
 
-        public Task<ProductDTO> HandleAsync(DeletedProductCommand command)
+        public async Task<ProductDTO> HandleAsync(EditedProductCommand command)
         {
-            throw new NotImplementedException();
+            var product = await _productRepository.GetById(command.Id);
+            if (product is null)
+            {
+                throw new NotImplementedException();
+            }
+
+            product.Name = command.Name;
+            product.Category = command.Category;
+            product.CodeNumber = command.CodeNumber;
+            product.SeriesNumber = command.SeriesNumber;
+            product.ReleaseDate = command.ReleaseDate;
+            if (command.Description is not null)
+            {
+                product.Description = command.Description;
+            }
+            if (command.Picture is not null)
+            {
+                product.Picture = command.Picture;
+            }
+            if (command.Rate is not null)
+            {
+                product.Rate = command.Rate;
+            }
+
+            _productRepository.Update(product);
+            await _productRepository.Commit();
+            return _mapper.Map<ProductDTO>(product);
+        }
+
+        public async Task<ProductDTO> HandleAsync(DeletedProductCommand command)
+        {
+            var product = await _productRepository.GetById(command.Id);
+            if (product is null)
+            {
+                throw new NotImplementedException();
+            }
+            await _productRepository.Delete(product);
+            await _productRepository.Commit();
+
+            return _mapper.Map<ProductDTO>(product);
         }
     }
 }

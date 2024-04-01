@@ -1,39 +1,73 @@
-﻿using Shop.API.CQRS.Commands.Category;
+﻿using AutoMapper;
+using Shop.API.CQRS.Commands.Category;
+using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Category;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Handlers
 {
     public class CategoryHandler :
         IQueryBaseHandler<GetCategoriesQuery, IList<CategoryDTO>>,
-        IQueryBaseHandler<GetCategoryByIdQuery, IList<CategoryDTO>>,
+        IQueryBaseHandler<GetCategoryByIdQuery, CategoryDTO>,
         ICommandBaseHandler<AddedCategoryCommand, CategoryDTO>,
         ICommandBaseHandler<EditedCategoryCommand, CategoryDTO>,
         ICommandBaseHandler<DeletedCategoryCommand, CategoryDTO>
     {
-        public Task<IList<CategoryDTO>> HandleAsync(GetCategoriesQuery command)
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
+
+        public CategoryHandler(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
-        public Task<IList<CategoryDTO>> HandleAsync(GetCategoryByIdQuery command)
+        public async Task<IList<CategoryDTO>> HandleAsync(GetCategoriesQuery command)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IList<CategoryDTO>>(await _categoryRepository.GetAll());
         }
 
-        public Task<CategoryDTO> HandleAsync(EditedCategoryCommand command)
+        public async Task<CategoryDTO> HandleAsync(GetCategoryByIdQuery command)
         {
-            throw new NotImplementedException();
+            var searchChategory = await _categoryRepository.GetById(command.Id);
+            if (searchChategory is null)
+            {
+                throw new NotImplementedException();
+            }
+            return _mapper.Map<CategoryDTO>(searchChategory);
         }
 
-        public Task<CategoryDTO> HandleAsync(DeletedCategoryCommand command)
+        public async Task<CategoryDTO> HandleAsync(EditedCategoryCommand command)
         {
-            throw new NotImplementedException();
+            var category = await _categoryRepository.GetById(command.Id);
+            if (category is null)
+            {
+                throw new NotImplementedException();
+            }
+            category.Name = command.Name;
+            _categoryRepository.Update(category);
+            await _categoryRepository.Commit();
+            return _mapper.Map<CategoryDTO>(category);
         }
 
-        public Task<CategoryDTO> HandleAsync(AddedCategoryCommand command)
+        public async Task<CategoryDTO> HandleAsync(DeletedCategoryCommand command)
         {
-            throw new NotImplementedException();
+            var category = await _categoryRepository.GetById(command.Id);
+            if (category is null)
+            {
+                throw new NotImplementedException();
+            }
+            await _categoryRepository.Delete(category);
+            return _mapper.Map<CategoryDTO>(category);
+        }
+
+        public async Task<CategoryDTO> HandleAsync(AddedCategoryCommand command)
+        {
+            var category = _categoryRepository.Insert(_mapper.Map<Category>(command));
+            await _categoryRepository.Commit();
+            return _mapper.Map<CategoryDTO>(category);
         }
     }
 }

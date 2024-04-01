@@ -1,5 +1,9 @@
-﻿using Shop.API.CQRS.Commands.OrderAddress;
+﻿using AutoMapper;
+using Shop.API.CQRS.Commands.OrderAddress;
+using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.OrderAddress;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Handlers
@@ -11,29 +15,66 @@ namespace Shop.API.CQRS.Handlers
         ICommandBaseHandler<EditedOrderAddressCommand, OrderAddressDTO>,
         ICommandBaseHandler<DeletedOrderAddressCommand, OrderAddressDTO>
     {
-        public Task<IList<OrderAddressDTO>> HandleAsync(GetOrderAdderssesQuery command)
+        private readonly IOrderAddressRepository _orderAddressRepository;
+        private readonly IMapper _mapper;
+
+        public async Task<IList<OrderAddressDTO>> HandleAsync(GetOrderAdderssesQuery command)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IList<OrderAddressDTO>>(await _orderAddressRepository.GetAll());
         }
 
-        public Task<OrderAddressDTO> HandleAsync(GetOrderAddressByIdQuery command)
+        public async Task<OrderAddressDTO> HandleAsync(GetOrderAddressByIdQuery command)
         {
-            throw new NotImplementedException();
+            var searchOrderAddress = await _orderAddressRepository.GetById(command.Id);
+            if (searchOrderAddress is null)
+            {
+                throw new NotImplementedException();
+            }
+            return _mapper.Map<OrderAddressDTO>(searchOrderAddress);
         }
 
-        public Task<OrderAddressDTO> HandleAsync(AddedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> HandleAsync(AddedOrderAddressCommand command)
         {
-            throw new NotImplementedException();
+            _orderAddressRepository.Insert(_mapper.Map<OrderAddress>(command));
+            await _orderAddressRepository.Commit();
+            return _mapper.Map<OrderAddressDTO>(command);
         }
 
-        public Task<OrderAddressDTO> HandleAsync(EditedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> HandleAsync(EditedOrderAddressCommand command)
         {
-            throw new NotImplementedException();
+            var orderAddress = await _orderAddressRepository.GetById(command.Id);
+            if (orderAddress is null)
+            {
+                throw new NotImplementedException();
+            }
+
+            orderAddress.StreetName = command.StreetName;
+            orderAddress.BuildingNumber = command.BuildingNumber;
+            if (command.ApartmentNumber is not null)
+            {
+                orderAddress.ApartmentNumber = command.ApartmentNumber;
+            }
+            orderAddress.ZipCode = command.ZipCode;
+            orderAddress.District = command.District;
+            orderAddress.City = command.City;
+
+            _orderAddressRepository.Update(orderAddress);
+            await _orderAddressRepository.Commit();
+            return _mapper.Map<OrderAddressDTO>(orderAddress);
         }
 
-        public Task<OrderAddressDTO> HandleAsync(DeletedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> HandleAsync(DeletedOrderAddressCommand command)
         {
-            throw new NotImplementedException();
+            var orderAddress = await _orderAddressRepository.GetById(command.Id);
+            if (orderAddress is null)
+            {
+                throw new NotImplementedException();
+            }
+
+            await _orderAddressRepository.Delete(orderAddress);
+            await _orderAddressRepository.Commit();
+
+            return _mapper.Map<OrderAddressDTO>(orderAddress);
         }
     }
 }

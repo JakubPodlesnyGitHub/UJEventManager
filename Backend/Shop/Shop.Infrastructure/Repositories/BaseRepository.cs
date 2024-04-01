@@ -100,5 +100,10 @@ namespace Shop.Infrastructure.Repositories
             _shopDbContext.Entry(record).State = EntityState.Modified;
             return record;
         }
+        
+        public async Task Commit()
+        {
+            await _shopDbContext.SaveChangesAsync();
+        }
     }
 }

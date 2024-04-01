@@ -1,5 +1,9 @@
-﻿using Shop.API.CQRS.Commands.OrderItem;
+﻿using AutoMapper;
+using Shop.API.CQRS.Commands.OrderItem;
+using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.OrderItem;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Handlers
@@ -11,29 +15,66 @@ namespace Shop.API.CQRS.Handlers
         ICommandBaseHandler<EditedOrderItemCommand, OrderItemDTO>,
         ICommandBaseHandler<DeletedOrderItemCommand, OrderItemDTO>
     {
-        public Task<IList<OrderItemDTO>> HandleAsync(GetOrderItemsQuery command)
+        private readonly IOrderItemRepository _orderItemRepository;
+        private readonly IMapper _mapper;
+
+        public OrderItemHandler(IOrderItemRepository orderItemRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _orderItemRepository = orderItemRepository;
+            _mapper = mapper;
         }
 
-        public Task<OrderItemDTO> HandleAsync(GetOrderItemQueryById command)
+        public async Task<IList<OrderItemDTO>> HandleAsync(GetOrderItemsQuery command)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IList<OrderItemDTO>>(await _orderItemRepository.GetAll());
         }
 
-        public Task<OrderItemDTO> HandleAsync(AddedOrderItemCommand command)
+        public async Task<OrderItemDTO> HandleAsync(GetOrderItemQueryById command)
         {
-            throw new NotImplementedException();
+            var searchOrderItem = await _orderItemRepository.GetById(command.Id);
+            if (searchOrderItem is null)
+            {
+                throw new NotImplementedException();
+            }
+            return _mapper.Map<OrderItemDTO>(searchOrderItem);
         }
 
-        public Task<OrderItemDTO> HandleAsync(EditedOrderItemCommand command)
+        public async Task<OrderItemDTO> HandleAsync(AddedOrderItemCommand command)
         {
-            throw new NotImplementedException();
+            var orderItem = _orderItemRepository.Insert(_mapper.Map<OrderItem>(command));
+            await _orderItemRepository.Commit();
+            return _mapper.Map<OrderItemDTO>(orderItem);
         }
 
-        public Task<OrderItemDTO> HandleAsync(DeletedOrderItemCommand command)
+        public async Task<OrderItemDTO> HandleAsync(EditedOrderItemCommand command)
         {
-            throw new NotImplementedException();
+            var orderItem = await _orderItemRepository.GetById(command.Id);
+            if (orderItem is null)
+            {
+                throw new NotImplementedException();
+            }
+            orderItem.Price = command.Price;
+            orderItem.Quantity = command.Quantity;
+            orderItem.IdProduct = command.IdProduct;
+            orderItem.IdOrder = command.IdOrder;
+
+            _orderItemRepository.Update(orderItem);
+            await _orderItemRepository.Commit();
+
+            return _mapper.Map<OrderItemDTO>(orderItem);
+        }
+
+        public async Task<OrderItemDTO> HandleAsync(DeletedOrderItemCommand command)
+        {
+            var orderItem = await _orderItemRepository.GetById(command.Id);
+            if (orderItem is null)
+            {
+                throw new NotImplementedException();
+            }
+
+            await _orderItemRepository.Delete(orderItem);
+            await _orderItemRepository.Commit();
+            return _mapper.Map<OrderItemDTO>(orderItem);
         }
     }
 }
