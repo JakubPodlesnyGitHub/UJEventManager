@@ -1,17 +1,15 @@
-using Microsoft.EntityFrameworkCore;
 using Shop.API.Configuration;
-using Shop.API.Configuration.Db;
 using Shop.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructureConfiguration(builder.Configuration);
+builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
 

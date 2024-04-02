@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Shop.Infrastructure.Configuration
 {
-    public static class InfrastructureConfiguration
+    public static class InfrastructureLayerConfiguration
     {
-        public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureLayerConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddRepositoriesConfiguration(configuration);
             return services;

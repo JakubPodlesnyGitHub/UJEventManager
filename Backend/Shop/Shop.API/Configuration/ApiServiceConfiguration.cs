@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shop.API.Configuration.Db;
 using Shop.Infrastructure.DbContexts;
 using System.Reflection;
 
