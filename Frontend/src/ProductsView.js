@@ -1,18 +1,9 @@
 import Product from "./Product";
-import { useEffect, useState } from "react";
+import useGetRequest from "./GetRequest"
 import { Row, Col, CardGroup } from "react-bootstrap";
 
 export default function ProductsView() {
-  const baseURL = `http://localhost:8080/all`;
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch(baseURL)
-      .then((res) => res.json())
-      .then((res) => {
-        setData(res);
-      });
-  }, [baseURL]);
+  const data = useGetRequest("http://localhost:8080/all")
 
   const products = data.map((val) => <Product key={val["id"]} product={val} />);
 

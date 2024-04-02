@@ -1,18 +1,9 @@
 import { connect } from "react-redux";
 import { Image } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import useGetRequest from "./GetRequest"
 
 function Basket(props) {
-  const baseURL = `http://localhost:8080/user/1/basketItems`;
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch(baseURL)
-      .then((res) => res.json())
-      .then((res) => {
-        setData(res);
-      });
-  }, [baseURL]);
+  const data = useGetRequest("http://localhost:8080/user/1/basketItems")
 
   return (
     <div>
