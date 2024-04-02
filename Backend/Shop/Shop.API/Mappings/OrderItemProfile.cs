@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Shop.API.CQRS.Commands.OrderItem;
 using Shop.Domain.Domain;
 using Shop.Shared.Dtos.Response;
 
@@ -10,6 +11,8 @@ namespace Shop.API.Mappings
         {
             CreateMap<OrderItem, OrderItemDTO>();
             CreateMap<OrderItemDTO, OrderItem>();
+            CreateMap<AddedOrderItemCommand, OrderItem>();
+            CreateMap<EditedOrderItemCommand, OrderItem>();
         }
     }
 }
