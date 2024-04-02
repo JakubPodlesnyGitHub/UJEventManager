@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Shop.API.ApiFilters;
 using Shop.API.Configuration;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Configuration;
@@ -14,7 +15,10 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>()
 builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<ApiExceptionFilter>();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
