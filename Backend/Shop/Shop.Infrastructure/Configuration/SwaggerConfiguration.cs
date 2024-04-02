@@ -9,7 +9,7 @@ namespace Shop.Infrastructure.Configuration
         {
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "CharityApplication", Version = "v1" });
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopAPI", Version = "v1" });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
