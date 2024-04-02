@@ -1,7 +1,15 @@
+using Microsoft.AspNetCore.Identity;
 using Shop.API.Configuration;
+using Shop.Domain.Domain;
 using Shop.Infrastructure.Configuration;
+using Shop.Infrastructure.DbContexts;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<ShopDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
 builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);

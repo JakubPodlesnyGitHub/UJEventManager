@@ -17,21 +17,21 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/{id:guid}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetProductById(Guid id, [FromServices] IQueryBaseHandler<GetProductByIdQuery, ProductDTO> handler)
         {
             var result = await handler.HandleAsync(new GetProductByIdQuery(id));
             return Ok(result);
         }
 
-        [HttpPost("/create")]
+        [HttpPost("create")]
         public async Task<IActionResult> AddProduct([FromServices] ICommandBaseHandler<AddedProductCommand, ProductDTO> handler, [FromBody] AddedProductCommand command)
         {
             var result = await handler.HandleAsync(command);
             return Ok(result);
         }
 
-        [HttpDelete("/{id:guid}/delete")]
+        [HttpDelete("{id:guid}/delete")]
         public async Task<IActionResult> DeleteProduct(Guid id, [FromServices] ICommandBaseHandler<DeletedProductCommand, ProductDTO> handler)
         {
             var result = await handler.HandleAsync(new DeletedProductCommand(id));

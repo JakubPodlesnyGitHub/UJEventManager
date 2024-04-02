@@ -18,14 +18,14 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/product-category")]
+        [HttpGet("product-category")]
         public async Task<IActionResult> GetProductCategoryByIds([FromServices] IQueryBaseHandler<GetProdcutCategoryByIdsQuery, ProductCategoryDTO> handler, GetProdcutCategoryByIdsQuery query)
         {
             var result = await handler.HandleAsync(query);
             return Ok(result);
         }
 
-        [HttpPost("/create")]
+        [HttpPost("create")]
         public async Task<IActionResult> AddProductCategory([FromServices] ICommandBaseHandler<AddedProductCategoryCommand, ProductCategoryDTO> handler, [FromBody] AddedProductCategoryCommand command)
         {
             var result = await handler.HandleAsync(command);

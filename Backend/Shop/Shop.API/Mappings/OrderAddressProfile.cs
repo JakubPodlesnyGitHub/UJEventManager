@@ -6,7 +6,7 @@ namespace Shop.API.Mappings
 {
     public class OrderAddressProfile : Profile
     {
-        private OrderAddressProfile()
+        public OrderAddressProfile()
         {
             CreateMap<OrderAddress, OrderAddressDTO>();
             CreateMap<OrderAddressDTO, OrderAddress>();

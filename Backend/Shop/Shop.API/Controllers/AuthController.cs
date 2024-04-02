@@ -9,19 +9,19 @@ namespace Shop.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromServices] ICommandBaseHandler<UserLoginCommand, AuthDTO> handler, [FromBody] UserLoginCommand command)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromServices] ICommandBaseHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserRegisterCommand command)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost("/{id:guid}change-password")]
+        [HttpPost("{id:guid}change-password")]
         public async Task<IActionResult> ChangePassword(Guid id, [FromServices] ICommandBaseHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserPasswordChangedCommand command)
         {
             throw new NotImplementedException();

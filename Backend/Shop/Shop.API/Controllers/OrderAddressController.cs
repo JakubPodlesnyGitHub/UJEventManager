@@ -17,21 +17,21 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/{id:guid}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetOrderAddressById(Guid id, [FromServices] IQueryBaseHandler<GetOrderAddressByIdQuery, OrderAddressDTO> handler)
         {
             var result = await handler.HandleAsync(new GetOrderAddressByIdQuery(id));
             return Ok(result);
         }
 
-        [HttpPost("/create")]
+        [HttpPost("create")]
         public async Task<IActionResult> AddOrderAddress([FromServices] ICommandBaseHandler<AddedOrderAddressCommand, OrderAddressDTO> handler, [FromBody] AddedOrderAddressCommand command)
         {
             var result = await handler.HandleAsync(command);
             return Ok(result);
         }
 
-        [HttpDelete("/{id:guid}/delete")]
+        [HttpDelete("{id:guid}/delete")]
         public async Task<IActionResult> DeleteOrderAddress(Guid id, [FromServices] ICommandBaseHandler<DeletedOrderAddressCommand, OrderAddressDTO> handler)
         {
             var result = await handler.HandleAsync(new DeletedOrderAddressCommand(id));
