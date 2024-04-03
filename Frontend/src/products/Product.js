@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addToBasket } from "./actions";
+import { addToBasket } from "../state/actions";
 import { Card, Modal } from "react-bootstrap";
 import { useState } from "react";
 import ProductDescription from "./ProductDescription";

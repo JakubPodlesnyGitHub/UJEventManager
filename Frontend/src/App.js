@@ -1,22 +1,41 @@
-import Basket from "./Basket";
+import Basket from "./bar/Basket";
 
-import ProductsView from "./ProductsView";
-import { Container } from "react-bootstrap";
+import ProductsView from "./products/ProductsView";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Auth from "./pages/Authorize";
+import Layout from "./layout/Layout";
+import BasketDetails from "./pages/BasketDetails";
 
 function App() {
   return (
-    <div className="grid-container">
-      <header>
-        <a href="/"> SHOP</a>
-      </header>
-      <main>
-        <Container>
-          <Basket />
-          <ProductsView />
-        </Container>
-      </main>
-      <footer>Academic</footer>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/auth"
+          element={Layout(
+            <>
+              <Auth />
+            </>,
+          )}
+        />
+        <Route
+          path="/"
+          element={Layout(
+            <>
+              <ProductsView />
+            </>,
+          )}
+        />
+        <Route
+          path="/shopping-cart"
+          element={Layout(
+            <>
+              <BasketDetails />
+            </>,
+          )}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

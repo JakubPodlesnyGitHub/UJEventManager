@@ -1,9 +1,9 @@
 import Product from "./Product";
-import useGetRequest from "./GetRequest"
+import useGetRequest from "../api/Requests";
 import { Row, Col, CardGroup } from "react-bootstrap";
 
 export default function ProductsView() {
-  const data = useGetRequest("http://localhost:8080/all")
+  const data = useGetRequest("http://localhost:8080/all");
 
   const products = data.map((val) => <Product key={val["id"]} product={val} />);
 

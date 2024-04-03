@@ -4,12 +4,12 @@ html {
 }
 
 :root {
-  --main-light-color: #ccc5b7;
-  --main-light-color-lighter: #e1ddd5;
+  --main-light-color: #fcf8ed;
+  --main-light-color-lighter: #ffffff;
   --main-light-contrast-color: #b7ccc5;
   --main-font-color: #ffffff;
-  --main-dark-color: #675d49;
-  --main-dark-color-deep: #29251d;
+  --main-dark-color: #117252;
+  --main-dark-color-deep: #03543a;
 }
 
 body,
@@ -136,13 +136,47 @@ footer {
   margin: auto;
 }
 
-.basket_ikon {
-  display: block;
-  margin-left: 80%;
-  width: 12rem;
+.centred_form {
+  width: 50vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.sum_in_basket {
-  display: block;
-  margin-left: 80%;
+.window_line {
+  border: 5px solid var(--main-dark-color);
+}
+
+.bar_line {
+  border-left: 1px solid var(--main-light-color);
+  height: 3rem;
+  margin-right: 2rem;
+  margin-left: 3rem;
+}
+
+.form_title {
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.between_fields_spacing {
+  margin-bottom: 2rem;
+}
+
+.frame_spacing {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.centered {
+  display: grid;
+  place-items: center;
+}
+
+.navbar {
+  background-color: var(--main-dark-color);
+  color: var(--main-font-color);
+  font-size: 2rem;
 }

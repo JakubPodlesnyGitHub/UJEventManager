@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./store";
+import { store, persistor } from "./state/store";
 import App from "./App";
 
 ReactDOM.render(
