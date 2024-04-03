@@ -11,6 +11,6 @@
         public string City { get; set; }
         public Guid IdUser { get; set; }
 
-        public virtual Guid UserNavigation { get; set; }
+        public virtual User UserNavigation { get; set; }
     }
 }
