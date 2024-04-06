@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.API.Configuration;
 using Shop.API.Configuration.Db;
+using Shop.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DatabaseConnectionString");
 
+builder.Services.AddInfrastructureConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

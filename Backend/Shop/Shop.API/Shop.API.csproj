@@ -25,6 +25,8 @@
   <ItemGroup>
     <Folder Include="Configuration\Docker\" />
     <Folder Include="Controllers\" />
+    <Folder Include="CQRS\Commands\UserRole\" />
+    <Folder Include="CQRS\Queries\UserRole\" />
   </ItemGroup>
 
   <ItemGroup>
