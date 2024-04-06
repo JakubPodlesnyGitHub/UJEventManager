@@ -1,22 +1,33 @@
-using Microsoft.EntityFrameworkCore;
-using Shop.API.Configuration.Db;
+using Microsoft.AspNetCore.Identity;
+using Shop.API.Configuration;
+using Shop.Domain.Domain;
+using Shop.Infrastructure.Configuration;
+using Shop.Infrastructure.DbContexts;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DatabaseConnectionString");
 
-builder.Services.AddDbConfiguration(builder.Configuration);
+builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<ShopDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
+builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
+builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopAPI");
+    });
 }
 
 app.UseHttpsRedirection();
