@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopDbContext = Shop.Infrastructure.DbContexts.ShopDbContext;
 
-namespace Shop.API.Configuration.Db
+namespace Shop.API.Configuration
 {
     public static class DbConfiguration
     {
@@ -12,7 +12,7 @@ namespace Shop.API.Configuration.Db
             services.AddDbContext<ShopDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-          services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddDatabaseDeveloperPageExceptionFilter();
             return services;
         }
     }

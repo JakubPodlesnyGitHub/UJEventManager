@@ -23,5 +23,6 @@ namespace Shop.Infrastructure.Repositories.Interfaces
         Task<TEntity> Delete(object id);
 
         Task<TEntity> Delete(object id1, object id2);
+        Task Commit();
     }
 }
