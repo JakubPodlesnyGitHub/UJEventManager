@@ -8,11 +8,10 @@ namespace Shop.Domain.Enums
 {
     public enum OrderSatatus
     {
-        Pending,
-        Processing,
-        Cancelled,
-        Paid,
-        Delivered,
-        On_Hold
+        PENDING,
+        PROCESSING,
+        CANCELLED,
+        PAID,
+        ON_HOLD
     }
 }

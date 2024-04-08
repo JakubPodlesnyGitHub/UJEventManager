@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Domain.Domain;
 
-namespace Shop.Infrastructure.DbConfig
+namespace Shop.Infrastructure.DbConfigurationTypes
 {
     internal sealed class ProductCategoryEntityTypeConfig : IEntityTypeConfiguration<ProductCategory>
     {
@@ -12,6 +12,18 @@ namespace Shop.Infrastructure.DbConfig
             builder.HasKey(pc => new { pc.IdProduct, pc.IdCategory });
 
             builder.Property(pc => pc.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
+
+            builder.HasOne(pc => pc.ProductNavigation)
+                .WithMany(p => p.ProductCategoriesNavigation)
+                .HasForeignKey(pc => pc.IdProduct)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasOne(pc => pc.CategoryNavigation)
+                .WithMany(c => c.ProductCategoriesNavigation)
+                .HasForeignKey(pc => pc.IdCategory)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasData(SeedDataProvider.ProductsCategoriesSeed);
         }
     }
 }
