@@ -51,7 +51,6 @@ namespace Shop.API.CQRS.Handlers
             payment.PaymentMethod = command.PaymentMethod;
             payment.Amount = command.Amount;
             payment.Data = command.Data;
-            payment.IdShopOrder = command.IdShopOrder;
             payment.IdUser = command.IdUser;
 
             _paymentRepository.Update(payment);
