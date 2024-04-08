@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Domain.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.DbConfig
+namespace Shop.Infrastructure.DbConfigurationTypes
 {
     internal sealed class PaymentTypeEntityConfig : IEntityTypeConfiguration<Payment>
     {
@@ -21,6 +16,13 @@ namespace Shop.Infrastructure.DbConfig
             builder.Property(s => s.Data).IsRequired();
             builder.Property(s => s.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
             builder.Property(s => s.Amount).IsRequired().HasColumnType("decimal");
+
+            builder.HasOne(p => p.UserNavigation)
+                .WithMany(u => u.PaymentsNavigation)
+                .HasForeignKey(s => s.IdUser)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(SeedDataProvider.PaymentsSeed);
         }
     }
 }

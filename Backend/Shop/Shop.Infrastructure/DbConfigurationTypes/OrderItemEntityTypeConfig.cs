@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Domain.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.DbConfig
+namespace Shop.Infrastructure.DbConfigurationTypes
 {
     internal sealed class OrderItemEntityTypeConfig : IEntityTypeConfiguration<OrderItem>
     {
@@ -30,6 +25,8 @@ namespace Shop.Infrastructure.DbConfig
                 .WithMany(o => o.OrderItemsNavigation)
                 .HasForeignKey(o => o.IdOrder)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasData(SeedDataProvider.OrderItemsSeed);
         }
     }
 }

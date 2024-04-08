@@ -1,14 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Identity.Client;
 using Shop.Domain.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.DbConfig
+namespace Shop.Infrastructure.DbConfigurationTypes
 {
     internal sealed class OrderAddressEntityTypeConfig : IEntityTypeConfiguration<OrderAddress>
     {
@@ -24,10 +18,7 @@ namespace Shop.Infrastructure.DbConfig
             builder.Property(o => o.City).IsRequired();
             builder.Property(o => o.District).IsRequired();
 
-            builder.HasMany(o => o.ShopOrdersNavigation)
-                .WithOne(o => o.OrderAddressNavigation)
-                .HasForeignKey(o => o.IdOrderAddress)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasData(SeedDataProvider.OrderAddressesSeed);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shop.Domain.Domain;
 
-namespace Shop.Infrastructure.DbConfig
+namespace Shop.Infrastructure.DbConfigurationTypes
 {
     internal sealed class UserEntityTypeConfig : IEntityTypeConfiguration<User>
     {
@@ -19,20 +19,7 @@ namespace Shop.Infrastructure.DbConfig
             builder.HasIndex(a => a.Email).IsUnique();
             builder.Property(u => u.CreationDate).IsRequired().HasColumnType("date").HasDefaultValue(DateTime.UtcNow);
 
-            builder.HasMany(u => u.PaymentsNavigation)
-                .WithOne(u => u.UserNavigation)
-                .HasForeignKey(u => u.IdUser)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(u => u.ShopOrdersNavigation)
-                .WithOne(u => u.UserNavigation)
-                .HasForeignKey(u => u.IdUser)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(u => u.UserAddressesNavigation)
-                .WithOne(u => u.UserNavigation)
-                .HasForeignKey(u => u.IdUser)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasData(SeedDataProvider.UsersSeed);
         }
     }
 }
