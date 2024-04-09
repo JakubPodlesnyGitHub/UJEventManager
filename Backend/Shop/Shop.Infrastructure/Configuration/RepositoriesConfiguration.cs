@@ -13,6 +13,7 @@ namespace Shop.Infrastructure.Configuration
             services.AddScoped<IOrderAddressRepository, OrderAddressRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
             services.AddScoped<IProductAvailabilityRepository, ProductAvailabilityRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopOrderRepository, ShopOrderRepository>();
