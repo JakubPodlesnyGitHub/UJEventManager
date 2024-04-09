@@ -9,7 +9,8 @@ namespace Shop.API.Mappings
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductDTO>();
+            CreateMap<Product, ProductDTO>()
+                .ForPath(d => d.ProductAvailabilities, o => o.MapFrom(s => s.ProductAvailabilitiesNavigation));
             CreateMap<ProductDTO, Product>();
             CreateMap<AddedProductCommand, Product>();
             CreateMap<EditedProductCommand, Product>();

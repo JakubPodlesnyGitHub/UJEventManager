@@ -9,7 +9,9 @@ namespace Shop.API.Mappings
     {
         public OrderItemProfile()
         {
-            CreateMap<OrderItem, OrderItemDTO>();
+            CreateMap<OrderItem, OrderItemDTO>()
+                .ForPath(d => d.ShopOrder, o => o.MapFrom(s => s.ShopOrderNavigation))
+                .ForPath(d => d.Product, o => o.MapFrom(s => s.ProductNavigation));
             CreateMap<OrderItemDTO, OrderItem>();
             CreateMap<AddedOrderItemCommand, OrderItem>();
             CreateMap<EditedOrderItemCommand, OrderItem>();

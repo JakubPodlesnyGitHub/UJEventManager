@@ -9,7 +9,11 @@ namespace Shop.API.Mappings
     {
         public ShopOrderProfile()
         {
-            CreateMap<ShopOrder, ShopOrderDTO>();
+            CreateMap<ShopOrder, ShopOrderDTO>()
+                .ForPath(d => d.OrderAddress, o => o.MapFrom(s => s.OrderAddressNavigation))
+                .ForPath(d => d.OrderItems, o => o.MapFrom(s => s.OrderItemsNavigation))
+                .ForPath(d => d.Payment, o => o.MapFrom(s => s.PaymentNavigation))
+                .ForPath(d => d.User, o => o.MapFrom(s => s.UserNavigation));
             CreateMap<ShopOrderDTO, ShopOrder>();
             CreateMap<AddedShopOrderCommand, ShopOrder>();
             CreateMap<EditedShopOrderCommand, ShopOrder>();

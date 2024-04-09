@@ -9,7 +9,10 @@ namespace Shop.API.Mappings
     {
         public UserProfile()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>()
+                .ForPath(d => d.Payments, o => o.MapFrom(s => s.PaymentsNavigation))
+                .ForPath(d => d.ShopOrders, o => o.MapFrom(s => s.ShopOrdersNavigation))
+                .ForPath(d => d.UserAddresses, o => o.MapFrom(s => s.UserAddressesNavigation));
             CreateMap<UserDTO, User>();
             CreateMap<AddedUserCommand, User>();
             CreateMap<EditedUserCommand, User>();
