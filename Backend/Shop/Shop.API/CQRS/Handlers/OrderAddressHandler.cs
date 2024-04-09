@@ -18,14 +18,20 @@ namespace Shop.API.CQRS.Handlers
         private readonly IOrderAddressRepository _orderAddressRepository;
         private readonly IMapper _mapper;
 
+        public OrderAddressHandler(IOrderAddressRepository orderAddressRepository, IMapper mapper)
+        {
+            _orderAddressRepository = orderAddressRepository;
+            _mapper = mapper;
+        }
+
         public async Task<IList<OrderAddressDTO>> HandleAsync(GetOrderAdderssesQuery command)
         {
-            return _mapper.Map<IList<OrderAddressDTO>>(await _orderAddressRepository.GetAll());
+            return _mapper.Map<IList<OrderAddressDTO>>(await _orderAddressRepository.GetOrderAddressesWithShopOrders());
         }
 
         public async Task<OrderAddressDTO> HandleAsync(GetOrderAddressByIdQuery command)
         {
-            var searchOrderAddress = await _orderAddressRepository.GetById(command.Id);
+            var searchOrderAddress = await _orderAddressRepository.GetOrderAddressByIdWithShopOrders(command.Id);
             if (searchOrderAddress is null)
             {
                 throw new NotImplementedException();

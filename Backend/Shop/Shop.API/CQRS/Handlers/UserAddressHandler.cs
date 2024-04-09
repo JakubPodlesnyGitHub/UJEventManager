@@ -26,13 +26,13 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<IList<UserAddressDTO>> HandleAsync(GetUserAddressesQuery command)
         {
-            var userAddresses = await _userAddressRepository.GetAll();
+            var userAddresses = await _userAddressRepository.GetUserAddressesWithUsers();
             return _mapper.Map<IList<UserAddressDTO>>(userAddresses);
         }
 
         public async Task<UserAddressDTO> HandleAsync(GetUserAddressByIdQuery command)
         {
-            var userAddress = await _userAddressRepository.GetById(command.Id);
+            var userAddress = await _userAddressRepository.GetUserAddressByIdWithUser(command.Id);
             if (userAddress is null)
             {
                 throw new NotImplementedException();

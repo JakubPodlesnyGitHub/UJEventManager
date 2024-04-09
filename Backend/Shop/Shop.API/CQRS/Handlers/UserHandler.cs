@@ -27,7 +27,7 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<UserDTO> HandleAsync(GetUserByIdQuery command)
         {
-            var user = await _userRepository.GetById(command.Id);
+            var user = await _userRepository.GetUserByIdWithPaymentsAndUserAddressesAndShopOrdrders(command.Id);
             if (user is null)
             {
                 throw new NotImplementedException();
@@ -37,13 +37,13 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<IList<UserDTO>> HandleAsync(GetUsersQuery command)
         {
-            var users = await _userRepository.GetAll();
+            var users = await _userRepository.GetUsersWithPaymentsAndUserAddressesAndShopOrdrders();
             return _mapper.Map<IList<UserDTO>>(users);
         }
 
         public async Task<UserDTO> HandleAsync(GetUserByEmailQuery command)
         {
-            var user = await _userRepository.GetBy(x => x.Email == command.Email);
+            var user = await _userRepository.GetUserByEmailWithPaymentsAndUserAddressesAndShopOrdrders(command.Email);
             if (user is null)
             {
                 throw new NotImplementedException();

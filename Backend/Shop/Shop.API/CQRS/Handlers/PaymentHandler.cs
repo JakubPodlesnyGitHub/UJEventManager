@@ -18,14 +18,20 @@ namespace Shop.API.CQRS.Handlers
         private readonly IMapper _mapper;
         private readonly IPaymentRepository _paymentRepository;
 
+        public PaymentHandler(IMapper mapper, IPaymentRepository paymentRepository)
+        {
+            _mapper = mapper;
+            _paymentRepository = paymentRepository;
+        }
+
         public async Task<IList<PaymentDTO>> HandleAsync(GetPaymentsQuery command)
         {
-            return _mapper.Map<IList<PaymentDTO>>(await _paymentRepository.GetAll());
+            return _mapper.Map<IList<PaymentDTO>>(await _paymentRepository.GetPaymentsWithUserAndShopOrders());
         }
 
         public async Task<PaymentDTO> HandleAsync(GetPaymentByIdQuery command)
         {
-            var searchPayment = await _paymentRepository.GetById(command.Id);
+            var searchPayment = await _paymentRepository.GetPaymentByIdWithUserAndShopOrders(command.Id);
             if (searchPayment is null)
             {
                 throw new NotImplementedException();

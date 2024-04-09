@@ -26,12 +26,12 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<IList<ProductCategoryDTO>> HandleAsync(GetProductsCategoriesQuery command)
         {
-            return _mapper.Map<List<ProductCategoryDTO>>(await _productCategoryRepository.GetAll());
+            return _mapper.Map<List<ProductCategoryDTO>>(await _productCategoryRepository.GetProductsCategoriesWithProductAndCategory());
         }
 
         public async Task<ProductCategoryDTO> HandleAsync(GetProdcutCategoryByIdsQuery command)
         {
-            var searchProductCategory = await _productCategoryRepository.GetById(command.IdCategory, command.IdProduct);
+            var searchProductCategory = await _productCategoryRepository.GetProductCategoryByIdsWithProductAndCategory(command.IdProduct, command.IdCategory);
             if (searchProductCategory is null)
             {
                 throw new NotImplementedException();
