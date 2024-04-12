@@ -9,6 +9,6 @@ namespace Shop.Infrastructure.Services.Interfaces
 {
     public interface INBPService
     {
-        Task<NBPReadModel> GetSupportedCurrenciesRatesAsync();
+        Task<List<ExchangeRateTable>> GetSupportedCurrenciesRatesAsync();
     }
 }

@@ -9,6 +9,7 @@ namespace Shop.Infrastructure.Configuration
         {
             services.AddRepositoriesConfiguration(configuration);
             services.AddAuthConfiguration(configuration);
+            services.AddServicesConfiguration();
             return services;
         }
     }
