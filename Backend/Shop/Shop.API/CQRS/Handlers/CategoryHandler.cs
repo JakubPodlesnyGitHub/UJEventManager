@@ -41,11 +41,7 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<CategoryDTO> HandleAsync(EditedCategoryCommand command)
         {
-            var category = await _categoryRepository.GetById(command.Id);
-            if (category is null)
-            {
-                throw new NotImplementedException();
-            }
+            var category = await _categoryRepository.GetById(command.Id) ?? throw new NotImplementedException();
             category.Name = command.Name;
             _categoryRepository.Update(category);
             await _categoryRepository.Commit();
