@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.PorductAvailability
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.PorductAvailability
 {
-    public class AddedProductAvailabilityCommand : ICommandBase
+    public class AddedProductAvailabilityCommand : IRequest<ProductAvailabilityDTO>
     {
         public int Availability { get; set; }
         public string Status { get; set; }

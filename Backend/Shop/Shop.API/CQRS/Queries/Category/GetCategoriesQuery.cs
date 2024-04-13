@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.Category
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.Category
 {
-    public class GetCategoriesQuery : IQueryBase
+    public class GetCategoriesQuery : IRequest<IList<CategoryDTO>>
     {
     }
 }

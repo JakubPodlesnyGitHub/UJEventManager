@@ -1,8 +1,10 @@
-﻿using Shop.Domain.Enums;
+﻿using MediatR;
+using Shop.Domain.Enums;
+using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Commands.ShopOrder
 {
-    public class EditedShopOrderCommand : ICommandBase
+    public class EditedShopOrderCommand : IRequest<ShopOrderDTO>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

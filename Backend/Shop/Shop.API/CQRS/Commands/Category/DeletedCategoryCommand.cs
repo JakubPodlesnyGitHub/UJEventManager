@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Category
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Category
 {
-    public class DeletedCategoryCommand : ICommandBase
+    public class DeletedCategoryCommand : IRequest<CategoryDTO>
     {
         public Guid Id { get; set; }
 

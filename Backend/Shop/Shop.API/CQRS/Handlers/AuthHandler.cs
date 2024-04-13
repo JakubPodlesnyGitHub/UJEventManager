@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Shop.API.CQRS.Commands.Auth;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.Domain.Domain;
 using Shop.Domain.Enums;
 using Shop.Infrastructure.Services.Interfaces;
@@ -12,13 +11,14 @@ using System.IdentityModel.Tokens.Jwt;
 namespace Shop.API.CQRS.Handlers
 {
     public class AuthHandler :
-        ICommandBaseHandler<UserLoginCommand, AuthDTO>,
-        ICommandBaseHandler<UserRegisterCommand, AuthDTO>,
-        ICommandBaseHandler<UserPasswordChangedCommand, AuthDTO>
+        IRequestHandler<UserLoginCommand, AuthDTO>,
+        IRequestHandler<UserRegisterCommand, AuthDTO>,
+        IRequestHandler<UserPasswordChangedCommand, AuthDTO>
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly ITokenService _tokenService;
+
         public AuthHandler(IMapper mapper, UserManager<User> userManager, ITokenService tokenService)
         {
             _mapper = mapper;
@@ -26,10 +26,10 @@ namespace Shop.API.CQRS.Handlers
             _tokenService = tokenService;
         }
 
-        public async Task<AuthDTO> HandleAsync(UserLoginCommand command)
+        public async Task<AuthDTO> Handle(UserLoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(command.Email);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, command.Password))
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {
                 throw new UnauthorizedAccessException("Invalid Authentication - Incorect email or password");
             }
@@ -45,11 +45,12 @@ namespace Shop.API.CQRS.Handlers
 
             await _userManager.UpdateAsync(user);
 
-            return new AuthDTO {IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = user.RefreshToken };
+            return new AuthDTO { IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = user.RefreshToken };
         }
-        public async Task<AuthDTO> HandleAsync(UserRegisterCommand command)
+
+        public async Task<AuthDTO> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
         {
-            var newUser = _mapper.Map<User>(command);
+            var newUser = _mapper.Map<User>(request);
             IdentityResult result = await _userManager.CreateAsync(newUser, "");
 
             if (!result.Succeeded)
@@ -70,25 +71,25 @@ namespace Shop.API.CQRS.Handlers
 
             await _userManager.UpdateAsync(newUser);
 
-            return new AuthDTO { IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = newUser.RefreshToken};
+            return new AuthDTO { IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = newUser.RefreshToken };
         }
 
-        public async Task<AuthDTO> HandleAsync(UserPasswordChangedCommand command)
+        public async Task<AuthDTO> Handle(UserPasswordChangedCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(command.Id.ToString());
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
             if (user is null)
             {
                 throw new NotImplementedException();
             }
-            if (await _userManager.CheckPasswordAsync(user, command.OldPassword))
+            if (await _userManager.CheckPasswordAsync(user, request.OldPassword))
             {
                 return new AuthDTO { IsAuthenticated = true, IsSucceded = false, ErrorDetails = "Old Password wasn't correct." };
             }
-            if(command.NewPassword is not null)
+            if (request.NewPassword is not null)
             {
-                user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, command.NewPassword);
+                user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, request.NewPassword);
             }
-            var result  =  await _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
                 return new AuthDTO { IsAuthenticated = true, IsSucceded = false, ErrorDetails = "There was a problem with user password update." };

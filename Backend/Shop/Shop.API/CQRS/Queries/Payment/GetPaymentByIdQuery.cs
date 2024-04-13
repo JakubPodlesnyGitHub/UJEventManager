@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.Payment
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.Payment
 {
-    public class GetPaymentByIdQuery : IQueryBase
+    public class GetPaymentByIdQuery : IRequest<PaymentDTO>
     {
         public Guid Id { get; set; }
 

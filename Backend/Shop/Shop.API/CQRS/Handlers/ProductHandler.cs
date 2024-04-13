@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MediatR;
 using Shop.API.CQRS.Commands.Product;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Product;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
@@ -9,11 +9,11 @@ using Shop.Shared.Dtos.Response;
 namespace Shop.API.CQRS.Handlers
 {
     public class ProductHandler :
-        IQueryBaseHandler<GetProductsQuery, IList<ProductDTO>>,
-        IQueryBaseHandler<GetProductByIdQuery, ProductDTO>,
-        ICommandBaseHandler<AddedProductCommand, ProductDTO>,
-        ICommandBaseHandler<EditedProductCommand, ProductDTO>,
-        ICommandBaseHandler<DeletedProductCommand, ProductDTO>
+        IRequestHandler<GetProductsQuery, IList<ProductDTO>>,
+        IRequestHandler<GetProductByIdQuery, ProductDTO>,
+        IRequestHandler<AddedProductCommand, ProductDTO>,
+        IRequestHandler<EditedProductCommand, ProductDTO>,
+        IRequestHandler<DeletedProductCommand, ProductDTO>
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
@@ -24,15 +24,15 @@ namespace Shop.API.CQRS.Handlers
             _productRepository = productRepository;
         }
 
-        public async Task<IList<ProductDTO>> HandleAsync(GetProductsQuery command)
+        public async Task<IList<ProductDTO>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetProductsWithProductAvailabilitesAndCategory();
             return _mapper.Map<IList<ProductDTO>>(products);
         }
 
-        public async Task<ProductDTO> HandleAsync(GetProductByIdQuery command)
+        public async Task<ProductDTO> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetProductByIdWithProductAvailabilitesAndCategory(command.Id);
+            var product = await _productRepository.GetProductByIdWithProductAvailabilitesAndCategory(request.Id);
             if (product is null)
             {
                 throw new NotImplementedException();
@@ -40,37 +40,37 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<ProductDTO>(product);
         }
 
-        public async Task<ProductDTO> HandleAsync(AddedProductCommand command)
+        public async Task<ProductDTO> Handle(AddedProductCommand request, CancellationToken cancellationToken)
         {
-            var product = _productRepository.Insert(_mapper.Map<Product>(command));
+            var product = _productRepository.Insert(_mapper.Map<Product>(request));
             await _productRepository.Commit();
             return _mapper.Map<ProductDTO>(product);
         }
 
-        public async Task<ProductDTO> HandleAsync(EditedProductCommand command)
+        public async Task<ProductDTO> Handle(EditedProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetById(command.Id);
+            var product = await _productRepository.GetById(request.Id);
             if (product is null)
             {
                 throw new NotImplementedException();
             }
 
-            product.Name = command.Name;
-            product.Category = command.Category;
-            product.CodeNumber = command.CodeNumber;
-            product.SeriesNumber = command.SeriesNumber;
-            product.ReleaseDate = command.ReleaseDate;
-            if (command.Description is not null)
+            product.Name = request.Name;
+            product.Category = request.Category;
+            product.CodeNumber = request.CodeNumber;
+            product.SeriesNumber = request.SeriesNumber;
+            product.ReleaseDate = request.ReleaseDate;
+            if (request.Description is not null)
             {
-                product.Description = command.Description;
+                product.Description = request.Description;
             }
-            if (command.Picture is not null)
+            if (request.Picture is not null)
             {
-                product.Picture = command.Picture;
+                product.Picture = request.Picture;
             }
-            if (command.Rate is not null)
+            if (request.Rate is not null)
             {
-                product.Rate = command.Rate;
+                product.Rate = request.Rate;
             }
 
             _productRepository.Update(product);
@@ -78,9 +78,9 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<ProductDTO>(product);
         }
 
-        public async Task<ProductDTO> HandleAsync(DeletedProductCommand command)
+        public async Task<ProductDTO> Handle(DeletedProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetById(command.Id);
+            var product = await _productRepository.GetById(request.Id);
             if (product is null)
             {
                 throw new NotImplementedException();

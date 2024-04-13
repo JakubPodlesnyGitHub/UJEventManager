@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.User
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.User
 {
-    public class GetUserByEmailQuery : IQueryBase
+    public class GetUserByEmailQuery : IRequest<UserDTO>
     {
         public string Email { get; set; }
 

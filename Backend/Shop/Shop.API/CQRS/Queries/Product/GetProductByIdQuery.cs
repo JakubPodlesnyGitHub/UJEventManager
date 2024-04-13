@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.Product
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.Product
 {
-    public class GetProductByIdQuery : IQueryBase
+    public class GetProductByIdQuery : IRequest<ProductDTO>
     {
         public Guid Id { get; set; }
 

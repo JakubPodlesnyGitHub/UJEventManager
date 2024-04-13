@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.UserAddress
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.UserAddress
 {
-    public class EdditedUserAdressCommand : ICommandBase
+    public class EdditedUserAdressCommand : IRequest<UserAddressDTO>
     {
         public Guid Id { get; set; }
         public string StreetName { get; set; }

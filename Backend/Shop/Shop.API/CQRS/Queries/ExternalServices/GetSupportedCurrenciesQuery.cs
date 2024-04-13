@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.ExternalServices
+﻿using MediatR;
+using Shop.Domain.Enums;
+
+namespace Shop.API.CQRS.Queries.ExternalServices
 {
-    public class GetSupportedCurrenciesQuery :  IQueryBase
+    public class GetSupportedCurrenciesQuery : IRequest<IList<SupportedCurrency>>
     {
     }
 }

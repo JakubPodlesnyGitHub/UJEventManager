@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.ShopOrder
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.ShopOrder
 {
-    public class DeletedShopOrderCommand : ICommandBase
+    public class DeletedShopOrderCommand : IRequest<ShopOrderDTO>
     {
         public Guid Id { get; set; }
 
