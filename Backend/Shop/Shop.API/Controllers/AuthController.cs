@@ -17,21 +17,24 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromServices] IRequestHandler<UserLoginCommand, AuthDTO> handler, [FromBody] UserLoginCommand command)
+        public async Task<IActionResult> Login([FromBody] UserLoginCommand command)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromServices] IRequestHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserRegisterCommand command)
+        public async Task<IActionResult> Register([FromBody] UserRegisterCommand command)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("{id:guid}change-password")]
-        public async Task<IActionResult> ChangePassword(Guid id, [FromServices] IRequestHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserPasswordChangedCommand command)
+        public async Task<IActionResult> ChangePassword(Guid id, [FromBody] UserPasswordChangedCommand command)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

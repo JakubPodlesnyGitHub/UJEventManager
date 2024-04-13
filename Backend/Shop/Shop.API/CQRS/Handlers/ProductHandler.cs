@@ -56,7 +56,6 @@ namespace Shop.API.CQRS.Handlers
             }
 
             product.Name = request.Name;
-            product.Category = request.Category;
             product.CodeNumber = request.CodeNumber;
             product.SeriesNumber = request.SeriesNumber;
             product.ReleaseDate = request.ReleaseDate;

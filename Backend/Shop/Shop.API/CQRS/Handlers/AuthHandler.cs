@@ -51,14 +51,21 @@ namespace Shop.API.CQRS.Handlers
         public async Task<AuthDTO> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
         {
             var newUser = _mapper.Map<User>(request);
-            IdentityResult result = await _userManager.CreateAsync(newUser, "");
+            IdentityResult result = await _userManager.CreateAsync(newUser, request.Password);
 
             if (!result.Succeeded)
             {
                 return new AuthDTO { IsSucceded = false, ErrorDetails = "Registration doesn't succeded" };
             }
-            //if spradzenie czy jest admin
-            await _userManager.AddToRoleAsync(newUser, UserRole.SYSTEM_CLIENT.ToString());
+
+            if (request.IsAdmin)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRole.ADMIN.ToString());
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRole.SYSTEM_CLIENT.ToString());
+            }
 
             var credentails = _tokenService.GetSigningCredentials();
             var userClaims = await _tokenService.GetClaims(newUser);
