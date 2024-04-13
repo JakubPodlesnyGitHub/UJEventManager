@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.Auth;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
@@ -9,22 +9,32 @@ namespace Shop.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromServices] ICommandBaseHandler<UserLoginCommand, AuthDTO> handler, [FromBody] UserLoginCommand command)
+        private readonly IMediator _mediator;
+
+        public AuthController(IMediator mediator)
         {
-            throw new NotImplementedException();
+            _mediator = mediator;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromServices] ICommandBaseHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserRegisterCommand command)
+        public async Task<IActionResult> Register([FromBody] UserRegisterCommand command)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("{id:guid}change-password")]
-        public async Task<IActionResult> ChangePassword(Guid id, [FromServices] ICommandBaseHandler<UserRegisterCommand, AuthDTO> handler, [FromBody] UserPasswordChangedCommand command)
+        public async Task<IActionResult> ChangePassword(Guid id, [FromBody] UserPasswordChangedCommand command)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

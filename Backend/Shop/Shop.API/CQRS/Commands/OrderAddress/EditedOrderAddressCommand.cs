@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.OrderAddress
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.OrderAddress
 {
-    public class EditedOrderAddressCommand : ICommandBase
+    public class EditedOrderAddressCommand : IRequest<OrderAddressDTO>
     {
         public Guid Id { get; set; }
         public string StreetName { get; set; }

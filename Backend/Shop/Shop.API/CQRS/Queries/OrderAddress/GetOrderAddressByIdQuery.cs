@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.OrderAddress
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.OrderAddress
 {
-    public class GetOrderAddressByIdQuery : IQueryBase
+    public class GetOrderAddressByIdQuery : IRequest<OrderAddressDTO>
     {
         public Guid Id { get; set; }
 

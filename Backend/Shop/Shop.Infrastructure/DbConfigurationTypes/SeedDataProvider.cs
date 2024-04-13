@@ -21,7 +21,6 @@
             {
                 Id = Guid.NewGuid(),
                     Name = "Product 1",
-                    Category = "Category 1",
                     CodeNumber = "ABC123",
                     SeriesNumber = "S123",
                     Description = "Description of Product 1",
@@ -34,7 +33,6 @@
             {
                 Id = Guid.NewGuid(),
                     Name = "Product 2",
-                    Category = "Category 2",
                     CodeNumber = "XYZ789",
                     SeriesNumber = "S456",
                     Description = "Description of Product 2",
@@ -47,7 +45,6 @@
             {
                 Id = Guid.NewGuid(),
                     Name = "Product 3",
-                    Category = "Category 1",
                     CodeNumber = "DEF456",
                     SeriesNumber = "S789",
                     Description = "Description of Product 3",
@@ -60,7 +57,6 @@
             {
                 Id = Guid.NewGuid(),
                     Name = "Product 4",
-                    Category = "Category 3",
                     CodeNumber = "GHI789",
                     SeriesNumber = "S1011",
                     Description = "Description of Product 4",
@@ -73,7 +69,6 @@
             {
                 Id = Guid.NewGuid(),
                     Name = "Product 5",
-                    Category = "Category 2",
                     CodeNumber = "JKL012",
                     SeriesNumber = "S1213",
                     Description = "Description of Product 5",

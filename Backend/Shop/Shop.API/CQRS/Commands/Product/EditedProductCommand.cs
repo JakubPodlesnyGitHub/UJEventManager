@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Product
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Product
 {
-    public class EditedProductCommand : ICommandBase
+    public class EditedProductCommand : IRequest<ProductDTO>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

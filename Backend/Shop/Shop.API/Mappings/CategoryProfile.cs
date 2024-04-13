@@ -9,7 +9,8 @@ namespace Shop.API.Mappings
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryDTO>();
+            CreateMap<Category, CategoryDTO>()
+                .ForPath(d => d.Products, o => o.MapFrom(s => s.ProductCategoriesNavigation.Select(x => x.ProductNavigation)));
             CreateMap<CategoryDTO, Category>();
             CreateMap<AddedCategoryCommand, Category>();
             CreateMap<EditedCategoryCommand, Category>();

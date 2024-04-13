@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.OrderItem;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.OrderItem;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -10,38 +9,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class OrderItemController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetOrderItem([FromServices] IQueryBaseHandler<GetOrderItemsQuery, IList<OrderItemDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public OrderItemController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetOrderItemsQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrderItem()
+        {
+            var result = await _mediator.Send(new GetOrderItemsQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetOrderItemById(Guid id, [FromServices] IQueryBaseHandler<GetOrderItemQueryById, OrderItemDTO> handler)
+        public async Task<IActionResult> GetOrderItemById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetOrderItemQueryById(id));
+            var result = await _mediator.Send(new GetOrderItemQueryById(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddOrderItem([FromServices] ICommandBaseHandler<AddedOrderItemCommand, OrderItemDTO> handler, [FromBody] AddedOrderItemCommand command)
+        public async Task<IActionResult> AddOrderItem([FromBody] AddedOrderItemCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeleteOrderItem(Guid id, [FromServices] ICommandBaseHandler<DeletedOrderItemCommand, OrderItemDTO> handler)
+        public async Task<IActionResult> DeleteOrderItem(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedOrderItemCommand(id));
+            var result = await _mediator.Send(new DeletedOrderItemCommand(id));
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateOrderItem([FromServices] ICommandBaseHandler<EditedOrderItemCommand, OrderItemDTO> handler, [FromBody] EditedOrderItemCommand command)
+        public async Task<IActionResult> UpdateOrderItem([FromBody] EditedOrderItemCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

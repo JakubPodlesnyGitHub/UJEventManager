@@ -12,7 +12,7 @@ using Shop.Infrastructure.DbContexts;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20240408135920_initMigration")]
+    [Migration("20240413161008_initMigration")]
     partial class initMigration
     {
         /// <inheritdoc />
@@ -55,13 +55,13 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("beda5191-a22b-46b9-b387-ac551479ad90"),
+                            Id = new Guid("42324059-c9c4-488a-b2d7-b47e3f503c9d"),
                             Name = "SystemClient",
                             NormalizedName = "SYSTEM_CLIENT"
                         },
                         new
                         {
-                            Id = new Guid("074dfcc7-a3b8-44b4-bc0e-b3618d9a1d43"),
+                            Id = new Guid("5406ef8e-7fb8-418e-ad2c-cbc32d6c3fd9"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -187,27 +187,27 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("35ed0901-4ce6-4940-bb72-264d4296cda5"),
+                            Id = new Guid("9f8dd2e9-1fb2-42fd-8be3-8735196cbbab"),
                             Name = "Crime"
                         },
                         new
                         {
-                            Id = new Guid("6f953f27-650b-41f4-8480-560758d33183"),
+                            Id = new Guid("7a8fa6ae-a884-46bb-8890-88210c62bdec"),
                             Name = "Action"
                         },
                         new
                         {
-                            Id = new Guid("ae797195-f98c-463c-a17e-5c7b91a1cecd"),
+                            Id = new Guid("ba3b971a-7fb2-4339-ab0b-a33fdbcb4a8e"),
                             Name = "Romantic"
                         },
                         new
                         {
-                            Id = new Guid("1e96155f-8e09-4700-be8a-efb5c7c6b234"),
+                            Id = new Guid("8f9f4c17-0130-424a-bd8d-7afa03701950"),
                             Name = "Adventure"
                         },
                         new
                         {
-                            Id = new Guid("5a8c4725-8836-4600-a42b-c87a6361087e"),
+                            Id = new Guid("f4d02629-88f9-45d4-b1bf-e53311698754"),
                             Name = "Sports"
                         });
                 });
@@ -247,7 +247,7 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("922e4601-900b-430a-acc8-31aad4e484c8"),
+                            Id = new Guid("a6a9c304-6782-4c92-a599-ba82e20cbbc5"),
                             BuildingNumber = 101,
                             City = "Metropolis",
                             District = "Downtown",
@@ -256,7 +256,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("064d290f-a553-416d-9cf3-f504249cd30b"),
+                            Id = new Guid("a7ab0b9e-3be9-4c75-a6ed-eadf55936d44"),
                             ApartmentNumber = 2,
                             BuildingNumber = 202,
                             City = "Smalltown",
@@ -266,7 +266,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5899395e-8e9e-4847-84a1-3327a0205f21"),
+                            Id = new Guid("a5ee97a3-7231-4afc-ae49-35ce9e02334f"),
                             BuildingNumber = 303,
                             City = "Village",
                             District = "Riverside",
@@ -275,7 +275,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("43831670-f2b2-420f-9a9d-6d0bd7de1e71"),
+                            Id = new Guid("a08f4046-ac94-41b2-af96-50f42788603b"),
                             ApartmentNumber = 1,
                             BuildingNumber = 404,
                             City = "Hamlet",
@@ -285,7 +285,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b7f9f19d-670f-4c9b-a197-c955550a7fe6"),
+                            Id = new Guid("92eaefb8-3118-4647-af1e-1e6e32304edf"),
                             BuildingNumber = 505,
                             City = "Village",
                             District = "Forest",
@@ -303,7 +303,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 52, DateTimeKind.Utc).AddTicks(3574));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 721, DateTimeKind.Utc).AddTicks(534));
 
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uniqueidentifier");
@@ -328,46 +328,46 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8fd157dd-84a8-4788-a211-8b5a18ca47a5"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(9577),
-                            IdOrder = new Guid("f3efa22e-1208-44c2-968f-e9bff3d7bfe0"),
-                            IdProduct = new Guid("174b7caa-6093-468d-a903-6679f9361a14"),
+                            Id = new Guid("43db757a-e1dc-492f-b189-7a59ccdad0aa"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(2219),
+                            IdOrder = new Guid("e1bfb019-7bb1-43e8-aeb7-c23c4057a242"),
+                            IdProduct = new Guid("ab0e56b3-8e1f-4666-a4fd-59450a4a030d"),
                             Price = 49.99m,
                             Quantity = 2
                         },
                         new
                         {
-                            Id = new Guid("7755a895-788d-4e29-ae79-20795fecad01"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 615, DateTimeKind.Local).AddTicks(2053),
-                            IdOrder = new Guid("6e8ac005-1672-4edd-adc4-887162de77e9"),
-                            IdProduct = new Guid("dee21273-c623-40ed-aa5e-d7ebe1ec7cd3"),
+                            Id = new Guid("0dd07275-70dc-4af4-afc1-88e9263ccd6f"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(4276),
+                            IdOrder = new Guid("b4d62ae2-f4eb-41bc-b56e-85526397dafc"),
+                            IdProduct = new Guid("04922a10-6e71-43ac-8552-e5f6496c96eb"),
                             Price = 29.99m,
                             Quantity = 1
                         },
                         new
                         {
-                            Id = new Guid("797f7140-fc6e-412f-92db-3cb6256ebff4"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 615, DateTimeKind.Local).AddTicks(2185),
-                            IdOrder = new Guid("0f8f525a-d901-470f-ad59-8e5c5a37414a"),
-                            IdProduct = new Guid("cd13df72-d192-412e-9da1-e254afd2e713"),
+                            Id = new Guid("06731af7-50f9-423a-9a02-a8906361d39b"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(4320),
+                            IdOrder = new Guid("458c0470-8ad0-4c66-8d59-a8f73ef58afd"),
+                            IdProduct = new Guid("5251f26a-e262-4776-a090-4e21a124468a"),
                             Price = 19.99m,
                             Quantity = 3
                         },
                         new
                         {
-                            Id = new Guid("016bade4-cd5a-4450-9d34-1383ff3fc0c5"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 615, DateTimeKind.Local).AddTicks(2208),
-                            IdOrder = new Guid("9d650b89-3154-448f-9728-1deed7625710"),
-                            IdProduct = new Guid("18aaa9e9-4bfd-4b6e-986a-43677ca411a9"),
+                            Id = new Guid("c84d0168-ac38-4838-a456-c408e6fff71b"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(4334),
+                            IdOrder = new Guid("72b90be5-e5e9-4cba-9c8a-723de419bac4"),
+                            IdProduct = new Guid("5402456b-3fc6-486a-87e6-86c53adf2b8a"),
                             Price = 99.99m,
                             Quantity = 1
                         },
                         new
                         {
-                            Id = new Guid("15baadfd-645c-4586-8867-6d79b861863e"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 615, DateTimeKind.Local).AddTicks(2220),
-                            IdOrder = new Guid("c2778546-190e-4193-8267-42e540ef3de4"),
-                            IdProduct = new Guid("a6622f29-e4e3-4e29-9d56-d9dd1f0c6f5c"),
+                            Id = new Guid("78476139-2a0d-4ab2-be2f-1cf744f3cb10"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(4345),
+                            IdOrder = new Guid("679738ca-9799-437e-86b5-6ae563a22e49"),
+                            IdProduct = new Guid("931db7da-45d9-4915-b706-6ae6898c76ca"),
                             Price = 39.99m,
                             Quantity = 2
                         });
@@ -385,7 +385,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 53, DateTimeKind.Utc).AddTicks(3601));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 722, DateTimeKind.Utc).AddTicks(1881));
 
                     b.Property<string>("Data")
                         .IsRequired()
@@ -407,47 +407,47 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5093ad7d-04ff-405d-acac-3be523004d5b"),
+                            Id = new Guid("6eb05b5f-268a-4778-a287-bdc92f2d3476"),
                             Amount = 99.99m,
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(9323),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(516),
                             Data = "**** **** **** 1234",
-                            IdUser = new Guid("c984869c-00ad-4ac7-8d14-68b67a9e4160"),
+                            IdUser = new Guid("abba367b-73c9-45f8-9ae7-edd7c6b1aaa6"),
                             PaymentMethod = "Credit Card"
                         },
                         new
                         {
-                            Id = new Guid("0f00949d-a64f-4e81-81f7-dafb19d90a19"),
+                            Id = new Guid("c55dd5eb-64da-42b3-a115-94664f44c9a3"),
                             Amount = 149.99m,
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(9940),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(1234),
                             Data = "**** **** **** 1534",
-                            IdUser = new Guid("9d31d474-a728-45b6-ad78-6cc88a6bbdd5"),
+                            IdUser = new Guid("e79e8064-0ea1-4d4c-a2ed-0ecd14b50954"),
                             PaymentMethod = "PayPal"
                         },
                         new
                         {
-                            Id = new Guid("a1abd48b-39a4-4884-bf87-572ecb23ee52"),
+                            Id = new Guid("c9e43f63-5371-48ff-b3ae-25cd3c53eb4d"),
                             Amount = 199.99m,
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(9971),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(1265),
                             Data = "**** **** **** 1134",
-                            IdUser = new Guid("22ec9013-36be-45d5-a0d5-4717b9a89aac"),
+                            IdUser = new Guid("3ef236fb-e67d-4d74-9523-2077da789840"),
                             PaymentMethod = "Bank Transfer"
                         },
                         new
                         {
-                            Id = new Guid("be0295a4-9be5-4ba3-be71-2a6fa7d140f3"),
+                            Id = new Guid("31364bde-435f-4568-9227-956876b81385"),
                             Amount = 79.99m,
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(9981),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(1274),
                             Data = "**** **** **** 1434",
-                            IdUser = new Guid("44db9987-da19-4703-a0dc-857e61449ce0"),
+                            IdUser = new Guid("e3a91494-3b73-4f0d-9e85-a40346c058a6"),
                             PaymentMethod = "Cash on Delivery"
                         },
                         new
                         {
-                            Id = new Guid("b589ccaf-a1f5-498b-a9f1-df672eb73599"),
+                            Id = new Guid("c2c1c7d0-194d-4250-85c1-1030283ab6f7"),
                             Amount = 129.99m,
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(9989),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(1283),
                             Data = "**** **** **** 1734",
-                            IdUser = new Guid("8ad356f3-b7d0-4475-ad1c-06cd5b20c5b7"),
+                            IdUser = new Guid("5fbb093d-0102-4217-a409-499bfab2561b"),
                             PaymentMethod = "Stripe"
                         });
                 });
@@ -458,10 +458,6 @@ namespace Shop.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CodeNumber")
                         .IsRequired()
                         .HasMaxLength(6)
@@ -470,7 +466,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 55, DateTimeKind.Utc).AddTicks(7945));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 725, DateTimeKind.Utc).AddTicks(2102));
 
                     b.Property<string>("Description")
                         .HasMaxLength(5000)
@@ -501,8 +497,7 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("174b7caa-6093-468d-a903-6679f9361a14"),
-                            Category = "Category 1",
+                            Id = new Guid("ab0e56b3-8e1f-4666-a4fd-59450a4a030d"),
                             CodeNumber = "ABC123",
                             CreationDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Description of Product 1",
@@ -514,8 +509,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dee21273-c623-40ed-aa5e-d7ebe1ec7cd3"),
-                            Category = "Category 2",
+                            Id = new Guid("04922a10-6e71-43ac-8552-e5f6496c96eb"),
                             CodeNumber = "XYZ789",
                             CreationDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Description of Product 2",
@@ -527,8 +521,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cd13df72-d192-412e-9da1-e254afd2e713"),
-                            Category = "Category 1",
+                            Id = new Guid("5251f26a-e262-4776-a090-4e21a124468a"),
                             CodeNumber = "DEF456",
                             CreationDate = new DateTime(2023, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Description of Product 3",
@@ -540,8 +533,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("18aaa9e9-4bfd-4b6e-986a-43677ca411a9"),
-                            Category = "Category 3",
+                            Id = new Guid("5402456b-3fc6-486a-87e6-86c53adf2b8a"),
                             CodeNumber = "GHI789",
                             CreationDate = new DateTime(2023, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Description of Product 4",
@@ -553,8 +545,7 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a6622f29-e4e3-4e29-9d56-d9dd1f0c6f5c"),
-                            Category = "Category 2",
+                            Id = new Guid("931db7da-45d9-4915-b706-6ae6898c76ca"),
                             CodeNumber = "JKL012",
                             CreationDate = new DateTime(2023, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Description of Product 5",
@@ -581,7 +572,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("SnapshotStatusTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 54, DateTimeKind.Utc).AddTicks(363));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 722, DateTimeKind.Utc).AddTicks(8637));
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -596,42 +587,42 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0febe1f0-3134-4dd7-a86f-0a12d4541ec5"),
+                            Id = new Guid("20e7d493-da66-4137-8691-5b5a0bd8c3be"),
                             Availability = 10,
-                            IdProduct = new Guid("174b7caa-6093-468d-a903-6679f9361a14"),
-                            SnapshotStatusTime = new DateTime(2024, 4, 8, 15, 59, 19, 612, DateTimeKind.Local).AddTicks(7191),
+                            IdProduct = new Guid("ab0e56b3-8e1f-4666-a4fd-59450a4a030d"),
+                            SnapshotStatusTime = new DateTime(2024, 4, 13, 18, 10, 8, 194, DateTimeKind.Local).AddTicks(4496),
                             Status = "AVAILABLE"
                         },
                         new
                         {
-                            Id = new Guid("f0ff6cf6-ca02-41b8-81f1-9831ff87cd6e"),
+                            Id = new Guid("21c0f5ad-74dd-4b8f-bf70-eb24df453eda"),
                             Availability = 5,
-                            IdProduct = new Guid("dee21273-c623-40ed-aa5e-d7ebe1ec7cd3"),
-                            SnapshotStatusTime = new DateTime(2024, 4, 8, 15, 59, 19, 612, DateTimeKind.Local).AddTicks(8141),
+                            IdProduct = new Guid("04922a10-6e71-43ac-8552-e5f6496c96eb"),
+                            SnapshotStatusTime = new DateTime(2024, 4, 13, 18, 10, 8, 194, DateTimeKind.Local).AddTicks(5509),
                             Status = "AVAILABLE"
                         },
                         new
                         {
-                            Id = new Guid("e8aa3db0-d507-422c-b983-e6d5abbca105"),
+                            Id = new Guid("a13c0b40-69ed-4024-b2dc-4a94f1438b0d"),
                             Availability = 20,
-                            IdProduct = new Guid("cd13df72-d192-412e-9da1-e254afd2e713"),
-                            SnapshotStatusTime = new DateTime(2024, 4, 8, 15, 59, 19, 612, DateTimeKind.Local).AddTicks(8208),
+                            IdProduct = new Guid("5251f26a-e262-4776-a090-4e21a124468a"),
+                            SnapshotStatusTime = new DateTime(2024, 4, 13, 18, 10, 8, 194, DateTimeKind.Local).AddTicks(5544),
                             Status = "AVAILABLE"
                         },
                         new
                         {
-                            Id = new Guid("df00cca0-3eb6-405b-96ad-ce83dc437772"),
+                            Id = new Guid("63c45f45-fbc5-4526-89f0-a7a8cedae1f4"),
                             Availability = 0,
-                            IdProduct = new Guid("18aaa9e9-4bfd-4b6e-986a-43677ca411a9"),
-                            SnapshotStatusTime = new DateTime(2024, 4, 8, 15, 59, 19, 612, DateTimeKind.Local).AddTicks(8219),
+                            IdProduct = new Guid("5402456b-3fc6-486a-87e6-86c53adf2b8a"),
+                            SnapshotStatusTime = new DateTime(2024, 4, 13, 18, 10, 8, 194, DateTimeKind.Local).AddTicks(5554),
                             Status = "UNAVAILABLE"
                         },
                         new
                         {
-                            Id = new Guid("8008b77a-3123-45f4-9326-38200eb15da9"),
+                            Id = new Guid("1c08819f-af55-46f9-b179-827320bb4085"),
                             Availability = 0,
-                            IdProduct = new Guid("a6622f29-e4e3-4e29-9d56-d9dd1f0c6f5c"),
-                            SnapshotStatusTime = new DateTime(2024, 4, 8, 15, 59, 19, 612, DateTimeKind.Local).AddTicks(8227),
+                            IdProduct = new Guid("931db7da-45d9-4915-b706-6ae6898c76ca"),
+                            SnapshotStatusTime = new DateTime(2024, 4, 13, 18, 10, 8, 194, DateTimeKind.Local).AddTicks(5613),
                             Status = "SUSPENDED"
                         });
                 });
@@ -647,7 +638,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 54, DateTimeKind.Utc).AddTicks(7877));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 723, DateTimeKind.Utc).AddTicks(6806));
 
                     b.HasKey("IdProduct", "IdCategory");
 
@@ -658,33 +649,33 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            IdProduct = new Guid("174b7caa-6093-468d-a903-6679f9361a14"),
-                            IdCategory = new Guid("35ed0901-4ce6-4940-bb72-264d4296cda5"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 608, DateTimeKind.Local).AddTicks(9172)
+                            IdProduct = new Guid("ab0e56b3-8e1f-4666-a4fd-59450a4a030d"),
+                            IdCategory = new Guid("9f8dd2e9-1fb2-42fd-8be3-8735196cbbab"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 189, DateTimeKind.Local).AddTicks(7225)
                         },
                         new
                         {
-                            IdProduct = new Guid("dee21273-c623-40ed-aa5e-d7ebe1ec7cd3"),
-                            IdCategory = new Guid("6f953f27-650b-41f4-8480-560758d33183"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 611, DateTimeKind.Local).AddTicks(1234)
+                            IdProduct = new Guid("04922a10-6e71-43ac-8552-e5f6496c96eb"),
+                            IdCategory = new Guid("7a8fa6ae-a884-46bb-8890-88210c62bdec"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 192, DateTimeKind.Local).AddTicks(2588)
                         },
                         new
                         {
-                            IdProduct = new Guid("cd13df72-d192-412e-9da1-e254afd2e713"),
-                            IdCategory = new Guid("ae797195-f98c-463c-a17e-5c7b91a1cecd"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 611, DateTimeKind.Local).AddTicks(1413)
+                            IdProduct = new Guid("5251f26a-e262-4776-a090-4e21a124468a"),
+                            IdCategory = new Guid("ba3b971a-7fb2-4339-ab0b-a33fdbcb4a8e"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 192, DateTimeKind.Local).AddTicks(2631)
                         },
                         new
                         {
-                            IdProduct = new Guid("18aaa9e9-4bfd-4b6e-986a-43677ca411a9"),
-                            IdCategory = new Guid("1e96155f-8e09-4700-be8a-efb5c7c6b234"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 611, DateTimeKind.Local).AddTicks(1426)
+                            IdProduct = new Guid("5402456b-3fc6-486a-87e6-86c53adf2b8a"),
+                            IdCategory = new Guid("8f9f4c17-0130-424a-bd8d-7afa03701950"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 192, DateTimeKind.Local).AddTicks(2645)
                         },
                         new
                         {
-                            IdProduct = new Guid("a6622f29-e4e3-4e29-9d56-d9dd1f0c6f5c"),
-                            IdCategory = new Guid("5a8c4725-8836-4600-a42b-c87a6361087e"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 611, DateTimeKind.Local).AddTicks(1436)
+                            IdProduct = new Guid("931db7da-45d9-4915-b706-6ae6898c76ca"),
+                            IdCategory = new Guid("f4d02629-88f9-45d4-b1bf-e53311698754"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 192, DateTimeKind.Local).AddTicks(2655)
                         });
                 });
 
@@ -697,7 +688,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 56, DateTimeKind.Utc).AddTicks(2510));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 726, DateTimeKind.Utc).AddTicks(415));
 
                     b.Property<DateTime>("ExpectedLeadTime")
                         .HasColumnType("date");
@@ -740,12 +731,12 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f3efa22e-1208-44c2-968f-e9bff3d7bfe0"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(3665),
-                            ExpectedLeadTime = new DateTime(2024, 4, 13, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(3963),
-                            IdOrderAddress = new Guid("922e4601-900b-430a-acc8-31aad4e484c8"),
-                            IdPayment = new Guid("5093ad7d-04ff-405d-acac-3be523004d5b"),
-                            IdUser = new Guid("c984869c-00ad-4ac7-8d14-68b67a9e4160"),
+                            Id = new Guid("e1bfb019-7bb1-43e8-aeb7-c23c4057a242"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(5261),
+                            ExpectedLeadTime = new DateTime(2024, 4, 18, 18, 10, 8, 196, DateTimeKind.Local).AddTicks(6134),
+                            IdOrderAddress = new Guid("a6a9c304-6782-4c92-a599-ba82e20cbbc5"),
+                            IdPayment = new Guid("6eb05b5f-268a-4778-a287-bdc92f2d3476"),
+                            IdUser = new Guid("abba367b-73c9-45f8-9ae7-edd7c6b1aaa6"),
                             Name = "Order 1",
                             OrderCode = "ORD123",
                             Status = "PENDING",
@@ -753,12 +744,12 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6e8ac005-1672-4edd-adc4-887162de77e9"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8192),
-                            ExpectedLeadTime = new DateTime(2024, 4, 15, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8206),
-                            IdOrderAddress = new Guid("064d290f-a553-416d-9cf3-f504249cd30b"),
-                            IdPayment = new Guid("0f00949d-a64f-4e81-81f7-dafb19d90a19"),
-                            IdUser = new Guid("9d31d474-a728-45b6-ad78-6cc88a6bbdd5"),
+                            Id = new Guid("b4d62ae2-f4eb-41bc-b56e-85526397dafc"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(785),
+                            ExpectedLeadTime = new DateTime(2024, 4, 20, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(798),
+                            IdOrderAddress = new Guid("a7ab0b9e-3be9-4c75-a6ed-eadf55936d44"),
+                            IdPayment = new Guid("c55dd5eb-64da-42b3-a115-94664f44c9a3"),
+                            IdUser = new Guid("e79e8064-0ea1-4d4c-a2ed-0ecd14b50954"),
                             Name = "Order 2",
                             OrderCode = "ORD456",
                             Status = "PROCESSING",
@@ -766,12 +757,12 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0f8f525a-d901-470f-ad59-8e5c5a37414a"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8246),
-                            ExpectedLeadTime = new DateTime(2024, 4, 11, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8249),
-                            IdOrderAddress = new Guid("5899395e-8e9e-4847-84a1-3327a0205f21"),
-                            IdPayment = new Guid("a1abd48b-39a4-4884-bf87-572ecb23ee52"),
-                            IdUser = new Guid("22ec9013-36be-45d5-a0d5-4717b9a89aac"),
+                            Id = new Guid("458c0470-8ad0-4c66-8d59-a8f73ef58afd"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(836),
+                            ExpectedLeadTime = new DateTime(2024, 4, 16, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(838),
+                            IdOrderAddress = new Guid("a5ee97a3-7231-4afc-ae49-35ce9e02334f"),
+                            IdPayment = new Guid("c9e43f63-5371-48ff-b3ae-25cd3c53eb4d"),
+                            IdUser = new Guid("3ef236fb-e67d-4d74-9523-2077da789840"),
                             Name = "Order 3",
                             OrderCode = "ORD789",
                             Status = "PROCESSING",
@@ -779,12 +770,12 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9d650b89-3154-448f-9728-1deed7625710"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8267),
-                            ExpectedLeadTime = new DateTime(2024, 4, 18, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8269),
-                            IdOrderAddress = new Guid("43831670-f2b2-420f-9a9d-6d0bd7de1e71"),
-                            IdPayment = new Guid("be0295a4-9be5-4ba3-be71-2a6fa7d140f3"),
-                            IdUser = new Guid("44db9987-da19-4703-a0dc-857e61449ce0"),
+                            Id = new Guid("72b90be5-e5e9-4cba-9c8a-723de419bac4"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(857),
+                            ExpectedLeadTime = new DateTime(2024, 4, 23, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(859),
+                            IdOrderAddress = new Guid("a08f4046-ac94-41b2-af96-50f42788603b"),
+                            IdPayment = new Guid("31364bde-435f-4568-9227-956876b81385"),
+                            IdUser = new Guid("e3a91494-3b73-4f0d-9e85-a40346c058a6"),
                             Name = "Order 4",
                             OrderCode = "ORD101112",
                             Status = "PAID",
@@ -792,12 +783,12 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c2778546-190e-4193-8267-42e540ef3de4"),
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8319),
-                            ExpectedLeadTime = new DateTime(2024, 4, 12, 15, 59, 19, 614, DateTimeKind.Local).AddTicks(8321),
-                            IdOrderAddress = new Guid("b7f9f19d-670f-4c9b-a197-c955550a7fe6"),
-                            IdPayment = new Guid("b589ccaf-a1f5-498b-a9f1-df672eb73599"),
-                            IdUser = new Guid("8ad356f3-b7d0-4475-ad1c-06cd5b20c5b7"),
+                            Id = new Guid("679738ca-9799-437e-86b5-6ae563a22e49"),
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(875),
+                            ExpectedLeadTime = new DateTime(2024, 4, 17, 18, 10, 8, 197, DateTimeKind.Local).AddTicks(877),
+                            IdOrderAddress = new Guid("92eaefb8-3118-4647-af1e-1e6e32304edf"),
+                            IdPayment = new Guid("c2c1c7d0-194d-4250-85c1-1030283ab6f7"),
+                            IdUser = new Guid("5fbb093d-0102-4217-a409-499bfab2561b"),
                             Name = "Order 5",
                             OrderCode = "ORD131415",
                             Status = "PAID",
@@ -824,7 +815,7 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2024, 4, 8, 13, 59, 20, 58, DateTimeKind.Utc).AddTicks(5122));
+                        .HasDefaultValue(new DateTime(2024, 4, 13, 16, 10, 8, 728, DateTimeKind.Utc).AddTicks(4330));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -902,11 +893,11 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c984869c-00ad-4ac7-8d14-68b67a9e4160"),
+                            Id = new Guid("abba367b-73c9-45f8-9ae7-edd7c6b1aaa6"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "59a32737-8085-438d-a512-83ed062f6c38",
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(2515),
+                            ConcurrencyStamp = "49063768-3315-4f3a-aa5b-602619989a7b",
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 195, DateTimeKind.Local).AddTicks(3001),
                             Email = "user1@example.com",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -919,11 +910,11 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9d31d474-a728-45b6-ad78-6cc88a6bbdd5"),
+                            Id = new Guid("e79e8064-0ea1-4d4c-a2ed-0ecd14b50954"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1985, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "12ed01fd-24da-405a-b748-91f878119172",
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(2868),
+                            ConcurrencyStamp = "93dd3b00-27f9-4287-94aa-7062b7b35f0a",
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 195, DateTimeKind.Local).AddTicks(3420),
                             Email = "user2@example.com",
                             EmailConfirmed = false,
                             FirstName = "Alice",
@@ -936,11 +927,11 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("22ec9013-36be-45d5-a0d5-4717b9a89aac"),
+                            Id = new Guid("3ef236fb-e67d-4d74-9523-2077da789840"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1995, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d7c0f180-3e82-4655-8557-9890180cc4aa",
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(2884),
+                            ConcurrencyStamp = "c9507eec-d1e5-4260-8c1f-739bdbce3aff",
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 195, DateTimeKind.Local).AddTicks(3440),
                             Email = "user3@example.com",
                             EmailConfirmed = false,
                             FirstName = "Emma",
@@ -953,11 +944,11 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("44db9987-da19-4703-a0dc-857e61449ce0"),
+                            Id = new Guid("e3a91494-3b73-4f0d-9e85-a40346c058a6"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1980, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "6c5c1ecb-348f-40fa-9c9f-d007a610cfaf",
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(2890),
+                            ConcurrencyStamp = "3733ac07-8a32-496a-89da-9f4e84bc6ca7",
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 195, DateTimeKind.Local).AddTicks(3447),
                             Email = "user4@example.com",
                             EmailConfirmed = false,
                             FirstName = "Michael",
@@ -970,11 +961,11 @@ namespace Shop.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ad356f3-b7d0-4475-ad1c-06cd5b20c5b7"),
+                            Id = new Guid("5fbb093d-0102-4217-a409-499bfab2561b"),
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1992, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "58dcb12a-78e4-4ce1-a3cd-eaa053435725",
-                            CreationDate = new DateTime(2024, 4, 8, 15, 59, 19, 613, DateTimeKind.Local).AddTicks(2903),
+                            ConcurrencyStamp = "925045b9-65eb-4d73-a473-966748814666",
+                            CreationDate = new DateTime(2024, 4, 13, 18, 10, 8, 195, DateTimeKind.Local).AddTicks(3461),
                             Email = "user5@example.com",
                             EmailConfirmed = false,
                             FirstName = "Sophia",
@@ -1027,54 +1018,54 @@ namespace Shop.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("07802b9c-9f6b-4148-a8f6-81962f5c2853"),
+                            Id = new Guid("a44d0c52-66df-4c32-8fb0-1dcf1ac98435"),
                             ApartmentNumber = 1,
                             BuildingNumber = 123,
                             City = "Metropolis",
                             District = "Downtown",
-                            IdUser = new Guid("c984869c-00ad-4ac7-8d14-68b67a9e4160"),
+                            IdUser = new Guid("abba367b-73c9-45f8-9ae7-edd7c6b1aaa6"),
                             StreetName = "Main Street",
                             ZipCode = "12345"
                         },
                         new
                         {
-                            Id = new Guid("83ad25a6-0fc1-49c2-9cd9-843c51f7c6f8"),
+                            Id = new Guid("b2e1de73-4e54-459d-9d34-0b6aa6238f98"),
                             BuildingNumber = 456,
                             City = "Smalltown",
                             District = "Suburb",
-                            IdUser = new Guid("9d31d474-a728-45b6-ad78-6cc88a6bbdd5"),
+                            IdUser = new Guid("e79e8064-0ea1-4d4c-a2ed-0ecd14b50954"),
                             StreetName = "Elm Street",
                             ZipCode = "54321"
                         },
                         new
                         {
-                            Id = new Guid("5a63dc43-0d35-4d0f-86e9-b9bbd714f91f"),
+                            Id = new Guid("f1d21b3c-0371-4747-8933-526c82f1c4fb"),
                             ApartmentNumber = 3,
                             BuildingNumber = 789,
                             City = "Village",
                             District = "Riverside",
-                            IdUser = new Guid("22ec9013-36be-45d5-a0d5-4717b9a89aac"),
+                            IdUser = new Guid("3ef236fb-e67d-4d74-9523-2077da789840"),
                             StreetName = "Oak Avenue",
                             ZipCode = "67890"
                         },
                         new
                         {
-                            Id = new Guid("14e89498-80f9-4bc8-9628-ddc160674072"),
+                            Id = new Guid("1d9f1824-b167-42b8-9096-91395e288e56"),
                             BuildingNumber = 1011,
                             City = "Hamlet",
                             District = "Hillside",
-                            IdUser = new Guid("44db9987-da19-4703-a0dc-857e61449ce0"),
+                            IdUser = new Guid("e3a91494-3b73-4f0d-9e85-a40346c058a6"),
                             StreetName = "Cedar Road",
                             ZipCode = "09876"
                         },
                         new
                         {
-                            Id = new Guid("bb11165a-fad8-4196-9ff7-d08d30c767b1"),
+                            Id = new Guid("89bf2585-cad1-4a26-9748-b9218dc5a5f2"),
                             ApartmentNumber = 2,
                             BuildingNumber = 1213,
                             City = "Village",
                             District = "Forest",
-                            IdUser = new Guid("8ad356f3-b7d0-4475-ad1c-06cd5b20c5b7"),
+                            IdUser = new Guid("5fbb093d-0102-4217-a409-499bfab2561b"),
                             StreetName = "Pine Lane",
                             ZipCode = "13579"
                         });

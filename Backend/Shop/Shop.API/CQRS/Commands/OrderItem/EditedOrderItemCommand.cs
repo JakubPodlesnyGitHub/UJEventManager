@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.OrderItem
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.OrderItem
 {
-    public class EditedOrderItemCommand : ICommandBase
+    public class EditedOrderItemCommand : IRequest<OrderItemDTO>
     {
         public Guid Id { get; set; }
         public int Quantity { get; set; }
@@ -8,7 +11,7 @@
         public Guid IdProduct { get; set; }
         public Guid IdOrder { get; set; }
 
-        public EditedOrderItemCommand(Guid id,int quantity, double price, Guid idProduct, Guid idOrder)
+        public EditedOrderItemCommand(Guid id, int quantity, double price, Guid idProduct, Guid idOrder)
         {
             Id = id;
             Quantity = quantity;

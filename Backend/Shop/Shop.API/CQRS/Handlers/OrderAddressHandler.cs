@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MediatR;
 using Shop.API.CQRS.Commands.OrderAddress;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.OrderAddress;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
@@ -9,23 +9,29 @@ using Shop.Shared.Dtos.Response;
 namespace Shop.API.CQRS.Handlers
 {
     public class OrderAddressHandler :
-        IQueryBaseHandler<GetOrderAdderssesQuery, IList<OrderAddressDTO>>,
-        IQueryBaseHandler<GetOrderAddressByIdQuery, OrderAddressDTO>,
-        ICommandBaseHandler<AddedOrderAddressCommand, OrderAddressDTO>,
-        ICommandBaseHandler<EditedOrderAddressCommand, OrderAddressDTO>,
-        ICommandBaseHandler<DeletedOrderAddressCommand, OrderAddressDTO>
+        IRequestHandler<GetOrderAdderssesQuery, IList<OrderAddressDTO>>,
+        IRequestHandler<GetOrderAddressByIdQuery, OrderAddressDTO>,
+        IRequestHandler<AddedOrderAddressCommand, OrderAddressDTO>,
+        IRequestHandler<EditedOrderAddressCommand, OrderAddressDTO>,
+        IRequestHandler<DeletedOrderAddressCommand, OrderAddressDTO>
     {
         private readonly IOrderAddressRepository _orderAddressRepository;
         private readonly IMapper _mapper;
 
-        public async Task<IList<OrderAddressDTO>> HandleAsync(GetOrderAdderssesQuery command)
+        public OrderAddressHandler(IOrderAddressRepository orderAddressRepository, IMapper mapper)
         {
-            return _mapper.Map<IList<OrderAddressDTO>>(await _orderAddressRepository.GetAll());
+            _orderAddressRepository = orderAddressRepository;
+            _mapper = mapper;
         }
 
-        public async Task<OrderAddressDTO> HandleAsync(GetOrderAddressByIdQuery command)
+        public async Task<IList<OrderAddressDTO>> Handle(GetOrderAdderssesQuery request, CancellationToken cancellationToken)
         {
-            var searchOrderAddress = await _orderAddressRepository.GetById(command.Id);
+            return _mapper.Map<IList<OrderAddressDTO>>(await _orderAddressRepository.GetOrderAddressesWithShopOrders());
+        }
+
+        public async Task<OrderAddressDTO> Handle(GetOrderAddressByIdQuery request, CancellationToken cancellationToken)
+        {
+            var searchOrderAddress = await _orderAddressRepository.GetOrderAddressByIdWithShopOrders(request.Id);
             if (searchOrderAddress is null)
             {
                 throw new NotImplementedException();
@@ -33,39 +39,39 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<OrderAddressDTO>(searchOrderAddress);
         }
 
-        public async Task<OrderAddressDTO> HandleAsync(AddedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> Handle(AddedOrderAddressCommand request, CancellationToken cancellationToken)
         {
-            _orderAddressRepository.Insert(_mapper.Map<OrderAddress>(command));
+            _orderAddressRepository.Insert(_mapper.Map<OrderAddress>(request));
             await _orderAddressRepository.Commit();
-            return _mapper.Map<OrderAddressDTO>(command);
+            return _mapper.Map<OrderAddressDTO>(request);
         }
 
-        public async Task<OrderAddressDTO> HandleAsync(EditedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> Handle(EditedOrderAddressCommand request, CancellationToken cancellationToken)
         {
-            var orderAddress = await _orderAddressRepository.GetById(command.Id);
+            var orderAddress = await _orderAddressRepository.GetById(request.Id);
             if (orderAddress is null)
             {
                 throw new NotImplementedException();
             }
 
-            orderAddress.StreetName = command.StreetName;
-            orderAddress.BuildingNumber = command.BuildingNumber;
-            if (command.ApartmentNumber is not null)
+            orderAddress.StreetName = request.StreetName;
+            orderAddress.BuildingNumber = request.BuildingNumber;
+            if (request.ApartmentNumber is not null)
             {
-                orderAddress.ApartmentNumber = command.ApartmentNumber;
+                orderAddress.ApartmentNumber = request.ApartmentNumber;
             }
-            orderAddress.ZipCode = command.ZipCode;
-            orderAddress.District = command.District;
-            orderAddress.City = command.City;
+            orderAddress.ZipCode = request.ZipCode;
+            orderAddress.District = request.District;
+            orderAddress.City = request.City;
 
             _orderAddressRepository.Update(orderAddress);
             await _orderAddressRepository.Commit();
             return _mapper.Map<OrderAddressDTO>(orderAddress);
         }
 
-        public async Task<OrderAddressDTO> HandleAsync(DeletedOrderAddressCommand command)
+        public async Task<OrderAddressDTO> Handle(DeletedOrderAddressCommand request, CancellationToken cancellationToken)
         {
-            var orderAddress = await _orderAddressRepository.GetById(command.Id);
+            var orderAddress = await _orderAddressRepository.GetById(request.Id);
             if (orderAddress is null)
             {
                 throw new NotImplementedException();

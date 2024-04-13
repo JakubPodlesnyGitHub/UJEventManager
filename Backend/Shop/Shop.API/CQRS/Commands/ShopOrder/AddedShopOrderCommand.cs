@@ -1,8 +1,10 @@
-﻿using Shop.Domain.Enums;
+﻿using MediatR;
+using Shop.Domain.Enums;
+using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.CQRS.Commands.ShopOrder
 {
-    public class AddedShopOrderCommand : ICommandBase
+    public class AddedShopOrderCommand : IRequest<ShopOrderDTO>
     {
         public string Name { get; set; }
         public string OrderCode { get; set; }

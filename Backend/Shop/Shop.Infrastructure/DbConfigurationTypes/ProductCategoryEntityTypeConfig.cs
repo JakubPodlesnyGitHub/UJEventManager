@@ -23,6 +23,9 @@ namespace Shop.Infrastructure.DbConfigurationTypes
                 .HasForeignKey(pc => pc.IdCategory)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            builder.Navigation(b => b.ProductNavigation).AutoInclude();
+            builder.Navigation(b => b.CategoryNavigation).AutoInclude();
+
             builder.HasData(SeedDataProvider.ProductsCategoriesSeed);
         }
     }

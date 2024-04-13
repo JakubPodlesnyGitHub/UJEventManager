@@ -11,7 +11,9 @@ namespace Shop.API.Mappings
         public ProducatCategoryProfile()
         {
             CreateMap<ProductCategoryDTO, ProductCategory>();
-            CreateMap<ProductCategory, ProductCategoryDTO>();
+            CreateMap<ProductCategory, ProductCategoryDTO>()
+                .ForPath(d => d.Product, o => o.MapFrom(s => s.ProductNavigation))
+                .ForPath(d => d.Category, o => o.MapFrom(s => s.CategoryNavigation));
             CreateMap<AddedProductCategoryCommand, ProductCategory>();
             CreateMap<EditedProductCommand, ProductCategory>();
         }

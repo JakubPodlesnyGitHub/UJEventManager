@@ -20,7 +20,7 @@ namespace Shop.Infrastructure.Services
             _configuration = configuration;
         }
 
-        public async Task<NBPReadModel> GetSupportedCurrenciesRatesAsync()
+        public async Task<List<ExchangeRateTable>> GetSupportedCurrenciesRatesAsync()
         {
             HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(_configuration.GetSection("NBP:URL").Value);
             string response = string.Empty;
@@ -32,11 +32,11 @@ namespace Shop.Infrastructure.Services
             return null;
         }
 
-        private NBPReadModel DeserializeJson(string json)
+        private List<ExchangeRateTable> DeserializeJson(string json)
         {
             var options = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = false
+                PropertyNameCaseInsensitive = true
             };
 
             if (string.IsNullOrEmpty(json))
@@ -44,7 +44,7 @@ namespace Shop.Infrastructure.Services
                 return default;
             }
 
-            return JsonSerializer.Deserialize<NBPReadModel>(json, options);
+            return JsonSerializer.Deserialize<List<ExchangeRateTable>>(json, options);
         }
     }
 }

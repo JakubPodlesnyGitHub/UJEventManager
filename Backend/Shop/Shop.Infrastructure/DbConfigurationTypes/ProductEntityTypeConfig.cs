@@ -13,7 +13,6 @@ namespace Shop.Infrastructure.DbConfigurationTypes
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property(p => p.Name).IsRequired();
-            builder.Property(p => p.Category).IsRequired();
             builder.Property(p => p.CodeNumber).IsRequired().HasMaxLength(6);
             builder.Property(p => p.SeriesNumber).IsRequired().HasMaxLength(8);
             builder.Property(p => p.Description).HasMaxLength(5000);

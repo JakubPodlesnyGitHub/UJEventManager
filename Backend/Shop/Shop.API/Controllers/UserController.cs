@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.User;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.User;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -10,38 +9,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetUser([FromServices] IQueryBaseHandler<GetUsersQuery, IList<UserDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public UserController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetUsersQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUser()
+        {
+            var result = await _mediator.Send(new GetUsersQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetUserById(Guid id, [FromServices] IQueryBaseHandler<GetUserByIdQuery, UserDTO> handler)
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetUserByIdQuery(id));
+            var result = await _mediator.Send(new GetUserByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddUser([FromServices] ICommandBaseHandler<AddedUserCommand, UserDTO> handler, [FromBody] AddedUserCommand command)
+        public async Task<IActionResult> AddUser([FromBody] AddedUserCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeleteUser(Guid id, [FromServices] ICommandBaseHandler<DeletedUserCommand, UserDTO> handler)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedUserCommand(id));
+            var result = await _mediator.Send(new DeletedUserCommand(id));
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromServices] ICommandBaseHandler<EditedUserCommand, UserDTO> handler, [FromBody] EditedUserCommand command)
+        public async Task<IActionResult> UpdateUser([FromBody] EditedUserCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

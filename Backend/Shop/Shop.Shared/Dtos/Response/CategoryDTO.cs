@@ -4,6 +4,6 @@
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IList<ProductCategoryDTO> ProductCategories { get; set; }
+        public IList<ProductDTO> Products { get; set; }
     }
 }
