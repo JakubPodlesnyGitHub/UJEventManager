@@ -1,0 +1,83 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/all"
+    },
+    "httpResponse": {
+      "body": [
+        {
+          "id": "1",
+          "name": "someName"
+        },
+        {
+          "id": "2",
+          "name": "someName2"
+        },
+        {
+          "id": "3",
+          "name": "someName3"
+        },
+        {
+          "id": "4",
+          "name": "someName4"
+        },
+        {
+          "id": "5",
+          "name": "someName5"
+        },
+        {
+          "id": "6",
+          "name": "someName6"
+        },
+        {
+          "id": "7",
+          "name": "someName7"
+        },
+        {
+          "id": "8",
+          "name": "someName8"
+        },
+        {
+          "id": "9",
+          "name": "someName9"
+        },
+        {
+          "id": "10",
+          "name": "someName10"
+        },
+        {
+          "id": "11",
+          "name": "someName11"
+        }
+      ],
+      "statusCode": 200
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/product/.*"
+    },
+    "httpResponse": {
+      "body": {
+        "id": "1",
+        "name": "product name",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum varius erat nunc, eget posuere elit lacinia et. Curabitur hendrerit, risus non elementum fermentum, erat quam ullamcorper urna, et consequat ex felis vitae tellus. Vivamus lacinia quam quam, eu pharetra risus ullamcorper ac. Maecenas sodales, enim vitae vulputate dictum, quam enim vulputate lacus, viverra finibus quam nunc dapibus lacus. Ut quis ipsum et odio viverra porttitor in sit amet quam."
+      },
+      "statusCode": 200
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/user/checkout"
+    },
+    "httpResponse": {
+      "body": {
+        "price": "50zł"
+      },
+      "statusCode": 200
+    }
+  }
+]

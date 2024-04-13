@@ -1,0 +1,182 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-light-color: #fcf8ed;
+  --main-light-color-lighter: #ffffff;
+  --main-light-contrast-color: #b7ccc5;
+  --main-font-color: #ffffff;
+  --main-dark-color: #117252;
+  --main-dark-color-deep: #03543a;
+}
+
+body,
+#root {
+  height: 100vh;
+  margin: 0;
+}
+
+body,
+input,
+select,
+textarea {
+  font-size: 1.6rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+header {
+  grid-area: header;
+  background-color: var(--main-light-color);
+  color: var(--main-dark-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 3.5rem;
+}
+
+header a {
+  color: var(--main-dark-color);
+  text-decoration: none;
+}
+
+main {
+  grid-area: main;
+  background-color: var(--main-light-color);
+}
+
+footer {
+  grid-area: footer;
+  background-color: var(--main-light-contrast-color);
+  color: var(--main-font-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary {
+  color: var(--main-dark-color);
+  background-color: var(--main-light-color);
+  border-color: var(--main-dark-color);
+}
+
+.btn-primary:hover {
+  color: var(--main-dark-color);
+  background-color: var(--main-light-contrast-color);
+  border-color: var(--main-dark-color);
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem var(--main-light-color-lighter);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: var(--main-light-contrast-color);
+  background-color: var(--main-light-contrast-color);
+  border-color: var(--main-light-contrast-color);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem var(--main-light-contrast-color);
+}
+
+.btn-xl {
+  padding: 1rem 8rem;
+  font-size: 2rem;
+  border-radius: 5rem;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary.focus,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+  color: var(--main-light-color-lighter);
+  background-color: var(--main-light-color-lighter);
+  border-color: var(--main-light-color-lighter);
+  box-shadow: none;
+}
+
+.card {
+  background-color: var(--main-light-color-lighter);
+  border: var(--main-dark-color);
+}
+
+.card-img-top {
+  max-width: 20rem;
+  max-height: 30rem;
+}
+
+.allign_centrally {
+  text-align: center;
+  margin: auto;
+}
+
+.centred_form {
+  width: 50vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window_line {
+  border: 5px solid var(--main-dark-color);
+}
+
+.bar_line {
+  border-left: 1px solid var(--main-light-color);
+  height: 3rem;
+  margin-right: 2rem;
+  margin-left: 3rem;
+}
+
+.form_title {
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.between_fields_spacing {
+  margin-bottom: 2rem;
+}
+
+.frame_spacing {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.centered {
+  display: grid;
+  place-items: center;
+}
+
+.navbar {
+  background-color: var(--main-dark-color);
+  color: var(--main-font-color);
+  font-size: 2rem;
+}
