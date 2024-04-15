@@ -45,7 +45,7 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateUserAddress([FromServices] IRequestHandler<EdditedUserAdressCommand, UserAddressDTO> handler, [FromBody] EdditedUserAdressCommand command)
         {
             var result = await _mediator.Send(command);
