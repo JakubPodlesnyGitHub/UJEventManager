@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.Product;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Product;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -10,38 +9,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetProducts([FromServices] IQueryBaseHandler<GetProductsQuery, IList<ProductDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public ProductController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetProductsQuery());
+            this._mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var result = await _mediator.Send(new GetProductsQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetProductById(Guid id, [FromServices] IQueryBaseHandler<GetProductByIdQuery, ProductDTO> handler)
+        public async Task<IActionResult> GetProductById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetProductByIdQuery(id));
+            var result = await _mediator.Send(new GetProductByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddProduct([FromServices] ICommandBaseHandler<AddedProductCommand, ProductDTO> handler, [FromBody] AddedProductCommand command)
+        public async Task<IActionResult> AddProduct([FromBody] AddedProductCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeleteProduct(Guid id, [FromServices] ICommandBaseHandler<DeletedProductCommand, ProductDTO> handler)
+        public async Task<IActionResult> DeleteProduct(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedProductCommand(id));
+            var result = await _mediator.Send(new DeletedProductCommand(id));
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromServices] ICommandBaseHandler<EditedProductCommand, ProductDTO> handler, [FromBody] EditedProductCommand command)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateProduct([FromBody] EditedProductCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

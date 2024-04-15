@@ -8,6 +8,8 @@ namespace Shop.Infrastructure.Configuration
         public static IServiceCollection AddInfrastructureLayerConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddRepositoriesConfiguration(configuration);
+            services.AddAuthConfiguration(configuration);
+            services.AddServicesConfiguration();
             return services;
         }
     }

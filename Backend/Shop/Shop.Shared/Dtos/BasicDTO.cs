@@ -6,5 +6,6 @@
         public object? ObjectName { get; set; }
         public string? ErrorDetails { get; set; }
         public string? ExceptionName { get; set; }
+        public string? SuccessMessage { get; set; }
     }
 }

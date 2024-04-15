@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.User
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.User
 {
-    public class AddedUserCommand : ICommandBase
+    public class AddedUserCommand : IRequest<UserDTO>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

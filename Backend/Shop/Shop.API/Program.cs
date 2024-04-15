@@ -4,6 +4,8 @@ using Shop.API.Configuration;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Configuration;
 using Shop.Infrastructure.DbContexts;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +17,10 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>()
 builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
-builder.Services.AddControllersWithViews(options =>
+builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 {
-    options.Filters.Add<ApiExceptionFilter>();
+    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    opt.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +31,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopAPI");
+    });
 }
 
 app.UseHttpsRedirection();

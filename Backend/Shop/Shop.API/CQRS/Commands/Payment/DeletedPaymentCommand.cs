@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Payment
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Payment
 {
-    public class DeletedPaymentCommand : ICommandBase
+    public class DeletedPaymentCommand : IRequest<PaymentDTO>
     {
         public Guid Id { get; set; }
 

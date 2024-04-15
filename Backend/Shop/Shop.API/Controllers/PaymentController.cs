@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.Payment;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Payment;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -10,38 +9,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetPayment([FromServices] IQueryBaseHandler<GetPaymentsQuery, IList<PaymentDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public PaymentController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetPaymentsQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPayment()
+        {
+            var result = await _mediator.Send(new GetPaymentsQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetPaymentById(Guid id, [FromServices] IQueryBaseHandler<GetPaymentByIdQuery, PaymentDTO> handler)
+        public async Task<IActionResult> GetPaymentById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetPaymentByIdQuery(id));
+            var result = await _mediator.Send(new GetPaymentByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddOrderItem([FromServices] ICommandBaseHandler<AddedPaymentCommand, PaymentDTO> handler, [FromBody] AddedPaymentCommand command)
+        public async Task<IActionResult> AddOrderItem([FromBody] AddedPaymentCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeletePayment(Guid id, [FromServices] ICommandBaseHandler<DeletedPaymentCommand, PaymentDTO> handler)
+        public async Task<IActionResult> DeletePayment(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedPaymentCommand(id));
+            var result = await _mediator.Send(new DeletedPaymentCommand(id));
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdatePayment([FromServices] ICommandBaseHandler<EditedPaymentCommand, PaymentDTO> handler, [FromBody] EditedPaymentCommand command)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdatePayment([FromBody] EditedPaymentCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

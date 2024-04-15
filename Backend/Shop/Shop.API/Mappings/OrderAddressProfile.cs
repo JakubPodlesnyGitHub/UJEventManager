@@ -9,7 +9,8 @@ namespace Shop.API.Mappings
     {
         public OrderAddressProfile()
         {
-            CreateMap<OrderAddress, OrderAddressDTO>();
+            CreateMap<OrderAddress, OrderAddressDTO>()
+                .ForPath(d => d.ShopOrders, o => o.MapFrom(s => s.ShopOrdersNavigation));
             CreateMap<OrderAddressDTO, OrderAddress>();
             CreateMap<AddedOrderAddressCommand, OrderAddress>();
             CreateMap<EditedOrderAddressCommand, OrderAddress>();

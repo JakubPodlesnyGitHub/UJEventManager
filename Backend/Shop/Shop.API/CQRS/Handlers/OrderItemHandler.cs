@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MediatR;
 using Shop.API.CQRS.Commands.OrderItem;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.OrderItem;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
@@ -9,11 +9,11 @@ using Shop.Shared.Dtos.Response;
 namespace Shop.API.CQRS.Handlers
 {
     public class OrderItemHandler :
-        IQueryBaseHandler<GetOrderItemsQuery, IList<OrderItemDTO>>,
-        IQueryBaseHandler<GetOrderItemQueryById, OrderItemDTO>,
-        ICommandBaseHandler<AddedOrderItemCommand, OrderItemDTO>,
-        ICommandBaseHandler<EditedOrderItemCommand, OrderItemDTO>,
-        ICommandBaseHandler<DeletedOrderItemCommand, OrderItemDTO>
+        IRequestHandler<GetOrderItemsQuery, IList<OrderItemDTO>>,
+        IRequestHandler<GetOrderItemQueryById, OrderItemDTO>,
+        IRequestHandler<AddedOrderItemCommand, OrderItemDTO>,
+        IRequestHandler<EditedOrderItemCommand, OrderItemDTO>,
+        IRequestHandler<DeletedOrderItemCommand, OrderItemDTO>
     {
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly IMapper _mapper;
@@ -24,14 +24,14 @@ namespace Shop.API.CQRS.Handlers
             _mapper = mapper;
         }
 
-        public async Task<IList<OrderItemDTO>> HandleAsync(GetOrderItemsQuery command)
+        public async Task<IList<OrderItemDTO>> Handle(GetOrderItemsQuery request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<IList<OrderItemDTO>>(await _orderItemRepository.GetAll());
+            return _mapper.Map<IList<OrderItemDTO>>(await _orderItemRepository.GetOrderItemsWithOrdersAndProducts());
         }
 
-        public async Task<OrderItemDTO> HandleAsync(GetOrderItemQueryById command)
+        public async Task<OrderItemDTO> Handle(GetOrderItemQueryById request, CancellationToken cancellationToken)
         {
-            var searchOrderItem = await _orderItemRepository.GetById(command.Id);
+            var searchOrderItem = await _orderItemRepository.GetOrderItemByIdWithOrdersAndProducts(request.Id);
             if (searchOrderItem is null)
             {
                 throw new NotImplementedException();
@@ -39,24 +39,24 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<OrderItemDTO>(searchOrderItem);
         }
 
-        public async Task<OrderItemDTO> HandleAsync(AddedOrderItemCommand command)
+        public async Task<OrderItemDTO> Handle(AddedOrderItemCommand request, CancellationToken cancellationToken)
         {
-            var orderItem = _orderItemRepository.Insert(_mapper.Map<OrderItem>(command));
+            var orderItem = _orderItemRepository.Insert(_mapper.Map<OrderItem>(request));
             await _orderItemRepository.Commit();
             return _mapper.Map<OrderItemDTO>(orderItem);
         }
 
-        public async Task<OrderItemDTO> HandleAsync(EditedOrderItemCommand command)
+        public async Task<OrderItemDTO> Handle(EditedOrderItemCommand request, CancellationToken cancellationToken)
         {
-            var orderItem = await _orderItemRepository.GetById(command.Id);
+            var orderItem = await _orderItemRepository.GetById(request.Id);
             if (orderItem is null)
             {
                 throw new NotImplementedException();
             }
-            orderItem.Price = command.Price;
-            orderItem.Quantity = command.Quantity;
-            orderItem.IdProduct = command.IdProduct;
-            orderItem.IdOrder = command.IdOrder;
+            orderItem.Price = request.Price;
+            orderItem.Quantity = request.Quantity;
+            orderItem.IdProduct = request.IdProduct;
+            orderItem.IdOrder = request.IdOrder;
 
             _orderItemRepository.Update(orderItem);
             await _orderItemRepository.Commit();
@@ -64,9 +64,9 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<OrderItemDTO>(orderItem);
         }
 
-        public async Task<OrderItemDTO> HandleAsync(DeletedOrderItemCommand command)
+        public async Task<OrderItemDTO> Handle(DeletedOrderItemCommand request, CancellationToken cancellationToken)
         {
-            var orderItem = await _orderItemRepository.GetById(command.Id);
+            var orderItem = await _orderItemRepository.GetById(request.Id);
             if (orderItem is null)
             {
                 throw new NotImplementedException();

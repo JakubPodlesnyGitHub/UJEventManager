@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.UserAddress;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.UserAddress;
 using Shop.Shared.Dtos.Response;
 
@@ -10,38 +10,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class UserAddressController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetUserAddresses([FromServices] IQueryBaseHandler<GetUserAddressesQuery, IList<UserAddressDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public UserAddressController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetUserAddressesQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserAddresses()
+        {
+            var result = await _mediator.Send(new GetUserAddressesQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetUserAddressById(Guid id, [FromServices] IQueryBaseHandler<GetUserAddressByIdQuery, UserAddressDTO> handler)
+        public async Task<IActionResult> GetUserAddressById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetUserAddressByIdQuery(id));
+            var result = await _mediator.Send(new GetUserAddressByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddUserAddress([FromServices] ICommandBaseHandler<AddedUserAddressCommand, UserAddressDTO> handler, [FromBody] AddedUserAddressCommand command)
+        public async Task<IActionResult> AddUserAddress([FromBody] AddedUserAddressCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeleteUserAddress(Guid id, [FromServices] ICommandBaseHandler<DeletedUserAdressCommand, UserAddressDTO> handler)
+        public async Task<IActionResult> DeleteUserAddress(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedUserAdressCommand(id));
+            var result = await _mediator.Send(new DeletedUserAdressCommand(id));
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUserAddress([FromServices] ICommandBaseHandler<EdditedUserAdressCommand, UserAddressDTO> handler, [FromBody] EdditedUserAdressCommand command)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateUserAddress([FromServices] IRequestHandler<EdditedUserAdressCommand, UserAddressDTO> handler, [FromBody] EdditedUserAdressCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

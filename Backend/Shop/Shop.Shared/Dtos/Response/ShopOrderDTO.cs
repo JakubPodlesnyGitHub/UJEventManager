@@ -9,8 +9,8 @@
         public DateTime ExpectedLeadTime { get; set; }
         public double Total { get; set; }
         public string Status { get; set; }
-        public IList<UserAddressDTO> UserAddresses { get; set; }
-        public IList<OrderItemDTO> ShopOrderItems { get; set; }
+        public PaymentDTO Payment { get; set; }
+        public IList<OrderItemDTO> OrderItems { get; set; }
         public OrderAddressDTO OrderAddress { get; set; }
         public UserDTO User { get; set; }
     }

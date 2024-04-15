@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MediatR;
 using Shop.API.CQRS.Commands.PorductAvailability;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.PorductAvailability;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
@@ -9,11 +9,11 @@ using Shop.Shared.Dtos.Response;
 namespace Shop.API.CQRS.Handlers
 {
     public class ProductAvailabilityHandler :
-        IQueryBaseHandler<GetProductAvailabilitiesQuery, IList<ProductAvailabilityDTO>>,
-        IQueryBaseHandler<GetProductAvailabilityByIdQuery, ProductAvailabilityDTO>,
-        ICommandBaseHandler<AddedProductAvailabilityCommand, ProductAvailabilityDTO>,
-        ICommandBaseHandler<EditedProductAvailabilityCommand, ProductAvailabilityDTO>,
-        ICommandBaseHandler<DeletedProductAvailabilityCommand, ProductAvailabilityDTO>
+        IRequestHandler<GetProductAvailabilitiesQuery, IList<ProductAvailabilityDTO>>,
+        IRequestHandler<GetProductAvailabilityByIdQuery, ProductAvailabilityDTO>,
+        IRequestHandler<AddedProductAvailabilityCommand, ProductAvailabilityDTO>,
+        IRequestHandler<EditedProductAvailabilityCommand, ProductAvailabilityDTO>,
+        IRequestHandler<DeletedProductAvailabilityCommand, ProductAvailabilityDTO>
     {
         private readonly IMapper _mapper;
         private readonly IProductAvailabilityRepository _productAvailabilityRepository;
@@ -24,15 +24,15 @@ namespace Shop.API.CQRS.Handlers
             _productAvailabilityRepository = productAvailabilityRepository;
         }
 
-        public async Task<IList<ProductAvailabilityDTO>> HandleAsync(GetProductAvailabilitiesQuery command)
+        public async Task<IList<ProductAvailabilityDTO>> Handle(GetProductAvailabilitiesQuery request, CancellationToken cancellationToken)
         {
-            var productAvailabilities = await _productAvailabilityRepository.GetAll();
+            var productAvailabilities = await _productAvailabilityRepository.GetProductsAvailabilitiesWithProducts();
             return _mapper.Map<IList<ProductAvailabilityDTO>>(productAvailabilities);
         }
 
-        public async Task<ProductAvailabilityDTO> HandleAsync(GetProductAvailabilityByIdQuery command)
+        public async Task<ProductAvailabilityDTO> Handle(GetProductAvailabilityByIdQuery request, CancellationToken cancellationToken)
         {
-            var productAvailability = await _productAvailabilityRepository.GetById(command.Id);
+            var productAvailability = await _productAvailabilityRepository.GetProductAvailabilityByIdWithProduct(request.Id);
             if (productAvailability is null)
             {
                 throw new NotImplementedException();
@@ -40,33 +40,33 @@ namespace Shop.API.CQRS.Handlers
             return _mapper.Map<ProductAvailabilityDTO>(productAvailability);
         }
 
-        public async Task<ProductAvailabilityDTO> HandleAsync(AddedProductAvailabilityCommand command)
+        public async Task<ProductAvailabilityDTO> Handle(AddedProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            var productAvailability = _productAvailabilityRepository.Insert(_mapper.Map<ProductAvailability>(command));
+            var productAvailability = _productAvailabilityRepository.Insert(_mapper.Map<ProductAvailability>(request));
             await _productAvailabilityRepository.Commit();
             return _mapper.Map<ProductAvailabilityDTO>(productAvailability);
         }
 
-        public async Task<ProductAvailabilityDTO> HandleAsync(EditedProductAvailabilityCommand command)
+        public async Task<ProductAvailabilityDTO> Handle(EditedProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            var productAvailability = await _productAvailabilityRepository.GetById(command.Id);
+            var productAvailability = await _productAvailabilityRepository.GetById(request.Id);
             if (productAvailability is null)
             {
                 throw new NotImplementedException();
             }
 
-            productAvailability.Availability = command.Availability;
-            productAvailability.Status = command.Status;
-            productAvailability.IdProduct = command.IdProduct;
+            productAvailability.Availability = request.Availability;
+            productAvailability.Status = request.Status;
+            productAvailability.IdProduct = request.IdProduct;
 
             _productAvailabilityRepository.Update(productAvailability);
             await _productAvailabilityRepository.Commit();
             return _mapper.Map<ProductAvailabilityDTO>(productAvailability);
         }
 
-        public async Task<ProductAvailabilityDTO> HandleAsync(DeletedProductAvailabilityCommand command)
+        public async Task<ProductAvailabilityDTO> Handle(DeletedProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            var productAvailability = await _productAvailabilityRepository.GetById(command.Id);
+            var productAvailability = await _productAvailabilityRepository.GetById(request.Id);
             if (productAvailability is null)
             {
                 throw new NotImplementedException();

@@ -9,7 +9,9 @@ namespace Shop.API.Mappings
     {
         public PaymentProfile()
         {
-            CreateMap<Payment, PaymentDTO>();
+            CreateMap<Payment, PaymentDTO>()
+                .ForPath(d => d.ShopOrders, o => o.MapFrom(s => s.ShopOrdersNavigation))
+                .ForPath(d => d.User, o => o.MapFrom(s => s.UserNavigation));
             CreateMap<PaymentDTO, Payment>();
             CreateMap<AddedPaymentCommand, Payment>();
             CreateMap<EditedPaymentCommand, Payment>();

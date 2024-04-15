@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.ProductCategory;
 using Shop.API.CQRS.Commands.UserAddress;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.ProductCategory;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -11,38 +10,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class ProductCategoryController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetProductsCategories([FromServices] IQueryBaseHandler<GetProductsCategoriesQuery, IList<ProductCategoryDTO>> handler)
+        public readonly IMediator _mediator;
+
+        public ProductCategoryController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetProductsCategoriesQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsCategories()
+        {
+            var result = await _mediator.Send(new GetProductsCategoriesQuery());
             return Ok(result);
         }
 
         [HttpGet("product-category")]
-        public async Task<IActionResult> GetProductCategoryByIds([FromServices] IQueryBaseHandler<GetProdcutCategoryByIdsQuery, ProductCategoryDTO> handler, GetProdcutCategoryByIdsQuery query)
+        public async Task<IActionResult> GetProductCategoryByIds(GetProdcutCategoryByIdsQuery query)
         {
-            var result = await handler.HandleAsync(query);
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddProductCategory([FromServices] ICommandBaseHandler<AddedProductCategoryCommand, ProductCategoryDTO> handler, [FromBody] AddedProductCategoryCommand command)
+        public async Task<IActionResult> AddProductCategory([FromBody] AddedProductCategoryCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteProductCategory([FromServices] ICommandBaseHandler<DeletedProductCategoryCommand, ProductCategoryDTO> handler, [FromBody] DeletedProductCategoryCommand command)
+        public async Task<IActionResult> DeleteProductCategory([FromBody] DeletedProductCategoryCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateProductCategory([FromServices] ICommandBaseHandler<EdditedUserAdressCommand, UserAddressDTO> handler, [FromBody] EdditedUserAdressCommand command)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateProductCategory([FromBody] EdditedUserAdressCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

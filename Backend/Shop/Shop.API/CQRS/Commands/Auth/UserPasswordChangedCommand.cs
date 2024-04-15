@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Auth
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Auth
 {
-    public class UserPasswordChangedCommand : ICommandBase
+    public class UserPasswordChangedCommand : IRequest<AuthDTO>
     {
         public Guid Id { get; set; }
         public string OldPassword { get; set; }

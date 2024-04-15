@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.Category;
-using Shop.API.CQRS.Handlers.Interfaces;
 using Shop.API.CQRS.Queries.Category;
-using Shop.Shared.Dtos.Response;
 
 namespace Shop.API.Controllers
 {
@@ -10,38 +9,45 @@ namespace Shop.API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetCategories([FromServices] IQueryBaseHandler<GetCategoriesQuery, IList<CategoryDTO>> handler)
+        private readonly IMediator _mediator;
+
+        public CategoryController(IMediator mediator)
         {
-            var result = await handler.HandleAsync(new GetCategoriesQuery());
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategories()
+        {
+            var result = await _mediator.Send(new GetCategoriesQuery());
             return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetCategoryById(Guid id, [FromServices] IQueryBaseHandler<GetCategoryByIdQuery, CategoryDTO> handler)
+        public async Task<IActionResult> GetCategoryById(Guid id)
         {
-            var result = await handler.HandleAsync(new GetCategoryByIdQuery(id));
+            var result = await _mediator.Send(new GetCategoryByIdQuery(id));
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddCategory([FromServices] ICommandBaseHandler<AddedCategoryCommand, CategoryDTO> handler, [FromBody] AddedCategoryCommand command)
+        public async Task<IActionResult> AddCategory([FromBody] AddedCategoryCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}/delete")]
-        public async Task<IActionResult> DeleteCategory(Guid id, [FromServices] ICommandBaseHandler<DeletedCategoryCommand, CategoryDTO> handler)
+        public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var result = await handler.HandleAsync(new DeletedCategoryCommand(id));
+            var result = await _mediator.Send(new DeletedCategoryCommand(id));
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateCategory([FromServices] ICommandBaseHandler<EditedCategoryCommand, CategoryDTO> handler, [FromBody] EditedCategoryCommand command)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCategory([FromBody] EditedCategoryCommand command)
         {
-            var result = await handler.HandleAsync(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

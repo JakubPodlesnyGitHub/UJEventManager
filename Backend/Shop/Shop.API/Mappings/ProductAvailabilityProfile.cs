@@ -9,7 +9,8 @@ namespace Shop.API.Mappings
     {
         public ProductAvailabilityProfile()
         {
-            CreateMap<ProductAvailability, ProductAvailabilityDTO>();
+            CreateMap<ProductAvailability, ProductAvailabilityDTO>()
+                .ForPath(d => d.Product, o => o.MapFrom(s => s.ProductNavigation));
             CreateMap<ProductAvailabilityDTO, ProductAvailability>();
             CreateMap<AddedProductAvailabilityCommand, ProductAvailability>();
             CreateMap<EditedProductAvailabilityCommand, ProductAvailability>();

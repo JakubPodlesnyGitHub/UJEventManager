@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Category
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Category
 {
-    public class AddedCategoryCommand : ICommandBase
+    public class AddedCategoryCommand : IRequest<CategoryDTO>
     {
         public string Name { get; set; }
 

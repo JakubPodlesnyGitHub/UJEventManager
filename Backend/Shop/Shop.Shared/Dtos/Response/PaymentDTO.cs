@@ -10,6 +10,6 @@
         public Guid IdUser { get; set; }
         public Guid IdShopOrder { get; set; }
         public UserDTO User { get; set; }
-        public IList<PaymentDTO> Payments { get; set; }
+        public IList<ShopOrderDTO> ShopOrders { get; set; }
     }
 }

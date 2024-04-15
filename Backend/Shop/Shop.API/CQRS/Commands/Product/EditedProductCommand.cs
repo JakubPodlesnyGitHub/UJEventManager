@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Commands.Product
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Commands.Product
 {
-    public class EditedProductCommand : ICommandBase
+    public class EditedProductCommand : IRequest<ProductDTO>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,9 +14,8 @@
         public string? Picture { get; set; }
         public double? Rate { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public DateTime CreationDate { get; set; }
 
-        public EditedProductCommand(Guid id, string name, string category, string codeNumber, string seriesNumber, string? description, string? picture, double? rate, DateTime releaseDate, DateTime creationDate)
+        public EditedProductCommand(Guid id, string name, string category, string codeNumber, string seriesNumber, string? description, string? picture, double? rate, DateTime releaseDate)
         {
             Id = id;
             Name = name;
@@ -24,7 +26,6 @@
             Picture = picture;
             Rate = rate;
             ReleaseDate = releaseDate;
-            CreationDate = creationDate;
         }
     }
 }

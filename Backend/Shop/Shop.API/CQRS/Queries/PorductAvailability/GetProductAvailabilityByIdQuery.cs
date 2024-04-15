@@ -1,6 +1,9 @@
-﻿namespace Shop.API.CQRS.Queries.PorductAvailability
+﻿using MediatR;
+using Shop.Shared.Dtos.Response;
+
+namespace Shop.API.CQRS.Queries.PorductAvailability
 {
-    public class GetProductAvailabilityByIdQuery : IQueryBase
+    public class GetProductAvailabilityByIdQuery : IRequest<ProductAvailabilityDTO>
     {
         public Guid Id { get; set; }
 
