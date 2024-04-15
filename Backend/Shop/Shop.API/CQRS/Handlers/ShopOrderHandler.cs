@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Shop.API.CQRS.Commands.Category;
 using Shop.API.CQRS.Commands.ShopOrder;
-using Shop.API.CQRS.Queries.Category;
 using Shop.API.CQRS.Queries.ShopOrder;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
@@ -51,10 +49,29 @@ namespace Shop.API.CQRS.Handlers
         public async Task<ShopOrderDTO> Handle(EditedShopOrderCommand request, CancellationToken cancellationToken)
         {
             var shopOrder = await _shopOrderRepository.GetById(request.Id) ?? throw new NotImplementedException();
-            shopOrder.Name = request.Name;
-            shopOrder.OrderCode = request.OrderCode;
-            shopOrder.Status = request.Status.ToString();
-            shopOrder.ExpectedLeadTime = request.ExpectedLeadTime;
+            if (request.Name is not null)
+            {
+                shopOrder.Name = request.Name;
+            }
+            if (request.OrderCode is not null && !request.OrderCode.Equals(shopOrder.OrderCode))
+            {
+                shopOrder.OrderCode = request.OrderCode;
+            }
+            if (request.ExpectedLeadTime != shopOrder.ExpectedLeadTime)
+            {
+                shopOrder.ExpectedLeadTime = request.ExpectedLeadTime;
+            }
+            if (!request.Total.Equals(shopOrder.Total))
+            {
+                shopOrder.Total = request.Total;
+            }
+            if (!request.Status.Equals(shopOrder.Status))
+            {
+                shopOrder.Status = request.Status.ToString();
+            }
+            shopOrder.IdOrderAddress = request.IdOrderAddress;
+            shopOrder.IdPayment = request.IdPayment;
+
             _shopOrderRepository.Update(shopOrder);
             await _shopOrderRepository.Commit();
             return _mapper.Map<ShopOrderDTO>(shopOrder);
@@ -62,11 +79,7 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<ShopOrderDTO> Handle(DeletedShopOrderCommand request, CancellationToken cancellationToken)
         {
-            var shopOrder = await _shopOrderRepository.GetById(request.Id);
-            if (shopOrder is null)
-            {
-                throw new NotImplementedException();
-            }
+            var shopOrder = await _shopOrderRepository.GetById(request.Id) ?? throw new NotImplementedException();
             await _shopOrderRepository.Delete(shopOrder);
             return _mapper.Map<ShopOrderDTO>(shopOrder);
         }
