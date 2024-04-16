@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Net.Http.Headers;
 using Shop.API.Configuration;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Configuration;
@@ -25,6 +26,14 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
 
+builder.Services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+{
+    builder
+        .AllowAnyOrigin()
+        .WithHeaders(HeaderNames.AccessControlAllowHeaders, "Content-Type")
+        .AllowAnyMethod();
+}));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -37,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("ApiCorsPolicy");
 
 app.UseAuthorization();
 
