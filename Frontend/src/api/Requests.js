@@ -4,7 +4,11 @@ export default function useGetRequest(url) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(url)
+    fetch(url,{
+       headers: {
+         'Content-Type': 'application/json'
+     },
+    })
       .then((res) => res.json())
       .then((res) => {
         setData(res);
