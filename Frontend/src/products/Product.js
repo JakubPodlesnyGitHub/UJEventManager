@@ -21,7 +21,7 @@ function Product(props) {
   return (
 
     <Card style={{ width: "30rem", height: "35rem" }} className="text-center">
-      <Button variant="secondary" size="lg" onClick={handleShow}>
+      <Button style={{ width: "30rem", height: "35rem" }} variant="secondary" size="lg" onClick={handleShow}>
       <Card.Body>
           <Card.Img variant="top" src={props.product["picture"]}  />
         <Card.Title >{props.product["name"]}</Card.Title>
