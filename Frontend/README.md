@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Make sure that server app is running
+
 ## Available Scripts
 To install dependencies run:
 ### `npm install` in `Frontend` subfolder
@@ -14,11 +16,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-## TESTING only UI
-
-Run mockserver using `docker-compose up` command in `mockserver` subfolder
-It is running on 8080 port with dummy data from `initializerJson.json` file
 
 ## FORMATTING
 

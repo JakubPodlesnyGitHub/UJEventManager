@@ -19,15 +19,15 @@ function Product(props) {
   };
 
   return (
-    <Card style={{ width: "30rem", height: "35rem" }} className="text-center">
-      <Card.Body>
-        <Button variant="secondary" size="lg" onClick={handleShow}>
-          <Card.Img variant="top" src="./photos/image.png" />
-        </Button>
 
-        <Card.Title>{props.product["name"]}</Card.Title>
-        <Card.Subtitle>{props.product["id"]}</Card.Subtitle>
+    <Card style={{ width: "30rem", height: "35rem" }} className="text-center">
+      <Button variant="secondary" size="lg" onClick={handleShow}>
+      <Card.Body>
+          <Card.Img variant="top" src={props.product["picture"]}  />
+        <Card.Title >{props.product["name"]}</Card.Title>
       </Card.Body>
+      </Button>
+
 
       <Modal
         show={show}
@@ -40,7 +40,7 @@ function Product(props) {
           <Modal.Title>{props.product["name"]}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Card.Img variant="top" src="./photos/image.png" />
+          <Card.Img variant="top" src={props.product["picture"]} />
           <ProductDescription id={props.product["id"]}></ProductDescription>
         </Modal.Body>
         <Modal.Footer variant="centred" className="allign_centrally">
@@ -50,6 +50,7 @@ function Product(props) {
         </Modal.Footer>
       </Modal>
     </Card>
+
   );
 }
 

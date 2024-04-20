@@ -1,29 +1,20 @@
 import Product from "./Product";
 import useGetRequest from "../api/Requests";
-import { Row, Col, CardGroup, Card, CardTitle, CardImg } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { Row, Col, CardGroup } from "react-bootstrap";
 
 export default function ProductsView() {
 
-  const [isLoading, setIsLoading] = useState(false);
-  const data = useGetRequest("https://localhost:44398/api/Product");
+  const data = useGetRequest("http://localhost:5164/api/Product");
 
-  const products = data.map((val) => <Product idx={val["name"]} product={val} />);
-
+  const products = data.map((val) => <Product key={val["id"]} product={val} />);
 
   return (
-      <Row style={{padding: '5px'}} xs={2} md={5} className="g-4">
-        {Array.from(products).map((el, idx) => (
-          <Col key={idx}>
-            <Card>
-              <CardImg src={el.props.product.picture}></CardImg>
-              <Card.Body>
-                <CardTitle>{el.props.idx}</CardTitle>
-                <Card.Text>{el.props.product.description}</Card.Text>
-              </Card.Body>
-              </Card>
-          </Col>
-        ))}
-      </Row>
+      <CardGroup className="products_view">
+        <Row xs={"auto"} md={"auto"} className="g-4">
+          {Array.from(products).map((el, idx) => (
+              <Col key={idx}> {el} </Col>
+          ))}
+        </Row>
+      </CardGroup>
   );
 }

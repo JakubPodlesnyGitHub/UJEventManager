@@ -10,6 +10,7 @@ html {
   --main-font-color: #ffffff;
   --main-dark-color: #117252;
   --main-dark-color-deep: #03543a;
+  --text-color: #000000;
 }
 
 body,
@@ -115,10 +116,10 @@ footer {
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
-  color: var(--main-light-color-lighter);
   background-color: var(--main-light-color-lighter);
   border-color: var(--main-light-color-lighter);
   box-shadow: none;
+  color: var(--text-color);
 }
 
 .card {
@@ -127,7 +128,7 @@ footer {
 }
 
 .card-img-top {
-  max-width: 20rem;
+  max-width: 30rem;
   max-height: 30rem;
 }
 
@@ -179,4 +180,8 @@ footer {
   background-color: var(--main-dark-color);
   color: var(--main-font-color);
   font-size: 2rem;
+}
+
+.products_view{
+  margin-top: 3rem;
 }
