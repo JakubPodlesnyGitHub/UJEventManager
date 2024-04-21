@@ -33,7 +33,8 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<RateDTO> Handle(GetCurrencyRateQuery request, CancellationToken cancellationToken)
         {
-            if (!SupportedCurrencies.Contains(request.CurrencyCode))
+            var allowedCurrencies = SupportedCurrencies.Select(x => x.ToString().ToLower()).ToList();
+            if (!allowedCurrencies.Contains(request.CurrencyCode.ToLower()))
             {
                 throw new NotImplementedException();
             }
@@ -41,7 +42,7 @@ namespace Shop.API.CQRS.Handlers
             var currencyRates = await _nbpService.GetSupportedCurrenciesRatesAsync();
 
             return _mapper.Map<RateDTO>(currencyRates.SelectMany(data => data.Rates)
-                   .FirstOrDefault(rate => rate.Code == request.CurrencyCode));
+                   .FirstOrDefault(rate => rate.Code.ToLower() == request.CurrencyCode.ToLower()));
         }
     }
 }
