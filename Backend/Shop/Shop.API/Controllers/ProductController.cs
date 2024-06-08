@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.CQRS.Commands.Product;
 using Shop.API.CQRS.Queries.Product;
+using Microsoft.AspNetCore.Cors;
 
 namespace Shop.API.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("ApiCorsPolicy")]
     [ApiController]
     public class ProductController : ControllerBase
     {
