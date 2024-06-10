@@ -80,7 +80,7 @@ namespace Shop.API.CQRS.Handlers
         public async Task<ShopOrderDTO> Handle(DeletedShopOrderCommand request, CancellationToken cancellationToken)
         {
             var shopOrder = await _shopOrderRepository.GetById(request.Id) ?? throw new NotImplementedException();
-            await _shopOrderRepository.Delete(shopOrder);
+            await _shopOrderRepository.Delete(shopOrder.Id);
             return _mapper.Map<ShopOrderDTO>(shopOrder);
         }
     }

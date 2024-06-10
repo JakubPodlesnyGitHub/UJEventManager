@@ -72,7 +72,7 @@ namespace Shop.API.CQRS.Handlers
                 throw new NotImplementedException();
             }
 
-            await _orderItemRepository.Delete(orderItem);
+            await _orderItemRepository.Delete(orderItem.Id);
             await _orderItemRepository.Commit();
             return _mapper.Map<OrderItemDTO>(orderItem);
         }

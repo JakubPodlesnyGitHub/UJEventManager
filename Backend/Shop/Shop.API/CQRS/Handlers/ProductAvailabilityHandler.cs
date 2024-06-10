@@ -71,7 +71,7 @@ namespace Shop.API.CQRS.Handlers
             {
                 throw new NotImplementedException();
             }
-            await _productAvailabilityRepository.Delete(productAvailability);
+            await _productAvailabilityRepository.Delete(productAvailability.Id);
             await _productAvailabilityRepository.Commit();
 
             return _mapper.Map<ProductAvailabilityDTO>(productAvailability);

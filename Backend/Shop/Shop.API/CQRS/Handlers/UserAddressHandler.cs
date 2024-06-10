@@ -77,7 +77,7 @@ namespace Shop.API.CQRS.Handlers
             {
                 throw new NotImplementedException();
             }
-            await _userAddressRepository.Delete(userAddress);
+            await _userAddressRepository.Delete(userAddress.Id);
             await _userAddressRepository.Commit();
 
             return _mapper.Map<UserAddressDTO>(userAddress);
