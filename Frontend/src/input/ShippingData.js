@@ -15,6 +15,14 @@ export default function ShippingData() {
             <Form.Label>Surname</Form.Label>
             <Form.Control type="surname" placeholder="Surname" />
           </Form.Group>
+          <Form.Group className="between_fields_spacing" controlId="phonenumber">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control type="phonenumber" placeholder="Phone Number" />
+          </Form.Group>
+          <Form.Group className="between_fields_spacing" controlId="email">
+            <Form.Label>E-mail</Form.Label>
+            <Form.Control type="email" placeholder="E-mail" />
+          </Form.Group>
           <Form.Group className="between_fields_spacing" controlId="country">
             <Form.Label>Country</Form.Label>
             <Form.Control type="country" placeholder="Country" />

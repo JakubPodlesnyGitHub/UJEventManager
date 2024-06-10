@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Basket from "./bar/Basket";
 import ProductsView from "./products/ProductsView";
+import AdminProductsView from "./pages/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./pages/Authorize";
 import Layout from "./layout/Layout";
@@ -36,6 +37,17 @@ function App() {
                         <>
                             {/* Pass shopValue and addToShopValue function as props */}
                             <ProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
+                            {/* Pass shopValue to the Basket component */}
+                            {/*<Basket shopValue={shopValue} />*/}
+                        </>
+                    )}
+                />
+                <Route
+                    path="/admin"
+                    element={Layout(
+                        <>
+                            {/* Pass shopValue and addToShopValue function as props */}
+                            <AdminProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
                             {/* Pass shopValue to the Basket component */}
                             {/*<Basket shopValue={shopValue} />*/}
                         </>
