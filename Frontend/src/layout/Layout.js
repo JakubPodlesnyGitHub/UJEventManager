@@ -11,7 +11,6 @@ export default function Layout(props) {
         <Bar />
         <Container>{props}</Container>
       </main>
-      <footer>Academic</footer>
     </div>
   );
 }

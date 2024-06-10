@@ -1,28 +1,23 @@
-import { connect } from "react-redux";
-import useGetRequest from "../api/Requests";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import React from "react";
+import { Container, Image, Row, Col } from "react-bootstrap";
 
-function Basket(props) {
-  return (
-    <div>
-      <Container>
-        <Row>
-          <Col>
-            <Image src={"./photos/card.svg"}></Image>
-          </Col>
-          <Col>
-            <p className="allign_centrally">50zł</p>
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
+function Basket({ cartProducts }) {
+    // Calculate total cost
+    const totalCost = cartProducts.reduce((acc, curr) => acc + (curr.rate * curr.quantity), 0);
+
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <Image src={"./photos/card.svg"}></Image>
+                </Col>
+                <Col>
+                    {/* Display the total cost */}
+                    <p className="allign_centrally">Total Cost: {totalCost.toFixed(2)} PLN</p>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    items_in_basket: state.items_in_basket,
-  };
-};
-
-export default connect(mapStateToProps)(Basket);
+export default Basket;
