@@ -62,7 +62,7 @@ namespace Shop.API.CQRS.Handlers
             {
                 throw new NotImplementedException();
             }
-            await _categoryRepository.Delete(category);
+            await _categoryRepository.Delete(category.Id);
             return _mapper.Map<CategoryDTO>(category);
         }
     }

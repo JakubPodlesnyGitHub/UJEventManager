@@ -71,7 +71,7 @@ namespace Shop.API.CQRS.Handlers
             {
                 throw new NotImplementedException();
             }
-            await _paymentRepository.Delete(payment);
+            await _paymentRepository.Delete(payment.Id);
             await _paymentRepository.Commit();
 
             return _mapper.Map<PaymentDTO>(payment);
