@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
+using Shop.API.ApiFilters;
 using Shop.API.Configuration;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Configuration;
 using Shop.Infrastructure.DbContexts;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +48,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("ApiCorsPolicy");
 
 app.UseAuthorization();
 
