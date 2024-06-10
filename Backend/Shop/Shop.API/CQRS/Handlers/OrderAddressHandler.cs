@@ -41,9 +41,9 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<OrderAddressDTO> Handle(AddedOrderAddressCommand request, CancellationToken cancellationToken)
         {
-            _orderAddressRepository.Insert(_mapper.Map<OrderAddress>(request));
+            var orderAddress = _orderAddressRepository.Insert(_mapper.Map<OrderAddress>(request));
             await _orderAddressRepository.Commit();
-            return _mapper.Map<OrderAddressDTO>(request);
+            return _mapper.Map<OrderAddressDTO>(orderAddress);
         }
 
         public async Task<OrderAddressDTO> Handle(EditedOrderAddressCommand request, CancellationToken cancellationToken)
@@ -77,7 +77,7 @@ namespace Shop.API.CQRS.Handlers
                 throw new NotImplementedException();
             }
 
-            await _orderAddressRepository.Delete(orderAddress);
+            await _orderAddressRepository.Delete(orderAddress.Id);
             await _orderAddressRepository.Commit();
 
             return _mapper.Map<OrderAddressDTO>(orderAddress);

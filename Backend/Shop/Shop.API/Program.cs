@@ -17,7 +17,10 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>()
 builder.Services.AddInfrastructureLayerConfiguration(builder.Configuration);
 builder.Services.AddApiServiceLayerConfiguration(builder.Configuration);
 
-builder.Services.AddControllers().AddNewtonsoftJson(opt =>
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiExceptionFilter>();
+}).AddNewtonsoftJson(opt =>
 {
     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     opt.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
@@ -46,8 +49,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("ApiCorsPolicy");
 
 app.UseAuthorization();
 

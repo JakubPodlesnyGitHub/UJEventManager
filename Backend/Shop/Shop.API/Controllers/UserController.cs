@@ -44,7 +44,7 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateUser([FromBody] EditedUserCommand command)
         {
             var result = await _mediator.Send(command);

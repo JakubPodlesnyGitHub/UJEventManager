@@ -2,6 +2,7 @@
 using MediatR;
 using Shop.API.CQRS.Commands.Category;
 using Shop.API.CQRS.Queries.Category;
+using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
 
@@ -40,9 +41,7 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<CategoryDTO> Handle(AddedCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.GetById(request) ?? throw new NotImplementedException();
-            category.Name = request.Name;
-            _categoryRepository.Update(category);
+            var category = _categoryRepository.Insert(_mapper.Map<Category>(request));
             await _categoryRepository.Commit();
             return _mapper.Map<CategoryDTO>(category);
         }
@@ -63,7 +62,7 @@ namespace Shop.API.CQRS.Handlers
             {
                 throw new NotImplementedException();
             }
-            await _categoryRepository.Delete(category);
+            await _categoryRepository.Delete(category.Id);
             return _mapper.Map<CategoryDTO>(category);
         }
     }
