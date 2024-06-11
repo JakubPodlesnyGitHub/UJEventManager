@@ -41,23 +41,22 @@ function ProductsView({ addToCart }) {
         }
     };
 
-    const putProduct = async (id) => {
-        const response = await fetch("http://localhost:5164/api/Product", {
+    const putProduct = async (id, oldName, oldCategory, oldCodeNumber, oldSeriesNumber, oldDescription, oldPicture) => {
+        const response = await fetch("http://localhost:5164/api/Product/update", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 id: id,
-                name: newProductName,
+                name: newProductName || oldName,
                 category: "string",
-                codeNumber: newProductCodeNumber, // Add other properties as needed
-                seriesNumber: "string",
-                description: newProductDescription,
+                codeNumber: newProductCodeNumber || oldCodeNumber, // Add other properties as needed
+                seriesNumber: oldSeriesNumber,
+                description: newProductDescription || oldDescription,
                 picture: "string",
                 rate: newProductRate,
                 releaseDate: new Date().toISOString(),
-                creationDate: new Date().toISOString(),
             }),
         });
         if (response.ok) {
@@ -67,12 +66,12 @@ function ProductsView({ addToCart }) {
     };
 
     const deleteProduct = async (id) => {
-        const response = await fetch(`http://localhost:5164/api/Product/7e6af5ee-72ae-4736-be1d-08dc896c774f/delete`, {
+        const response = await fetch(`http://localhost:5164/api/Product/` + id + '/delete', {
             method: "DELETE",
         });
         if (response.ok) {
         } else {
-            console.error("Failed to delete product" + id);
+            console.error("Failed to delete product " + id);
         }
     };
 
@@ -226,7 +225,7 @@ function ProductsView({ addToCart }) {
                                             <CardText>{product.description}</CardText>
                                         </Col>
                                     </Row>
-                                    <Button variant="primary" onClick={() => putProduct(product.id)}>
+                                    <Button variant="primary" onClick={() => putProduct(product.id, product.name, product.category, product.codeNumber, product.seriesNumber, product.description, product.picture)}>
                                         Change product data
                                     </Button>
                                     <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
