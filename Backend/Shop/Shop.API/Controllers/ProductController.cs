@@ -25,6 +25,13 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("sorted-filter")]
+        public async Task<IActionResult> GetSortedProducts(GetSortedProductsQuery requst)
+        {
+            var result = await _mediator.Send(requst);
+            return Ok(result);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetProductById(Guid id)
         {

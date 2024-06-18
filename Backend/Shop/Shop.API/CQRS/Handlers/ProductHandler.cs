@@ -5,12 +5,14 @@ using Shop.API.CQRS.Queries.Product;
 using Shop.Domain.Domain;
 using Shop.Infrastructure.Repositories.Interfaces;
 using Shop.Shared.Dtos.Response;
+using System.Reflection;
 
 namespace Shop.API.CQRS.Handlers
 {
     public class ProductHandler :
         IRequestHandler<GetProductsQuery, IList<ProductDTO>>,
         IRequestHandler<GetProductByIdQuery, ProductDTO>,
+        IRequestHandler<GetSortedProductsQuery, IList<ProductDTO>>,
         IRequestHandler<AddedProductCommand, ProductDTO>,
         IRequestHandler<EditedProductCommand, ProductDTO>,
         IRequestHandler<DeletedProductCommand, ProductDTO>
@@ -88,6 +90,53 @@ namespace Shop.API.CQRS.Handlers
             await _productRepository.Commit();
 
             return _mapper.Map<ProductDTO>(product);
+        }
+
+        public async Task<IList<ProductDTO>> Handle(GetSortedProductsQuery request, CancellationToken cancellationToken)
+        {
+            var products = await _productRepository.GetAll();
+            products = FilterProducts(products, request.Filters).ToList();
+
+            var propertyInfo = typeof(Product).GetProperty(request.PropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException($"Property '{request.PropertyName}' does not exist on type 'Product'.");
+            }
+
+            var sortedProducts = request.Sorted == 0
+                ? products.OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList()
+                : products.OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
+
+            return _mapper.Map<IList<ProductDTO>>(sortedProducts);
+        }
+
+        private IList<Product> FilterProducts(IList<Product> products, List<FilterCriterion> filters)
+        {
+            foreach (var filter in filters)
+            {
+                var propertyInfo = typeof(Product).GetProperty(filter.PropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (propertyInfo == null)
+                {
+                    throw new ArgumentException($"Property '{filter.PropertyName}' does not exist on type 'Product'.");
+                }
+
+                products = products.Where(p =>
+                {
+                    var value = propertyInfo.GetValue(p);
+                    if (value is IComparable comparableValue)
+                    {
+                        var minValid = filter.MinValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.MinValue, propertyInfo.PropertyType)) >= 0;
+                        var maxValid = filter.MaxValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.MaxValue, propertyInfo.PropertyType)) <= 0;
+                        var exactValid = filter.ExactValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.ExactValue, propertyInfo.PropertyType)) == 0;
+
+                        return minValid && maxValid && exactValid;
+                    }
+                    return filter.ExactValue == null || value.Equals(Convert.ChangeType(filter.ExactValue, propertyInfo.PropertyType));
+                }).ToList();
+            }
+
+            return products;
         }
     }
 }
