@@ -121,7 +121,7 @@ namespace Shop.API.CQRS.Handlers
         public async Task<IList<ProductDTO>> Handle(GetFilterMaxRateProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetAll();
-            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate >= request.Max).ToList());
+            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate <= request.Max).ToList());
         }
     }
 }
