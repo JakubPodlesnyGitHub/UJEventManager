@@ -13,6 +13,8 @@ namespace Shop.API.CQRS.Handlers
         IRequestHandler<GetProductsQuery, IList<ProductDTO>>,
         IRequestHandler<GetProductByIdQuery, ProductDTO>,
         IRequestHandler<GetSortedProductsQuery, IList<ProductDTO>>,
+        IRequestHandler<GetFilterMinRateProductsQuery, IList<ProductDTO>>,
+        IRequestHandler<GetFilterMaxRateProductsQuery, IList<ProductDTO>>,
         IRequestHandler<AddedProductCommand, ProductDTO>,
         IRequestHandler<EditedProductCommand, ProductDTO>,
         IRequestHandler<DeletedProductCommand, ProductDTO>
@@ -95,7 +97,6 @@ namespace Shop.API.CQRS.Handlers
         public async Task<IList<ProductDTO>> Handle(GetSortedProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetAll();
-            products = FilterProducts(products, request.Filters).ToList();
 
             var propertyInfo = typeof(Product).GetProperty(request.PropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
@@ -104,39 +105,23 @@ namespace Shop.API.CQRS.Handlers
                 throw new ArgumentException($"Property '{request.PropertyName}' does not exist on type 'Product'.");
             }
 
-            var sortedProducts = request.Sorted == 0
+            var sortedProducts = request.Order.Equals("desc")
                 ? products.OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList()
                 : products.OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
 
             return _mapper.Map<IList<ProductDTO>>(sortedProducts);
         }
 
-        private IList<Product> FilterProducts(IList<Product> products, List<FilterCriterion> filters)
+        public async Task<IList<ProductDTO>> Handle(GetFilterMinRateProductsQuery request, CancellationToken cancellationToken)
         {
-            foreach (var filter in filters)
-            {
-                var propertyInfo = typeof(Product).GetProperty(filter.PropertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                if (propertyInfo == null)
-                {
-                    throw new ArgumentException($"Property '{filter.PropertyName}' does not exist on type 'Product'.");
-                }
+            var products = await _productRepository.GetAll();
+            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate >= request.Min).ToList());
+        }
 
-                products = products.Where(p =>
-                {
-                    var value = propertyInfo.GetValue(p);
-                    if (value is IComparable comparableValue)
-                    {
-                        var minValid = filter.MinValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.MinValue, propertyInfo.PropertyType)) >= 0;
-                        var maxValid = filter.MaxValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.MaxValue, propertyInfo.PropertyType)) <= 0;
-                        var exactValid = filter.ExactValue == null || comparableValue.CompareTo(Convert.ChangeType(filter.ExactValue, propertyInfo.PropertyType)) == 0;
-
-                        return minValid && maxValid && exactValid;
-                    }
-                    return filter.ExactValue == null || value.Equals(Convert.ChangeType(filter.ExactValue, propertyInfo.PropertyType));
-                }).ToList();
-            }
-
-            return products;
+        public async Task<IList<ProductDTO>> Handle(GetFilterMaxRateProductsQuery request, CancellationToken cancellationToken)
+        {
+            var products = await _productRepository.GetAll();
+            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate >= request.Max).ToList());
         }
     }
 }
