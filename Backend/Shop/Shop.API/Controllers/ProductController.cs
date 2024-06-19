@@ -32,7 +32,7 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("fitler/{min}")]
+        [HttpGet("filter/{min}")]
         public async Task<IActionResult> GetFilterRateMin([FromRoute] double min)
         {
             var result = await _mediator.Send(new GetFilterMinRateProductsQuery(min));
