@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using MediatR;
 using Shop.API.CQRS.Commands.Product;
 using Shop.API.CQRS.Queries.Product;
@@ -13,8 +14,6 @@ namespace Shop.API.CQRS.Handlers
         IRequestHandler<GetProductsQuery, IList<ProductDTO>>,
         IRequestHandler<GetProductByIdQuery, ProductDTO>,
         IRequestHandler<GetSortedProductsQuery, IList<ProductDTO>>,
-        IRequestHandler<GetFilterMinRateProductsQuery, IList<ProductDTO>>,
-        IRequestHandler<GetFilterMaxRateProductsQuery, IList<ProductDTO>>,
         IRequestHandler<AddedProductCommand, ProductDTO>,
         IRequestHandler<EditedProductCommand, ProductDTO>,
         IRequestHandler<DeletedProductCommand, ProductDTO>
@@ -109,19 +108,29 @@ namespace Shop.API.CQRS.Handlers
                 ? products.OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList()
                 : products.OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
 
-            return _mapper.Map<IList<ProductDTO>>(sortedProducts);
+
+            var filterProdcuts = FilterMinMaxProduct(request.Min, request.Max, sortedProducts);
+
+
+            return _mapper.Map<IList<ProductDTO>>(filterProdcuts);
         }
 
-        public async Task<IList<ProductDTO>> Handle(GetFilterMinRateProductsQuery request, CancellationToken cancellationToken)
+        private IList<Product> FilterMinMaxProduct(double min, double max, IList<Product> products)
         {
-            var products = await _productRepository.GetAll();
-            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate >= request.Min).ToList());
-        }
+            if (min != 0.0 && max != 0.0)
+            {
+                return products.Where(p => p.Rate >= min && p.Rate <= max).ToList();
+            }
 
-        public async Task<IList<ProductDTO>> Handle(GetFilterMaxRateProductsQuery request, CancellationToken cancellationToken)
-        {
-            var products = await _productRepository.GetAll();
-            return _mapper.Map<IList<ProductDTO>>(products.Where(p => p.Rate <= request.Max).ToList());
+            if (min != 0.0)
+            {
+                return products.Where(p => p.Rate >= min).ToList();
+            }
+            if (max != 0.0)
+            {
+                return products.Where(p => p.Rate <= max).ToList();
+            }
+            return products;
         }
     }
 }
