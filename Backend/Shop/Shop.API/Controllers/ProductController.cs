@@ -25,24 +25,10 @@ namespace Shop.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("sort/{propertyName}/{order}")]
-        public async Task<IActionResult> GetSortedProducts([FromRoute] string propertyName, [FromRoute] string order)
+        [HttpGet("sort/{propertyName}/{order}/{min}/{max}")]
+        public async Task<IActionResult> GetSortedProducts([FromRoute] string propertyName, [FromRoute] string order, [FromRoute] double min, [FromRoute] double max)
         {
-            var result = await _mediator.Send(new GetSortedProductsQuery(propertyName, order));
-            return Ok(result);
-        }
-
-        [HttpGet("filter/{min}")]
-        public async Task<IActionResult> GetFilterRateMin([FromRoute] double min)
-        {
-            var result = await _mediator.Send(new GetFilterMinRateProductsQuery(min));
-            return Ok(result);
-        }
-
-        [HttpGet("filter/{max}")]
-        public async Task<IActionResult> GetFilterRateMax([FromRoute] double max)
-        {
-            var result = await _mediator.Send(new GetFilterMaxRateProductsQuery(max));
+            var result = await _mediator.Send(new GetSortedProductsQuery(propertyName, order, min, max));
             return Ok(result);
         }
 
