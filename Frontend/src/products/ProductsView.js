@@ -6,10 +6,8 @@ import { addToCart } from "../state/actions";
 import "../index.css"; // Ensure the CSS file is imported
 
 function ProductsView({ addToCart }) {
-    const data = useGetRequest("http://localhost:5164/api/Product");
-    const [sortCriteria, setSortCriteria] = useState("name");
-    const [minPrice, setMinPrice] = useState("");
-    const [maxPrice, setMaxPrice] = useState("");
+    const [sortCriteria, setSortCriteria] = useState('rate/asc');
+    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}`);
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -28,64 +26,49 @@ function ProductsView({ addToCart }) {
         addToCart(product);
     };
 
-    const filteredData = data.filter(product => {
-        const isAboveMin = minPrice === "" || product.rate >= parseFloat(minPrice);
-        const isBelowMax = maxPrice === "" || product.rate <= parseFloat(maxPrice);
-        return isAboveMin && isBelowMax;
-    });
+    const handleSortChange = (event) => {
+        setSortCriteria(event.target.value);
+    };
 
-    const sortedData = filteredData.sort((a, b) => {
-        if (sortCriteria === "name") {
-            return a.name.localeCompare(b.name);
-        } else if (sortCriteria === "price") {
-            return a.rate - b.rate;
-        }
-        return 0;
-    });
-
-    return (
-        <>
+    const SortForm = () => {
+        return (
             <Form>
                 <Row>
                     <Col>
                         <Form.Group controlId="sortCriteria">
                             <Form.Label>Sort by:</Form.Label>
-                            <Form.Control
-                                as="select"
-                                value={sortCriteria}
-                                onChange={(e) => setSortCriteria(e.target.value)}
-                            >
-                                <option value="name">Name</option>
-                                <option value="price">Price</option>
+                            <Form.Control as="select" value={sortCriteria} onChange={handleSortChange}>
+                                <option value="name/asc">Name (Ascending)</option>
+                                <option value="rate/asc">Price (Ascending)</option>
+                                <option value="name/desc">Name (Descending)</option>
+                                <option value="rate/desc">Price (Descending)</option>
                             </Form.Control>
                         </Form.Group>
                     </Col>
-                    <Col>
-                        <Form.Group controlId="minPrice">
-                            <Form.Label>Min Price:</Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="Min Price"
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group controlId="maxPrice">
-                            <Form.Label>Max Price:</Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="Max Price"
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
+                    {/*<Col>*/}
+                    {/*    <Form.Group controlId="minPrice">*/}
+                    {/*        <Form.Label>Min Price:</Form.Label>*/}
+                    {/*        <Form.Control*/}
+                    {/*        />*/}
+                    {/*    </Form.Group>*/}
+                    {/*</Col>*/}
+                    {/*<Col>*/}
+                    {/*    <Form.Group controlId="maxPrice">*/}
+                    {/*        <Form.Label>Max Price:</Form.Label>*/}
+                    {/*        <Form.Control*/}
+                    {/*        />*/}
+                    {/*    </Form.Group>*/}
+                    {/*</Col>*/}
                 </Row>
             </Form>
+        );
+    };
+
+    return (
+        <>
+            <SortForm />
             <Row style={{ padding: '5px' }} xs={1} md={2} className="g-4">
-                {sortedData.map((product) => (
+                {data.map((product) => (
                     <Col key={product.id}>
                         <Card onClick={() => handleCardClick(product)}>
                             <CardImg src={product.picture || "./photos/image.png"} />
