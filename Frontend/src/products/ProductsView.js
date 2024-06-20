@@ -6,8 +6,12 @@ import { addToCart } from "../state/actions";
 import "../index.css"; // Ensure the CSS file is imported
 
 function ProductsView({ addToCart }) {
-    const [sortCriteria, setSortCriteria] = useState('rate/asc');
-    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}`);
+    const [sortCriteria, setSortCriteria] = useState('name/asc');
+    const [filterMin, setFilterMin] = useState('0');
+    const [filterMax, setFilterMax] = useState('0');
+    const [filterMinTemp, setFilterMinTemp] = useState('0');
+    const [filterMaxTemp, setFilterMaxTemp] = useState('0');
+    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -30,6 +34,29 @@ function ProductsView({ addToCart }) {
         setSortCriteria(event.target.value);
     };
 
+    const handleMinChange = (event) => {
+        setFilterMinTemp(event.target.value); 
+    };
+
+    const handleMaxChange = (event) => {
+        setFilterMaxTemp(event.target.value);
+    };
+
+    const handleMinSubmit = () => {
+        if (filterMinTemp == '') {
+            setFilterMin(0);
+        } else {
+            setFilterMin(filterMinTemp);
+        }
+    };
+
+    const handleMaxSubmit = () => {
+        if (filterMaxTemp == '') {
+            setFilterMax(0);
+        } else {
+            setFilterMax(filterMaxTemp);
+        }
+    };
     const SortForm = () => {
         return (
             <Form>
@@ -45,20 +72,32 @@ function ProductsView({ addToCart }) {
                             </Form.Control>
                         </Form.Group>
                     </Col>
-                    {/*<Col>*/}
-                    {/*    <Form.Group controlId="minPrice">*/}
-                    {/*        <Form.Label>Min Price:</Form.Label>*/}
-                    {/*        <Form.Control*/}
-                    {/*        />*/}
-                    {/*    </Form.Group>*/}
-                    {/*</Col>*/}
-                    {/*<Col>*/}
-                    {/*    <Form.Group controlId="maxPrice">*/}
-                    {/*        <Form.Label>Max Price:</Form.Label>*/}
-                    {/*        <Form.Control*/}
-                    {/*        />*/}
-                    {/*    </Form.Group>*/}
-                    {/*</Col>*/}
+                    <Col>
+                        <Form.Group controlId="doubleInput">
+                            <Form.Label>Set minimum price:</Form.Label>
+                            <Form.Control
+                                type="number"
+                                step="any"
+                                value={filterMinTemp} 
+                                onChange={handleMinChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Button variant="primary" onClick={handleMinSubmit}>Accept</Button>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="doubleInput">
+                            <Form.Label>Set maximum price:</Form.Label>
+                            <Form.Control
+                                type="number"
+                                step="any"
+                                value={filterMaxTemp} 
+                                onChange={handleMaxChange} 
+                                required
+                            />
+                        </Form.Group>
+                        <Button variant="primary" onClick={handleMaxSubmit}>Accept</Button>
+                    </Col>
                 </Row>
             </Form>
         );
