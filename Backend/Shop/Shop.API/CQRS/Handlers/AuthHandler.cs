@@ -51,6 +51,8 @@ namespace Shop.API.CQRS.Handlers
         public async Task<AuthDTO> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
         {
             var newUser = _mapper.Map<User>(request);
+            newUser.UserName = $"{request.FirstName}{request.LastName}{new Random().Next(1500)}";
+            newUser.NormalizedUserName = $"{request.FirstName}{request.LastName}{new Random().Next(1500)}".ToUpper();
             IdentityResult result = await _userManager.CreateAsync(newUser, request.Password);
 
             if (!result.Succeeded)
