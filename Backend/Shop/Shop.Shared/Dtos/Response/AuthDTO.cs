@@ -11,5 +11,6 @@ namespace Shop.Shared.Dtos.Response
         public bool IsAuthenticated { get; set; }
         public string? Token { get; set; }
         public string? RefreshToken { get; set; }
+        public string Role { get; set; }
     }
 }
