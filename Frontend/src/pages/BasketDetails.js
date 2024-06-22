@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Nav, Navbar } from "react-bootstrap";
 // import { useHistory } from "react-router-dom";
-import { Col, Container, Image, Row, Button } from "react-bootstrap";
+import { Col, Container, Image, Row, Button, Card } from "react-bootstrap";
 import { addToCart, removeFromCart } from "../state/actions";
 import "../index.css"; // Ensure the CSS file is imported
+import "./BasketDetails.css";
 
 function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
     // const history = useHistory();
@@ -27,7 +28,7 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
 
     return (
         <Container>
-            <Row>
+            <Row className="my-4">
                 <Col>
                     <h2>Shopping Cart</h2>
                     {cartProducts.length === 0 ? (
@@ -35,30 +36,53 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                     ) : (
                         <>
                             {cartProducts.map((product) => (
-                                <div key={product.id} className="mb-3">
-                                    <Row>
-                                        <Col xs={3}>
-                                            <Image
-                                                src={product.picture || "./photos/image.png"}
-                                                thumbnail
-                                                className="small-image"
-                                            />
-                                        </Col>
-                                        <Col xs={6}>
-                                            <h4>{product.name}</h4>
-                                            <p>Price: {product.rate} PLN</p>
-                                            <p>Quantity: {product.quantity}</p>
-                                        </Col>
-                                        <Col xs={3}>
-                                            <Button variant="primary" size="sm" onClick={() => handleAdd(product)}>ADD</Button>
-                                            <Button variant="danger" size="sm" onClick={() => handleDelete(product.id)}>DELETE</Button>
-                                        </Col>
-                                    </Row>
-                                </div>
+                                <Card key={product.id} className="mb-3">
+                                    <Card.Body>
+                                        <Row className="align-items-center">
+                                            <Col xs={3}>
+                                                <Image
+                                                    src={product.picture || "./photos/image.png"}
+                                                    thumbnail
+                                                    className="small-image"
+                                                />
+                                            </Col>
+                                            <Col xs={6}>
+                                                <h4>{product.name}</h4>
+                                                <p>Price: {product.rate} PLN</p>
+                                                <p>Quantity: {product.quantity}</p>
+                                            </Col>
+                                            <Col xs={2} className="d-flex justify-content-around">
+                                                <Button
+                                                    variant="primary"
+                                                    // size="lg"
+                                                    // className="mb-4"
+                                                    className="custom-btn"
+                                                    style={{ width: "40%", height: "60px" }}
+                                                    onClick={() => handleAdd(product)}
+                                                >
+                                                    Add
+                                                </Button>
+                                                <Button
+                                                    variant="danger"
+                                                    // size="lg"
+                                                    className="custom-btn"
+                                                    style={{ width: "40%", height: "60px" }}
+                                                    onClick={() => handleDelete(product.id)}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
                             ))}
                             <hr />
-                            <p>Total Cost: {totalCost.toFixed(2)} PLN</p>
-                            <Nav.Link href="/payment">PROCEED TO PAYMENT</Nav.Link>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h3>Total Cost: {totalCost.toFixed(2)} PLN</h3>
+                                <Nav.Link href="/payment" className="btn btn-success btn-lg btn-payment">
+                                    PROCEED TO PAYMENT
+                                </Nav.Link>
+                            </div>
                         </>
                     )}
                 </Col>

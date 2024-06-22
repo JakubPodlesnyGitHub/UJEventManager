@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Basket from "./bar/Basket";
 import ProductsView from "./products/ProductsView";
 import AdminProductsView from "./pages/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

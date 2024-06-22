@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import useGetRequest from "../api/Requests";
-import { Row, Col, Card, CardImg, CardTitle, CardSubtitle, CardText, Button, Form, Modal } from "react-bootstrap";
+import { Row, Col, Card, CardImg, CardTitle, CardSubtitle, CardText, Button, Form, Modal, Container } from "react-bootstrap";
 import { addToCart } from "../state/actions";
 import "../index.css"; // Ensure the CSS file is imported
 
@@ -11,9 +11,11 @@ function ProductsView({ addToCart }) {
     const [filterMax, setFilterMax] = useState('0');
     const [filterMinTemp, setFilterMinTemp] = useState('0');
     const [filterMaxTemp, setFilterMaxTemp] = useState('0');
-    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
+    
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
 
     const handleCardClick = (product) => {
         setSelectedProduct(product);
@@ -42,25 +44,15 @@ function ProductsView({ addToCart }) {
         setFilterMaxTemp(event.target.value);
     };
 
-    const handleMinSubmit = () => {
-        if (filterMinTemp == '') {
-            setFilterMin(0);
-        } else {
-            setFilterMin(filterMinTemp);
-        }
+    const handleFilterSubmit = () => {
+        setFilterMin(filterMinTemp || '0');
+        setFilterMax(filterMaxTemp || '0');
     };
 
-    const handleMaxSubmit = () => {
-        if (filterMaxTemp == '') {
-            setFilterMax(0);
-        } else {
-            setFilterMax(filterMaxTemp);
-        }
-    };
     const SortForm = () => {
         return (
             <Form>
-                <Row>
+                <Row className="align-items-center">
                     <Col>
                         <Form.Group controlId="sortCriteria">
                             <Form.Label>Sort by:</Form.Label>
@@ -83,7 +75,6 @@ function ProductsView({ addToCart }) {
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleMinSubmit}>Accept</Button>
                     </Col>
                     <Col>
                         <Form.Group controlId="doubleInput">
@@ -96,7 +87,9 @@ function ProductsView({ addToCart }) {
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleMaxSubmit}>Accept</Button>
+                    </Col>
+                    <Col>
+                        <Button variant="primary" size="lg" onClick={handleFilterSubmit} style={{ marginTop: '32px' }}>Filter</Button>
                     </Col>
                 </Row>
             </Form>
@@ -104,9 +97,9 @@ function ProductsView({ addToCart }) {
     };
 
     return (
-        <>
+        <div >
             <SortForm />
-            <Row style={{ padding: '5px' }} xs={1} md={2} className="g-4">
+            <Row style={{ padding: '5px' }} xs={1} md={4} className="g-5">
                 {data.map((product) => (
                     <Col key={product.id}>
                         <Card onClick={() => handleCardClick(product)}>
@@ -121,7 +114,7 @@ function ProductsView({ addToCart }) {
                                     <Col>
                                         <Button
                                             variant="primary"
-                                            size="sm"
+                                            size="lg"
                                             onClick={(e) => handleBuyClick(e, product)}
                                         >
                                             BUY
@@ -155,13 +148,13 @@ function ProductsView({ addToCart }) {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={() => { addToCart(selectedProduct); handleClose(); }}>
+                        <Button variant="primary" size="lg" onClick={() => { addToCart(selectedProduct); handleClose(); }}>
                             Add to Cart
                         </Button>
                     </Modal.Footer>
                 </Modal>
             )}
-        </>
+        </div>
     );
 }
 

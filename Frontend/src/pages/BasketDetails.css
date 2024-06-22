@@ -1,0 +1,16 @@
+.btn-payment {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-payment:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}

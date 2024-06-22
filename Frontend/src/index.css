@@ -16,6 +16,7 @@ body,
 #root {
   height: 100vh;
   margin: 0;
+  background-color: var(--main-light-color);
 }
 
 body,
@@ -183,4 +184,29 @@ footer {
   background-color: var(--main-dark-color);
   color: var(--main-font-color);
   font-size: 2rem;
+}
+
+.navbar .home {
+  margin-left: 100px;
+}
+
+.navbar .home:hover {
+  opacity: 0.8;
+}
+
+.shopping-cart:hover {
+  opacity: 0.4;
+}
+
+.navbar .user-info {
+  display: flex;
+  margin-right: 2%;
+}
+
+.navbar .user-info .username {
+  justify-content: center;
+}
+
+.navbar .user-info .logout-btn:hover {
+  opacity: 0.8;
 }

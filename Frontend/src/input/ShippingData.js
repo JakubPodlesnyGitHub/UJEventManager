@@ -1,51 +1,80 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form, Col, Row, Button } from "react-bootstrap";
 
 export default function ShippingData() {
   return (
-    <>
-      <div className="frame_spacing">
-        <h2 className="form_title">Shipping Data</h2>
-        <Form className="between_fields_spacing">
-          <Form.Group className="between_fields_spacing" controlId="name">
-            <Form.Label className="text-center">Name</Form.Label>
-            <Form.Control type="name" placeholder="Enter name" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="surname">
-            <Form.Label>Surname</Form.Label>
-            <Form.Control type="surname" placeholder="Surname" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="phonenumber">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="phonenumber" placeholder="Phone Number" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="email">
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control type="email" placeholder="E-mail" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="country">
-            <Form.Label>Country</Form.Label>
-            <Form.Control type="country" placeholder="Country" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="city">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="city" placeholder="City" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="adress">
-            <Form.Label>Adress</Form.Label>
-            <Form.Control type="adress" placeholder="Adress" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="flat">
-            <Form.Label>Flat</Form.Label>
-            <Form.Control type="flat" placeholder="Flat" />
-          </Form.Group>
-          <Form.Group className="between_fields_spacing" controlId="postalcode">
-            <Form.Label>Postal Code</Form.Label>
-            <Form.Control type="postalcode" placeholder="Postal Code" />
-          </Form.Group>
-          
-        </Form>
-      </div>
-    </>
+    <div className="frame_spacing">
+      <h2 className="form_title">Shipping Data</h2>
+      <Form className="between_fields_spacing">
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter name" />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="surname">
+              <Form.Label>Surname</Form.Label>
+              <Form.Control type="text" placeholder="Surname" />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="phonenumber">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control type="tel" placeholder="Phone Number" />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Email" />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="country">
+              <Form.Label>Country</Form.Label>
+              <Form.Control type="text" placeholder="Country" />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="city">
+              <Form.Label>City</Form.Label>
+              <Form.Control type="text" placeholder="City" />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="adress">
+              <Form.Label>Address</Form.Label>
+              <Form.Control type="text" placeholder="Address" />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="flat">
+              <Form.Label>Flat</Form.Label>
+              <Form.Control type="text" placeholder="Flat" />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="postalcode">
+              <Form.Label>Postal Code</Form.Label>
+              <Form.Control type="text" placeholder="Postal Code" />
+            </Form.Group>
+          </Col>
+        </Row>
+      </Form>
+    </div>
   );
 }
