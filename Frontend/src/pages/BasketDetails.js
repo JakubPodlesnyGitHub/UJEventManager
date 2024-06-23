@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 // import { useHistory } from "react-router-dom";
 import { Col, Container, Image, Row, Button, Card } from "react-bootstrap";
 import { addToCart, removeFromCart } from "../state/actions";
@@ -8,23 +8,21 @@ import "../index.css"; // Ensure the CSS file is imported
 import "./BasketDetails.css";
 
 function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
-    // const history = useHistory();
 
     const handleAdd = (product) => {
-        addToCart(product);
+        if (!(product.quantity > product.availability - 1)) {
+            addToCart(product);
+        } else {
+            alert("Product is not available");
+        }
     };
 
-    const handleDelete = (productId) => {
-        removeFromCart(productId);
+    const handleDelete = (product) => {
+        removeFromCart(product.id);
     };
 
     // Calculate total cost
     const totalCost = cartProducts.reduce((acc, curr) => acc + (curr.rate * curr.quantity), 0);
-
-    // Function to handle redirection to the payment page
-    const goToPayment = () => {
-        // history.push("/payment");
-    };
 
     return (
         <Container>
@@ -67,7 +65,7 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                                                     // size="lg"
                                                     className="custom-btn"
                                                     style={{ width: "40%", height: "60px" }}
-                                                    onClick={() => handleDelete(product.id)}
+                                                    onClick={() => handleDelete(product)}
                                                 >
                                                     Delete
                                                 </Button>

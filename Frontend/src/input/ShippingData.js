@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 
 export default function ShippingData() {
   return (

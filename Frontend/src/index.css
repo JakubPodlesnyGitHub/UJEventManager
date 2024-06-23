@@ -186,11 +186,11 @@ footer {
   font-size: 2rem;
 }
 
-.navbar .home {
+.navbar .tabs {
   margin-left: 100px;
 }
 
-.navbar .home:hover {
+.navbar .tabs:hover {
   opacity: 0.8;
 }
 

@@ -16,7 +16,7 @@ export default function SignUp() {
   const [variant, setVariant] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
-  const { setUserData } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -43,8 +43,8 @@ export default function SignUp() {
         setMessage('Registration successful!');
         setVariant('success');
         setShowAlert(true);
-        setUserData({username: email, role: isAdmin ? 'admin' : 'user', token: data.token})
-        localStorage.setItem('authToken', data.token);
+
+        login(data.token);
         navigate("/");
       } else {
         setMessage(data.errorDetails);

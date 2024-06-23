@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Button, Form, Container, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-import * as jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 
@@ -14,7 +13,7 @@ export default function SignIn() {
   const [variant, setVariant] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
-  const { setUserData } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -32,17 +31,13 @@ export default function SignIn() {
 
     if (response.ok) {
         const data = await response.json();
-        // isAdmin ? 'admin' : 'user'
         console.log(data)
         if (Boolean(data.isSucceded)) {
-          // const decodedToken = jwt_decode(data.token);
-          // console.log(decodedToken)
           setMessage('Login successful!');
           setVariant('success');
           setShowAlert(true);
-          setUserData({username: email, role: 'admin', token: data.token});
-          // localStorage.setItem('authToken', data.token);
-          localStorage.setItem('username', email);
+          
+          login(data.token);
           navigate("/");
         } else {
           setMessage(data.errorDetails);

@@ -5,54 +5,36 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-// const [username, setUsername] = useState(""); 
-//   const [role, setRole] = useState(""); // Rola użytkownika (admin, user)
-//   const [token, setToken] = useState(""); 
-
-  // const setUserData = (userData) => {
-  //   setUsername(userData.username);
-  //   setRole(userData.role);
-  //   setToken(userData.token);
-  // };
-
-  // const [userData, setUserData] = useState(() => {
-  //   const token = localStorage.getItem("authToken");
-  //   return token ? { token, ...jwt_decode(token) } : null;
-  // });
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("authToken");
-  //   if (token) {
-  //     setUserData({ token, ...jwt_decode(token) });
-  //   }
-  // }, []);
 
   useEffect(() => {
-    // const token = localStorage.getItem('authToken');
-    const username = localStorage.getItem('username');
-    console.log(username)
-    if(username) {
-      setUserData({username: username, role: 'admin', token: "34324"});
+    const token = localStorage.getItem('authToken');
+    console.log(token)
+    if (token) {
+      const decodedToken = jwt_decode.jwtDecode(token);
+      console.log(decodedToken)
+
+      setUserData({ username: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"], role: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"], token });
     }
-    // console.log(token)
-    // if (token) {
-      // const decodedToken = jwt_decode.jwtDecode(token);
-      // console.log(decodedToken)
-      // setUserData({ username: decodedToken.email, role: decodedToken.role, token });
-    // }
   }, []);
 
+
+  const login = (token) => {
+    const decodedToken = jwt_decode.jwtDecode(token);
+    setUserData({
+      username: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+      role: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+      token: token,
+    });
+    localStorage.setItem("authToken", token);
+  };
+
   const logout = () => {
-    // setUsername("");
-    // setRole("");
-    // setToken("");
     setUserData(null);
     localStorage.removeItem('authToken');
-    localStorage.removeItem('username');
   };
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData, logout }}>
+    <AuthContext.Provider value={{ userData, setUserData, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,7 +1,14 @@
 import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentData() {
+
+  const navigate = useNavigate();
+  const handleProceedToPayment = () => {
+    navigate('/payment-result', { state: { fromPayButton: true } });
+};
+
   return (
     <div className="frame_spacing">
       <h2 className="form_title">Payment Data</h2>
@@ -31,7 +38,7 @@ export default function PaymentData() {
         </Row>
 
         <div className="centered">
-          <Button variant="primary" size="lg" type="submit">
+          <Button onClick={handleProceedToPayment} variant="primary" size="lg" type="submit">
             PAY
           </Button>
         </div>
