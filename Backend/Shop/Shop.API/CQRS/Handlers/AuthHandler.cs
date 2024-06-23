@@ -45,7 +45,7 @@ namespace Shop.API.CQRS.Handlers
 
             await _userManager.UpdateAsync(user);
 
-            return new AuthDTO { IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = user.RefreshToken };
+            return new AuthDTO { IsAuthenticated = true, IsSucceded = true, Token = token, RefreshToken = user.RefreshToken};
         }
 
         public async Task<AuthDTO> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
