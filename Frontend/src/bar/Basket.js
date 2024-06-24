@@ -7,9 +7,9 @@ function Basket({ cartProducts }) {
 
     return (
         <Container>
-            <Row>
-                <Col>
-                    <Image src={"./photos/card.svg"}></Image>
+            <Row className="align-items-center">
+                <Col xs="auto" className="pr-1">
+                    <Image src={"./photos/card.svg"}/>
                 </Col>
                 <Col>
                     {/* Display the total cost */}

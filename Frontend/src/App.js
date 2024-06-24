@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Basket from "./bar/Basket";
 import ProductsView from "./products/ProductsView";
 import AdminProductsView from "./pages/Admin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -7,14 +6,15 @@ import Auth from "./pages/Authorize";
 import Layout from "./layout/Layout";
 import BasketDetails from "./pages/BasketDetails";
 import Payment from "./pages/Payment";
+import PaymentResult from "./pages/PaymentResult";
 
 function App() {
+
     // State to store the shop value
     const [shopValue, setShopValue] = useState(0);
 
     // Function to handle adding product rate to shop value
     const addToShopValue = (rate) => {
-        // Update shopValue state by adding the rate
         const newValue = shopValue + rate;
         console.log("New shop value:", newValue);
         setShopValue(newValue);
@@ -37,25 +37,20 @@ function App() {
                         <>
                             {/* Pass shopValue and addToShopValue function as props */}
                             <ProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
-                            {/* Pass shopValue to the Basket component */}
-                            {/*<Basket shopValue={shopValue} />*/}
                         </>
                     )}
                 />
                 <Route
                     path="/admin"
-                    element={Layout(
-                        <>
-                            {/* Pass shopValue and addToShopValue function as props */}
-                            <AdminProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
-                            {/* Pass shopValue to the Basket component */}
-                            {/*<Basket shopValue={shopValue} />*/}
-                        </>
-                    )}
+                    element={Layout(<AdminProductsView shopValue={shopValue} addToShopValue={addToShopValue} />)}
                 />
                 <Route
                     path="/shopping-cart"
                     element={Layout(<BasketDetails />)}
+                />
+                <Route
+                    path="/payment-result"
+                    element={Layout(<PaymentResult />)}
                 />
             </Routes>
         </BrowserRouter>

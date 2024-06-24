@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { connect } from "react-redux";
 import useGetRequest from "../api/Requests";
-import { Row, Col, Card, CardImg, CardTitle, CardSubtitle, CardText, Button, Form, Modal } from "react-bootstrap";
+import { Row, Col, Card, CardImg, CardText, Button, Form } from "react-bootstrap";
 import { addToCart } from "../state/actions";
 import "../index.css"; // Ensure the CSS file is imported
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 function ProductsView({ addToCart }) {
     const [sortCriteria, setSortCriteria] = useState('name/asc');
@@ -18,6 +21,15 @@ function ProductsView({ addToCart }) {
     const [newProductCodeNumber, setNewProductCodeNumber] = useState("");
     const [newProductDescription, setNewProductDescription] = useState("");
     const [newProductRate, setNewProductRate] = useState("");
+
+    const { userData } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userData && userData.role !== "Admin") {
+          navigate("/");
+        }
+      }, [userData, navigate]);
 
     // Function to create a new product
     const createNewProduct = async () => {
@@ -120,10 +132,15 @@ function ProductsView({ addToCart }) {
         }
     };
 
+    const handleFilterSubmit = () => {
+        setFilterMin(filterMinTemp || '0');
+        setFilterMax(filterMaxTemp || '0');
+    };
+
     const SortForm = () => {
         return (
             <Form>
-                <Row>
+                <Row className="align-items-center">
                     <Col>
                         <Form.Group controlId="sortCriteria">
                             <Form.Label>Sort by:</Form.Label>
@@ -146,7 +163,6 @@ function ProductsView({ addToCart }) {
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleMinSubmit}>Accept</Button>
                     </Col>
                     <Col>
                         <Form.Group controlId="doubleInput">
@@ -159,7 +175,9 @@ function ProductsView({ addToCart }) {
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleMaxSubmit}>Accept</Button>
+                    </Col>
+                    <Col>
+                        <Button variant="primary" size="lg" onClick={handleFilterSubmit} style={{ marginTop: '32px' }}>Filter</Button>
                     </Col>
                 </Row>
             </Form>
@@ -225,7 +243,7 @@ function ProductsView({ addToCart }) {
                     </Col>
                 </Row>
             </Form>
-            <Row style={{ padding: '5px' }} xs={1} md={2} className="g-4">
+            <Row style={{ padding: '5px' }} xs={1} md={4} className="g-4">
                 {data.map((product) => (
                     <Col key={product.id}>
                         <Card onClick={() => handleCardClick(product)}>
@@ -252,10 +270,10 @@ function ProductsView({ addToCart }) {
                                             <CardText>{product.description}</CardText>
                                         </Col>
                                     </Row>
-                                    <Button variant="primary" onClick={() => putProduct(product.id, product.name, product.category, product.codeNumber, product.seriesNumber, product.description, product.picture)}>
+                                    <Button variant="primary" size="lg" onClick={() => putProduct(product.id, product.name, product.category, product.codeNumber, product.seriesNumber, product.description, product.picture)}>
                                         Change product data
                                     </Button>
-                                    <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
+                                    <Button style={{"margin": "3px"}} size="lg" variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
                                 </Form>
                             </Card.Body>
                         </Card>

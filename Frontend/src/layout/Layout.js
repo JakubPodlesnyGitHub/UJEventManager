@@ -5,7 +5,7 @@ export default function Layout(props) {
   return (
     <div className="grid-container">
       <header>
-        <a href="/public"> SHOP</a>
+        <div>The Bookworm's Den</div>
       </header>
       <main>
         <Bar />

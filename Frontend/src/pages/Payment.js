@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { useHistory } from "react-router-dom";
-import {Col, Container, Image, Row, Button, Nav} from "react-bootstrap";
 import { addToCart, removeFromCart } from "../state/actions";
 import "../index.css";
 import FormWindow from "../input/FormWindow";
