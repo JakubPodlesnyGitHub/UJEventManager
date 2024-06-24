@@ -49,15 +49,13 @@ namespace Shop.API.CQRS.Handlers
 
         public async Task<ProductAvailabilityDTO> Handle(EditedProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            var productAvailability = await _productAvailabilityRepository.GetById(request.Id);
+            var productAvailability = await _productAvailabilityRepository.GetProductAvailabilityByProductIdWithProduct(request.IdProduct);
             if (productAvailability is null)
             {
                 throw new NotImplementedException();
             }
 
             productAvailability.Availability = request.Availability;
-            productAvailability.Status = request.Status;
-            productAvailability.IdProduct = request.IdProduct;
 
             _productAvailabilityRepository.Update(productAvailability);
             await _productAvailabilityRepository.Commit();
