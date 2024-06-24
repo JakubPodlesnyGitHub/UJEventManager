@@ -6,5 +6,6 @@ namespace Shop.Infrastructure.Repositories.Interfaces
     {
         Task<IList<ProductAvailability>> GetProductsAvailabilitiesWithProducts();
         Task<ProductAvailability> GetProductAvailabilityByIdWithProduct(Guid id);
+        Task<ProductAvailability> GetProductAvailabilityByProductIdWithProduct(Guid id);
     }
 }

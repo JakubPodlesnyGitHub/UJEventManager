@@ -24,5 +24,11 @@ namespace Shop.Infrastructure.Repositories
             var result = await _context.ProductAvailabilities.Where(p => p.Id == id).Include(p => p.ProductNavigation).SingleOrDefaultAsync();
             return result;
         }
+
+        public async Task<ProductAvailability> GetProductAvailabilityByProductIdWithProduct(Guid id)
+        {
+            var result = await _context.ProductAvailabilities.Where(p => p.IdProduct == id).Include(p => p.ProductNavigation).SingleOrDefaultAsync();
+            return result;
+        }
     }
 }
