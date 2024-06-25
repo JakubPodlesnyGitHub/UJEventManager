@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import useGetRequest from "../api/Requests";
 import { Row, Col, Card, CardImg, CardTitle, CardSubtitle, CardText, Button, Form, Modal } from "react-bootstrap";
 import { addToCart } from "../state/actions";
-import "../index.css"; // Ensure the CSS file is imported
+import "../index.css"; 
 
 function ProductsView({ addToCart }) {
     const [sortCriteria, setSortCriteria] = useState('name/asc');
@@ -29,14 +29,12 @@ function ProductsView({ addToCart }) {
                 updateProductsWithAvailability(availabilities);
             } catch (error) {
                 console.error("Error fetching product availabilities:", error);
-                // Obsługa błędu pobierania dostępności
             }
         };
 
         fetchProductAvailabilities();
     }, [data]);
 
-    // Aktualizacja stanu produktów o dostępność
     const updateProductsWithAvailability = (availabilities) => {
         const updatedProducts = data.map((product) => {
             const availabilityInfo = availabilities.find((item) => item.product.id === product.id);
@@ -58,7 +56,7 @@ function ProductsView({ addToCart }) {
     };
 
     const handleBuyClick = (event, product) => {
-        event.stopPropagation(); // Stop the event from propagating to the card's onClick
+        event.stopPropagation(); 
         if (product.availability > 0) {
             addToCart(product);
             setProducts((prevProducts) =>

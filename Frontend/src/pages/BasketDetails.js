@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Nav } from "react-bootstrap";
-// import { useHistory } from "react-router-dom";
 import { Col, Container, Image, Row, Button, Card } from "react-bootstrap";
 import { addToCart, removeFromCart } from "../state/actions";
-import "../index.css"; // Ensure the CSS file is imported
+import "../index.css"; 
 import "./BasketDetails.css";
 
 function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
@@ -21,7 +20,6 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
         removeFromCart(product.id);
     };
 
-    // Calculate total cost
     const totalCost = cartProducts.reduce((acc, curr) => acc + (curr.rate * curr.quantity), 0);
 
     return (

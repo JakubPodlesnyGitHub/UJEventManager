@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addToBasket } from "../state/actions";
 import { Card, Modal, Button, Row, Col } from "react-bootstrap";
 import ProductDescription from "./ProductDescription";
-import "../index.css"; // Ensure the CSS file is imported
+import "../index.css"; 
 
 function Product(props) {
   const [show, setShow] = useState(false);

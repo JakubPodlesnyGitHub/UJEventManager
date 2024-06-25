@@ -6,11 +6,11 @@ import FormWindow from "../input/FormWindow";
 import ShippingData from "../input/ShippingData";
 import PaymentData from "../input/PaymentData";
 
-function Payment({ cartProducts}) {
-  
+function Payment({ cartProducts }) {
+
     const totalCost = cartProducts.reduce((acc, curr) => acc + (curr.rate * curr.quantity), 0);
 
-    return <>{FormWindow(Array.from([<ShippingData />, <PaymentData />]))}</>;
+    return <>{FormWindow(Array.from([<ShippingData />, <PaymentData cartProducts={cartProducts} />]))}</>;
 }
 
 const mapStateToProps = (state) => {

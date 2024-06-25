@@ -10,10 +10,8 @@ import PaymentResult from "./pages/PaymentResult";
 
 function App() {
 
-    // State to store the shop value
     const [shopValue, setShopValue] = useState(0);
 
-    // Function to handle adding product rate to shop value
     const addToShopValue = (rate) => {
         const newValue = shopValue + rate;
         console.log("New shop value:", newValue);
@@ -35,7 +33,6 @@ function App() {
                     path="/"
                     element={Layout(
                         <>
-                            {/* Pass shopValue and addToShopValue function as props */}
                             <ProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
                         </>
                     )}
