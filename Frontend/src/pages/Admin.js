@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import useGetRequest from "../api/Requests";
 import { Row, Col, Card, CardImg, CardText, Button, Form } from "react-bootstrap";
 import { addToCart } from "../state/actions";
-import "../index.css"; // Ensure the CSS file is imported
+import "../index.css"; 
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function ProductsView({ addToCart }) {
     const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [newProductName, setNewProductName] = useState(""); // Add state for new product name
+    const [newProductName, setNewProductName] = useState(""); 
     const [newProductCodeNumber, setNewProductCodeNumber] = useState("");
     const [newProductDescription, setNewProductDescription] = useState("");
     const [newProductRate, setNewProductRate] = useState("");
@@ -31,7 +31,6 @@ function ProductsView({ addToCart }) {
         }
       }, [userData, navigate]);
 
-    // Function to create a new product
     const createNewProduct = async () => {
         const response = await fetch("http://localhost:5164/api/Product/create", {
             method: "POST",
@@ -40,7 +39,7 @@ function ProductsView({ addToCart }) {
             },
             body: JSON.stringify({
                 name: newProductName,
-                codeNumber: newProductCodeNumber, // Add other properties as needed
+                codeNumber: newProductCodeNumber, 
                 seriesNumber: "string",
                 description: newProductDescription,
                 picture: "string",
@@ -65,7 +64,7 @@ function ProductsView({ addToCart }) {
                 id: id,
                 name: newProductName || oldName,
                 category: "string",
-                codeNumber: newProductCodeNumber || oldCodeNumber, // Add other properties as needed
+                codeNumber: newProductCodeNumber || oldCodeNumber, 
                 seriesNumber: oldSeriesNumber,
                 description: newProductDescription || oldDescription,
                 picture: "string",
@@ -100,7 +99,7 @@ function ProductsView({ addToCart }) {
     };
 
     const handleBuyClick = (event, product) => {
-        event.stopPropagation(); // Stop the event from propagating to the card's onClick
+        event.stopPropagation(); 
         addToCart(product);
     };
 
@@ -189,8 +188,6 @@ function ProductsView({ addToCart }) {
         <>
             <SortForm />
             <Form>
- 
-                {/* Input field for new product name */}
                 <Row>
                     <Col>
                         <Form.Group controlId="newProductName">

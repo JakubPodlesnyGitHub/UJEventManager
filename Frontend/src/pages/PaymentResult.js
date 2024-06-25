@@ -9,15 +9,12 @@ const PaymentResult = () => {
     const [transactionSuccess, setTransactionSuccess] = useState(null);
 
     useEffect(() => {
-        // Redirect if not coming from the "Pay" button
         if (!location.state?.fromPayButton) {
             navigate('/');
             return;
         }
 
-        // Simulate loading time (3 to 5 seconds)
         const loadingTime = Math.floor(Math.random() * 2000) + 3000;
-        // add removing avaialibility in products here
         setTimeout(() => {
             setTransactionSuccess(true);
             setLoading(false);
