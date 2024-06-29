@@ -16,12 +16,12 @@ function ProductsView({ addToCart }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
 
-    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
+    const data = useGetRequest(`/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
 
     useEffect(() => {
         const fetchProductAvailabilities = async () => {
             try {
-                const response = await fetch("http://localhost:5164/api/ProductAvailability");
+                const response = await fetch("/api/ProductAvailability");
                 if (!response.ok) {
                     throw new Error("Failed to fetch product availabilities");
                 }

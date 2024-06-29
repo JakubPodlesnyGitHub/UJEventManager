@@ -1,7 +1,7 @@
 import useGetRequest from "../api/Requests";
 
 export default function ProductDescription(props) {
-  const data = useGetRequest(`http://localhost:5164/product/${props["id"]}`);
+  const data = useGetRequest(`/product/${props["id"]}`);
 
   return (
     <>

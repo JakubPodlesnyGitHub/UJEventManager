@@ -14,7 +14,7 @@ function ProductsView({ addToCart }) {
     const [filterMax, setFilterMax] = useState('0');
     const [filterMinTemp, setFilterMinTemp] = useState('0');
     const [filterMaxTemp, setFilterMaxTemp] = useState('0');
-    const data = useGetRequest(`http://localhost:5164/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
+    const data = useGetRequest(`/api/Product/sort/${sortCriteria}/${filterMin}/${filterMax}`);
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [newProductName, setNewProductName] = useState(""); 
@@ -32,7 +32,7 @@ function ProductsView({ addToCart }) {
       }, [userData, navigate]);
 
     const createNewProduct = async () => {
-        const response = await fetch("http://localhost:5164/api/Product/create", {
+        const response = await fetch("/api/Product/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function ProductsView({ addToCart }) {
     };
 
     const putProduct = async (id, oldName, oldCategory, oldCodeNumber, oldSeriesNumber, oldDescription, oldPicture) => {
-        const response = await fetch("http://localhost:5164/api/Product/update", {
+        const response = await fetch("/api/Product/update", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function ProductsView({ addToCart }) {
     };
 
     const deleteProduct = async (id) => {
-        const response = await fetch(`http://localhost:5164/api/Product/` + id + '/delete', {
+        const response = await fetch(`/api/Product/` + id + '/delete', {
             method: "DELETE",
         });
         if (response.ok) {

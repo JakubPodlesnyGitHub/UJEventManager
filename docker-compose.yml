@@ -15,18 +15,11 @@ services:
 #volumes:
 #  mssql-container-data:
 
-  # frontend:
-  #   build: ./Frontend
-  #   ports:
-  #     - "80:3000"
-  #   volumes:
-  #     - ./Frontend:/app
-  #   command: npm start
-
   frontend:
+    container_name: frontend  
     build:
       context: ./Frontend
+    # environment:
+    #   - NODE_ENV=development  
     ports:
       - "80:3000"
-    # volumes:
-    #   - ./Frontend:/app
