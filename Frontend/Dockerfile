@@ -2,6 +2,8 @@ FROM node:20
 
 WORKDIR /app
 COPY package.json ./
+COPY webpack.config.js ./
+COPY .babelrc ./
 COPY ./public ./public
 COPY ./src ./src
 RUN npm install
