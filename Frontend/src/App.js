@@ -19,18 +19,18 @@ function App() {
     };
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="p5">
             <Routes>
                 <Route
-                    path="/auth"
+                    path="/p5/auth/"
                     element={Layout(<Auth />)}
                 />
                 <Route
-                    path="/payment"
+                    path="/p5/payment/"
                     element={Layout(<Payment />)}
                 />
                 <Route
-                    path="/"
+                    path="/p5/"
                     element={Layout(
                         <>
                             <ProductsView shopValue={shopValue} addToShopValue={addToShopValue} />
@@ -38,15 +38,15 @@ function App() {
                     )}
                 />
                 <Route
-                    path="/admin"
+                    path="/p5/admin/"
                     element={Layout(<AdminProductsView shopValue={shopValue} addToShopValue={addToShopValue} />)}
                 />
                 <Route
-                    path="/shopping-cart"
+                    path="/p5/shopping-cart/"
                     element={Layout(<BasketDetails />)}
                 />
                 <Route
-                    path="/payment-result"
+                    path="/p5/payment-result/"
                     element={Layout(<PaymentResult />)}
                 />
             </Routes>

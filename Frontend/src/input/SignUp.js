@@ -45,7 +45,7 @@ export default function SignUp() {
         setShowAlert(true);
 
         login(data.token);
-        navigate("/");
+        navigate("/p5/");
       } else {
         setMessage(data.errorDetails);
         setVariant('danger');

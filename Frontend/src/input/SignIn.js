@@ -38,7 +38,7 @@ export default function SignIn() {
           setShowAlert(true);
           
           login(data.token);
-          navigate("/");
+          navigate("/p5/");
         } else {
           setMessage(data.errorDetails);
           setVariant('danger');

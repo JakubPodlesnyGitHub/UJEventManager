@@ -12,20 +12,20 @@ const Bar = ({ cartProducts }) => {
 
     const handleLogout = () => {
         logout();
-        if (location.pathname === "/admin") {
-            navigate("/");
+        if (location.pathname === "/p5/admin/") {
+            navigate("/p5/");
         }
       };
 
     return (
         <Navbar className="navbar">
             <Container >
-                <Nav.Link className="tabs" href="/">HOME</Nav.Link>
+                <Nav.Link className="tabs" href="/p5/">HOME</Nav.Link>
                 {userData ? (
-                    <Nav.Link className="tabs" href="/admin">MANAGE</Nav.Link>
+                    <Nav.Link className="tabs" href="/p5/admin/">MANAGE</Nav.Link>
                 ) : undefined}
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link className="shopping-cart" href="/shopping-cart">
+                    <Nav.Link className="shopping-cart" href="/p5/shopping-cart/">
                         <Basket cartProducts={cartProducts} />
                     </Nav.Link>
                 </Navbar.Collapse>
@@ -38,7 +38,7 @@ const Bar = ({ cartProducts }) => {
                             <Nav.Link className="logout-btn" onClick={handleLogout}>LOG OUT</Nav.Link>
                         </div>
                     ) : (
-                        <Nav.Link className="user-info" href="/auth">LOG IN / SIGN UP</Nav.Link>
+                        <Nav.Link className="user-info" href="/p5/auth/">LOG IN / SIGN UP</Nav.Link>
                     )}
         </Navbar>
     );

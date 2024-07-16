@@ -31,7 +31,7 @@ function PaymentData({ cartProducts, removeFromCart }) {
         console.error("Failed to update availability");
       }
     }
-    navigate('/payment-result', { state: { fromPayButton: true } });
+    navigate('/payment-result/', { state: { fromPayButton: true } });
 };
 
   return (

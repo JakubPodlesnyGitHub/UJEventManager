@@ -11,6 +11,7 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
     const handleAdd = (product) => {
         if (!(product.quantity > product.availability - 1)) {
             addToCart(product);
+//            console.error("product availabilities", product.availability)
         } else {
             alert("Product is not available");
         }
@@ -75,7 +76,7 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                             <hr />
                             <div className="d-flex justify-content-between align-items-center">
                                 <h3>Total Cost: {totalCost.toFixed(2)} PLN</h3>
-                                <Nav.Link href="/payment" className="btn btn-success btn-lg btn-payment">
+                                <Nav.Link href="/p5/payment/" className="btn btn-success btn-lg btn-payment">
                                     PROCEED TO PAYMENT
                                 </Nav.Link>
                             </div>
