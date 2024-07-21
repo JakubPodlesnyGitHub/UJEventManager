@@ -19,7 +19,7 @@ function App() {
     };
 
     return (
-        <BrowserRouter basename="p5">
+        <BrowserRouter>
             <Routes>
                 <Route
                     path="/p5/auth/"

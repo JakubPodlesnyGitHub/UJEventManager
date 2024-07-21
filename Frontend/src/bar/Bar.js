@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import Basket from "./Basket";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Bar = ({ cartProducts }) => {
     const { userData, logout } = useContext(AuthContext);
@@ -20,14 +20,25 @@ const Bar = ({ cartProducts }) => {
     return (
         <Navbar className="navbar">
             <Container >
-                <Nav.Link className="tabs" href="/p5/">HOME</Nav.Link>
+                <Link to="/p5/">
+                    <div className="nav-link tabs">HOME</div>
+                </Link>
+                {/* <Nav.Link className="tabs" href=""></Nav.Link> */}
                 {userData ? (
-                    <Nav.Link className="tabs" href="/p5/admin/">MANAGE</Nav.Link>
+                    // <Nav.Link className="tabs" href="/p5/admin/">MANAGE</Nav.Link>
+                    <Link to="/p5/admin/">
+                        <div className="nav-link tabs">MANAGE</div>
+                    </Link>
                 ) : undefined}
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link className="shopping-cart" href="/p5/shopping-cart/">
+                    {/* <Nav.Link className="shopping-cart" href="/p5/shopping-cart/">
                         <Basket cartProducts={cartProducts} />
-                    </Nav.Link>
+                    </Nav.Link> */}
+                    <Link to="/p5/shopping-cart/" className="shopping-cart">
+                        <div className="nav-link tabs">
+                            <Basket cartProducts={cartProducts} />
+                        </div>
+                    </Link>
                 </Navbar.Collapse>
             </Container>
             <div className="bar_line"></div>
@@ -38,7 +49,10 @@ const Bar = ({ cartProducts }) => {
                             <Nav.Link className="logout-btn" onClick={handleLogout}>LOG OUT</Nav.Link>
                         </div>
                     ) : (
-                        <Nav.Link className="user-info" href="/p5/auth/">LOG IN / SIGN UP</Nav.Link>
+                        // <Nav.Link className="user-info" href="/p5/auth/">LOG IN / SIGN UP</Nav.Link>
+                        <Link to="/p5/auth/">
+                            <div className="nav-link tabs">LOG IN / SIGN UP</div>
+                        </Link>
                     )}
         </Navbar>
     );
