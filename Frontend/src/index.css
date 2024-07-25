@@ -25,7 +25,7 @@ select,
 textarea {
   font-size: 1.6rem;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .grid-container {
@@ -132,9 +132,16 @@ footer {
   max-height: 30rem;
 }
 
+a, a:visited, a:focus, a:hover, a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 .allign_centrally {
   text-align: center;
   margin: auto;
+  color: var(--main-font-color) !important;
+  text-decoration: none !important;
 }
 
 .centred_form {
@@ -172,7 +179,7 @@ footer {
 }
 
 .small-text {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
 }
 
 .centered {
@@ -184,6 +191,14 @@ footer {
   background-color: var(--main-dark-color);
   color: var(--main-font-color);
   font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .nav-link {
+  color: var(--main-font-color);
+  text-decoration: none;
 }
 
 .navbar .tabs {
@@ -194,19 +209,34 @@ footer {
   opacity: 0.8;
 }
 
+.shopping-cart {
+  margin-left: auto;
+}
+
 .shopping-cart:hover {
   opacity: 0.4;
 }
 
 .navbar .user-info {
   display: flex;
+  align-items: center;
   margin-right: 2%;
 }
 
 .navbar .user-info .username {
-  justify-content: center;
+  margin-right: 1rem;
+}
+
+.navbar .user-info .logout-btn {
+  cursor: pointer;
 }
 
 .navbar .user-info .logout-btn:hover {
   opacity: 0.8;
+}
+
+/* Specific class for aligning the login/signup link */
+.login-signup-link {
+  margin-left: auto; /* Pushes it to the far right */
+  margin-right: 50px; /* Adjust as needed to position it farther from the right */
 }

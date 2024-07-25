@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
-import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 import Basket from "./Basket";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -15,45 +15,35 @@ const Bar = ({ cartProducts }) => {
         if (location.pathname === "/p5/admin/") {
             navigate("/p5/");
         }
-      };
+    };
 
     return (
         <Navbar className="navbar">
-            <Container >
-                <Link to="/p5/">
-                    <div className="nav-link tabs">HOME</div>
-                </Link>
-                {/* <Nav.Link className="tabs" href=""></Nav.Link> */}
-                {userData ? (
-                    // <Nav.Link className="tabs" href="/p5/admin/">MANAGE</Nav.Link>
-                    <Link to="/p5/admin/">
-                        <div className="nav-link tabs">MANAGE</div>
-                    </Link>
-                ) : undefined}
+            <Container>
+                <Link to="/p5/" className="nav-link tabs">HOME</Link>
+                {userData && (
+                    <Link to="/p5/admin/" className="nav-link tabs">MANAGE</Link>
+                )}
                 <Navbar.Collapse className="justify-content-end">
-                    {/* <Nav.Link className="shopping-cart" href="/p5/shopping-cart/">
-                        <Basket cartProducts={cartProducts} />
-                    </Nav.Link> */}
                     <Link to="/p5/shopping-cart/" className="shopping-cart">
-                        <div className="nav-link tabs">
-                            <Basket cartProducts={cartProducts} />
-                        </div>
+                        <Basket cartProducts={cartProducts} />
                     </Link>
                 </Navbar.Collapse>
             </Container>
             <div className="bar_line"></div>
             {userData ? (
-                        <div className="user-info">
-                            <span className="username">{`You are logged with role ${userData.role} as: ${userData.username}`}</span>
-                            <div className="bar_line"></div>
-                            <Nav.Link className="logout-btn" onClick={handleLogout}>LOG OUT</Nav.Link>
-                        </div>
-                    ) : (
-                        // <Nav.Link className="user-info" href="/p5/auth/">LOG IN / SIGN UP</Nav.Link>
-                        <Link to="/p5/auth/">
-                            <div className="nav-link tabs">LOG IN / SIGN UP</div>
-                        </Link>
-                    )}
+                <div className="user-info">
+                    <span className="username">
+                        {`You are logged with role ${userData.role} as: ${userData.username}`}
+                    </span>
+                    <div className="bar_line"></div>
+                    <span className="logout-btn" onClick={handleLogout}>LOG OUT</span>
+                </div>
+            ) : (
+                <Link to="/p5/auth/" className="nav-link tabs login-signup-link">
+                    LOG IN / SIGN UP
+                </Link>
+            )}
         </Navbar>
     );
 };
