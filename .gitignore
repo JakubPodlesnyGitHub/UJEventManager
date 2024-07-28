@@ -103,8 +103,6 @@ _Chutzpah*
 
 # Visual C++ cache files
 ipch/
-*.aps
-*.ncb
 *.opendb
 *.opensdf
 *.sdf
@@ -400,3 +398,22 @@ FodyWeavers.xsd
 **/.idea
 # MACOS
 **/.DS_Store
+/Frontend/build/asset-manifest.json
+/Backend.zip
+/Frontend/build.zip
+/Frontend/build/photos/card.svg
+/Frontend/build/favicon.ico
+/Frontend/build/photos/image.png
+/Frontend/build/index.html
+/Frontend/build/logo192.png
+/Frontend/build/logo512.png
+/Frontend/build/static/css/main.8762ccd6.css
+/Frontend/build/static/css/main.8762ccd6.css.map
+/Frontend/build/static/js/main.d5e1a1f4.js
+/Frontend/build/static/js/main.d5e1a1f4.js.LICENSE.txt
+/Frontend/build/static/js/main.d5e1a1f4.js.map
+/Frontend/build/manifest.json
+/Frontend/nginx.conf
+/Frontend/build/robots.txt
+/Frontend/server.js
+/Frontend/src.zip
