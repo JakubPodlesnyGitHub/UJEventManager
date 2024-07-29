@@ -5,6 +5,7 @@ import { Col, Container, Image, Row, Button, Card } from "react-bootstrap";
 import { addToCart, removeFromCart } from "../state/actions";
 import "../index.css"; 
 import "./BasketDetails.css";
+import { Link } from "react-router-dom";
 
 function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
 
@@ -50,8 +51,6 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                                             <Col xs={2} className="d-flex justify-content-around">
                                                 <Button
                                                     variant="primary"
-                                                    // size="lg"
-                                                    // className="mb-4"
                                                     className="custom-btn"
                                                     style={{ width: "40%", height: "60px" }}
                                                     onClick={() => handleAdd(product)}
@@ -60,7 +59,6 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                                                 </Button>
                                                 <Button
                                                     variant="danger"
-                                                    // size="lg"
                                                     className="custom-btn"
                                                     style={{ width: "40%", height: "60px" }}
                                                     onClick={() => handleDelete(product)}
@@ -75,9 +73,11 @@ function BasketDetails({ cartProducts, addToCart, removeFromCart }) {
                             <hr />
                             <div className="d-flex justify-content-between align-items-center">
                                 <h3>Total Cost: {totalCost.toFixed(2)} PLN</h3>
-                                <Nav.Link href="/payment" className="btn btn-success btn-lg btn-payment">
-                                    PROCEED TO PAYMENT
-                                </Nav.Link>
+                                <Link to="/p5/payment/">
+                                    <div className="btn btn-success btn-lg btn-payment">
+                                        PROCEED TO PAYMENT
+                                    </div>
+                                </Link>
                             </div>
                         </>
                     )}

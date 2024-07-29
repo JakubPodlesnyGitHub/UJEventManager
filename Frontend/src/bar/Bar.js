@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
-import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 import Basket from "./Basket";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Bar = ({ cartProducts }) => {
     const { userData, logout } = useContext(AuthContext);
@@ -12,34 +12,38 @@ const Bar = ({ cartProducts }) => {
 
     const handleLogout = () => {
         logout();
-        if (location.pathname === "/admin") {
-            navigate("/");
+        if (location.pathname === "/p5/admin/") {
+            navigate("/p5/");
         }
-      };
+    };
 
     return (
         <Navbar className="navbar">
-            <Container >
-                <Nav.Link className="tabs" href="/">HOME</Nav.Link>
-                {userData ? (
-                    <Nav.Link className="tabs" href="/admin">MANAGE</Nav.Link>
-                ) : undefined}
+            <Container>
+                <Link to="/p5/" className="nav-link tabs">HOME</Link>
+                {userData && (
+                    <Link to="/p5/admin/" className="nav-link tabs">MANAGE</Link>
+                )}
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link className="shopping-cart" href="/shopping-cart">
+                    <Link to="/p5/shopping-cart/" className="shopping-cart">
                         <Basket cartProducts={cartProducts} />
-                    </Nav.Link>
+                    </Link>
                 </Navbar.Collapse>
             </Container>
             <div className="bar_line"></div>
             {userData ? (
-                        <div className="user-info">
-                            <span className="username">{`You are logged with role ${userData.role} as: ${userData.username}`}</span>
-                            <div className="bar_line"></div>
-                            <Nav.Link className="logout-btn" onClick={handleLogout}>LOG OUT</Nav.Link>
-                        </div>
-                    ) : (
-                        <Nav.Link className="user-info" href="/auth">LOG IN / SIGN UP</Nav.Link>
-                    )}
+                <div className="user-info">
+                    <span className="username">
+                        {`You are logged with role ${userData.role} as: ${userData.username}`}
+                    </span>
+                    <div className="bar_line"></div>
+                    <span className="logout-btn" onClick={handleLogout}>LOG OUT</span>
+                </div>
+            ) : (
+                <Link to="/p5/auth/" className="nav-link tabs login-signup-link">
+                    LOG IN / SIGN UP
+                </Link>
+            )}
         </Navbar>
     );
 };

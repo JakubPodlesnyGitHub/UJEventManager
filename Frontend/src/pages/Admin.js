@@ -27,7 +27,7 @@ function ProductsView({ addToCart }) {
 
     useEffect(() => {
         if (userData && userData.role !== "Admin") {
-          navigate("/");
+          navigate("/p5/");
         }
       }, [userData, navigate]);
 
